@@ -14,7 +14,7 @@ router.get("/login/success", (req, res) => {
       //   cookies: req.cookies
     });
   } else {
-    // console.log("tried to fetch")
+    res.send("could not fetch user")
   }
 });
 
@@ -74,7 +74,7 @@ router.post("/login", (req, res, next) => {
       req.logIn(user, (err) => {
         if (err) throw err;
         res.send("Successfully Authenticated");
-        console.log(req.user);
+        // console.log(req.user);
       });
     }
   })(req, res, next);

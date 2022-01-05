@@ -24,11 +24,13 @@ function App() {
         throw new Error("Authentication has failed")
       }).then(resObject => {
         setUser(resObject.user);
+        console.log('we are here');
+        console.log(resObject.user);
       }).catch(err => {
         console.log(err);
       })
     };
-    // console.log("getUser being run")
+    console.log("getUser being run")
     getUser();
   }, [])
 

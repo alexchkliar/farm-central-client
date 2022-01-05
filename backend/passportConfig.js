@@ -55,27 +55,27 @@ module.exports = function(passport) {
   );
 
   // creates a cookie
-  passport.serializeUser((user, cb) => {
-    cb(null, user.id);
-  });
-
-  passport.deserializeUser((id, cb) => {
-    User.findOne({ _id: id }, (err, user) => {
-      const userInformation = {
-        username: user.username,
-      };
-      cb(err, userInformation);
-    });
-  });
-
-  // passport.serializeUser((user, done) => {
-  //   console.log(user)
-  //   done(null, user);
+  // passport.serializeUser((user, cb) => {
+  //   cb(null, user.id);
   // });
 
-  // passport.deserializeUser((user, done) => {
-  //   console.log(user)
-  //   done(null, user);
+  // passport.deserializeUser((id, cb) => {
+  //   User.findOne({ _id: id }, (err, user) => {
+  //     const userInformation = {
+  //       username: user.username,
+  //     };
+  //     cb(err, userInformation);
+  //   });
   // });
+
+  passport.serializeUser((user, done) => {
+    // console.log(user)
+    done(null, user);
+  });
+
+  passport.deserializeUser((user, done) => {
+    // console.log(user)
+    done(null, user);
+  });
 
 }
