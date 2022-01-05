@@ -13,11 +13,11 @@ const Navbar = ({user}) => {
       { user ? (
         <ul className="list">
         <li className="listItem">
-          <img
+          {/* <img
             src={user.photos[0].value}
             alt=""
             className="avatar"
-            />
+            /> */}
         </li>
         <li className="listItem">{user.displayName}</li>
         <li className="listItem" onClick={logout}>Logout</li>

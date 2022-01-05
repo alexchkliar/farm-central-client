@@ -36,14 +36,13 @@ require('./passportConfig')(passport);
 app.use(
   cors({
     origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,DELETE",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
 );
 
 app.use("/auth", authRoute);
 app.use(cookieParser("secretcode"))
-
 
 app.listen("5000", () => {
   console.log("Server is running!");
