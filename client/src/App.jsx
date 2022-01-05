@@ -20,14 +20,18 @@ function App() {
           "Access-Control-Allow-Credentials": true
         },
       }).then((response) => {
+        console.log("response logged")
+        console.log(response)
         if (response.status===200) return response.json();
         throw new Error("Authentication has failed")
       }).then(resObject => {
+        console.log("setting user")
+        console.log(resObject.user)
         setUser(resObject.user);
-        console.log('we are here');
-        console.log(resObject.user);
+        // console.log('we are here');
+        // console.log(resObject.user);
       }).catch(err => {
-        console.log(err);
+        throw err;
       })
     };
     console.log("getUser being run")

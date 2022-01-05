@@ -3,15 +3,16 @@ import GitHub from "../img/githubpng.png"
 import Facebook from "../img/fbpng.png"
 import React, { useState } from "react";
 import Axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
   const google = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
+    window.open("http://localhost:5000/auth/google", "_self"); // can replace with window.location.href
   };
 
   const facebook = () => {
-    window.open("http://localhost:5000/auth/facebook", "_self");
+    window.open("http://localhost:5000/auth/facebook", "_self"); // can replace with window.location.href
   };
 
   const register = (e) => {
@@ -27,6 +28,7 @@ const Login = () => {
     }).then((res) => console.log(res))
   }
 
+  // const navigate = useNavigate();
   const login = (e) => {
     e.preventDefault();
     Axios({
@@ -37,7 +39,14 @@ const Login = () => {
       },
       withCredentials: true,
       url: "http://localhost:5000/auth/login"
-    }).then((res) => console.log(res))
+    }).then((res) => {
+      console.log(res.data);
+      if (res.data === "Successfully Authenticated"){
+        console.log("redirecting");
+        // navigate("/");
+        // window.open("http://localhost:3000/", "_self");
+        window.location.href = "http://localhost:3000/";
+    }})
   }
 
   const getUser = (e) => {
