@@ -37,38 +37,45 @@ module.exports = function(passport) {
     )
   );
 
-  passport.use(new localStrategy(
-    function(username, password, done) {
+  passport.use(
+    new localStrategy((username, password, done) => {
       User.findOne({ username: username }, (err, user) => {
-        if (err) { return done(err); }
-        if (!user) { return done(null, false); }
-
+        if (err) throw err;
+        if (!user) return done(null, false);
         bcrypt.compare(password, user.password, (err, result) => {
           if (err) throw err;
           if (result === true) {
-            return done(null, user)
+            return done(null, user);
+          } else {
+            return done(null, false);
           }
-          else {
-            return done(null, false)
-          }
-        })
-        // if (!user.verifyPassword(password)) { return done(null, false); }
-        // return done(null, user);
+        });
       });
-    }
-  ));
+    })
+  );
 
   // creates a cookie
   passport.serializeUser((user, cb) => {
-    done(null, user.id);
+    cb(null, user.id);
   });
 
-  // returns user from cookie
   passport.deserializeUser((id, cb) => {
-    User.findOne({_id: id}, (err, user) =>{
-      cb(err, user)
-    })
-    // done(null, user);
+    User.findOne({ _id: id }, (err, user) => {
+      const userInformation = {
+        username: user.username,
+      };
+      cb(err, userInformation);
+    });
   });
+
+  // passport.serializeUser((user, done) => {
+  //   console.log(user)
+  //   done(null, user);
+  // });
+
+  // passport.deserializeUser((user, done) => {
+  //   console.log(user)
+  //   done(null, user);
+  // });
 
 }

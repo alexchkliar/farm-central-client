@@ -28,6 +28,7 @@ function App() {
         console.log(err);
       })
     };
+    // console.log("getUser being run")
     getUser();
   }, [])
 

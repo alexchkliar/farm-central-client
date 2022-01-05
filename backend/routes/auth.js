@@ -13,6 +13,8 @@ router.get("/login/success", (req, res) => {
       user: req.user,
       //   cookies: req.cookies
     });
+  } else {
+    // console.log("tried to fetch")
   }
 });
 
@@ -38,39 +40,18 @@ router.get(
   })
 );
 
-router.get("/facebook", passport.authenticate("facebook", { scope: ["profile"] }));
-// router.get("/hey", (req, res) => {
-//   console.log(123)
-// });
+// router.get("/facebook", passport.authenticate("facebook", { scope: ["profile"] }));
 
-router.get(
-  "/facebook/callback",
-  passport.authenticate("facebook", {
-    successRedirect: CLIENT_URL,
-    failureRedirect: "/login/failed",
-  })
-  );
-
-router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) throw err;
-    if (!user) res.send("No user exists")
-    else {
-      req.logIn(user, err => {
-        if (err) throw err;
-        res.send("Successfully authenticated")
-        console.log(req.user);
-      })
-    }
-  })(req, res, next);
-});
+// router.get(
+//   "/facebook/callback",
+//   passport.authenticate("facebook", {
+//     successRedirect: CLIENT_URL,
+//     failureRedirect: "/login/failed",
+//   })
+// );
 
 router.post("/register", (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
-    // console.log(req.body)
-    // console.log(doc)
-    // console.log(err)
-    // console.log(res)
     if (err) throw err;
     if (doc) res.send("User Already Exists");
     if (!doc) {
@@ -83,6 +64,20 @@ router.post("/register", (req, res) => {
       res.send("User Created");
     }
   });
+});
+
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) res.send("No User Exists");
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err;
+        res.send("Successfully Authenticated");
+        console.log(req.user);
+      });
+    }
+  })(req, res, next);
 });
 
 router.post("/user", (req, res) => {
