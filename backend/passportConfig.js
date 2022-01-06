@@ -19,6 +19,20 @@ module.exports = function(passport) {
         callbackURL: "/auth/google/callback",
       },
       function (accessToken, refreshToken, profile, done) {
+
+        User.findOne({ google_sub_id: profile.id }, (err, obj) => {
+          if (err) throw err;
+          if (!obj) {
+            const newUser = new User({
+              // username: req.body.username,
+              username: "google_account",
+              password: "google_account",
+              google_sub_id: profile.id,
+            });
+            newUser.save()
+          }
+        });
+
         done(null, profile);
       }
     )
@@ -69,11 +83,16 @@ module.exports = function(passport) {
   // });
 
   passport.serializeUser((user, done) => {
-    // console.log(user)
-    done(null, user);
+    const testUser = User.findOne({ google_sub_id: user.id }, (err, googleUser) => {
+      const serializedUser = googleUser ? googleUser : user
+      // console.log("serializing")
+      // console.log(serializedUser)
+      done(null, serializedUser);
+    });
   });
 
   passport.deserializeUser((user, done) => {
+    // console.log("deserializing")
     // console.log(user)
     done(null, user);
   });

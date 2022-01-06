@@ -5,6 +5,7 @@ const Navbar = ({user}) => {
   const logout = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
   }
+  console.log(user)
   return (
     <div className="navbar">
       <span className="logo">
@@ -19,7 +20,7 @@ const Navbar = ({user}) => {
               className="avatar"
               /> */}
           </li>
-          <li className="listItem">{user.displayName ? user.displayName : user.username}</li>
+          <li className="listItem">{user.username}</li>
           <li className="listItem" onClick={logout}>Logout</li>
         </ul>
       ) : (<Link className="link" to="login">Login</Link>)
