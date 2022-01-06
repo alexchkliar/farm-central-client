@@ -7,7 +7,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
 // const passportLocal = require("passport-local").Strategy;
-const authRoute = require("./routes/auth");
+const authRoutes = require("./routes/authRoutes");
+const petRoutes = require("./routes/petRoutes");
 const bodyParser = require('body-parser')
 const app = express();
 
@@ -41,8 +42,10 @@ app.use(
   })
 );
 
-app.use("/auth", authRoute);
+app.use("/auth", authRoutes);
+app.use("/pets", petRoutes);
 app.use(cookieParser("secretcode"))
+
 
 app.listen("5000", () => {
   console.log("Server is running!");

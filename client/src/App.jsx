@@ -5,6 +5,7 @@ import Post from './pages/Post';
 import Login from './pages/Login';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Pets from "./pages/Pets";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -20,21 +21,22 @@ function App() {
           "Access-Control-Allow-Credentials": true
         },
       }).then((response) => {
-        console.log("response logged")
-        console.log(response)
+        // console.log("response logged")
+        // console.log(response)
         if (response.status===200) return response.json();
         throw new Error("Authentication has failed")
       }).then(resObject => {
-        console.log("setting user")
-        console.log(resObject.user)
+        // console.log("setting user")
+        // console.log(resObject.user)
         setUser(resObject.user);
         // console.log('we are here');
         // console.log(resObject.user);
       }).catch(err => {
-        throw err;
+        // throw err;
+        // this always gets thrown if user not logged in
       })
     };
-    console.log("getUser being run")
+    // console.log("getUser being run")
     getUser();
   }, [])
 
@@ -45,6 +47,7 @@ function App() {
         <Routes>
           <Route>
             <Route path ="/" element={<Home />} />
+            <Route path ="/pets" element={<Pets />} />
             <Route
               path ="/login"
               element={user ? <Navigate to="/" /> : <Login />}
