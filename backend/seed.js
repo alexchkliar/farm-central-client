@@ -1,35 +1,63 @@
 #! /usr/bin/env node
-console.log('This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true');
+require('dotenv').config()
+console.log('Running seed');
 
 // Get arguments passed on command line
-var userArgs = process.argv.slice(2);
-/*
-if (!userArgs[0].startsWith('mongodb')) {
-    console.log('ERROR: You need to specify a valid mongodb URL as the first argument');
-    return
-}
-*/
-var async = require('async')
-var Pet = require('./models/pet')
+// const userArgs = process.argv.slice(2);
+
+const async = require('async')
+const Pet = require('./models/pet')
+const User = require('./models/user')
+const bcrypt = require('bcryptjs')
 
 
-var mongoose = require('mongoose');
-var mongoDB = userArgs[0];
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+const mongoose = require('mongoose');
+const mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pomqy.mongodb.net/pet_central`;
+mongoose.connect(mongoDB, {
+  useNewUrlParser: true, useUnifiedTopology: true
+}).then(() => {
+    console.log('MongoDB connected!');
+}).catch(err => {
+    console.log('Failed to connect to MongoDB', err);
+});
+
 mongoose.Promise = global.Promise;
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-var pets = []
-// var genres = []
-// var books = []
-// var bookinstances = []
+const pets = []
+const users = []
+
+function deleteEntries(model, cb) {
+  model.deleteMany({}, (error, data) => {
+    if (error) {
+      console.log(error)
+      cb(err, null)
+    } else {
+      console.log(data)
+      cb(null, model)
+    }
+  })
+}
+
+function deleteAllEntries(cb) {
+  async.series([
+    function(callback) {
+      deleteEntries(Pet, callback);
+    },
+    function(callback) {
+      deleteEntries(User, callback);
+    },
+    ],
+    // optional callback
+    cb);
+}
 
 function petCreate(petName, speciesName, breedName, dob, url, cb) {
   petDetail = {name: petName, species: speciesName, breed: breedName, birthDate: dob, photo: url }
   if (dob != false) petDetail.birthDate = dob
 
-  var pet = new Pet(petDetail);
+  const pet = new Pet(petDetail);
 
   pet.save(function (err) {
     if (err) {
@@ -41,63 +69,6 @@ function petCreate(petName, speciesName, breedName, dob, url, cb) {
     cb(null, pet)
   });
 }
-
-// function genreCreate(name, cb) {
-//   var genre = new Genre({ name: name });
-
-//   genre.save(function (err) {
-//     if (err) {
-//       cb(err, null);
-//       return;
-//     }
-//     console.log('New Genre: ' + genre);
-//     genres.push(genre)
-//     cb(null, genre);
-//   }   );
-// }
-
-// function bookCreate(title, summary, isbn, author, genre, cb) {
-//   bookdetail = {
-//     title: title,
-//     summary: summary,
-//     author: author,
-//     isbn: isbn
-//   }
-//   if (genre != false) bookdetail.genre = genre
-
-//   var book = new Book(bookdetail);
-//   book.save(function (err) {
-//     if (err) {
-//       cb(err, null)
-//       return
-//     }
-//     console.log('New Book: ' + book);
-//     books.push(book)
-//     cb(null, book)
-//   }  );
-// }
-
-
-// function bookInstanceCreate(book, imprint, due_back, status, cb) {
-//   bookinstancedetail = {
-//     book: book,
-//     imprint: imprint
-//   }
-//   if (due_back != false) bookinstancedetail.due_back = due_back
-//   if (status != false) bookinstancedetail.status = status
-
-//   var bookinstance = new BookInstance(bookinstancedetail);
-//   bookinstance.save(function (err) {
-//     if (err) {
-//       console.log('ERROR CREATING BookInstance: ' + bookinstance);
-//       cb(err, null)
-//       return
-//     }
-//     console.log('New BookInstance: ' + bookinstance);
-//     bookinstances.push(bookinstance)
-//     cb(null, book)
-//   }  );
-// }
 
 function createPets(cb) {
   async.series([
@@ -115,78 +86,59 @@ function createPets(cb) {
     },
     function(callback) {
       petCreate('Spot', 'Dog', "Hound", '2012-01-01', "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
-    },
+    }
     ],
-    // optional callback
-    cb);
+  cb);
 }
 
+function userCreate(uName, pWord, gSub, cb) {
+  userDetail = { username: uName, password: pWord, google_sub_id: gSub }
+  const user = new User(userDetail);
 
-// function createBooks(cb) {
-//     async.parallel([
-//         function(callback) {
+  user.save(function (err) {
+    if (err) {
+      console.log(err)
+      cb(err, null)
+      return
+    }
+    console.log('New User: ' + user);
+    users.push(user)
+    cb(null, user)
+  });
+}
 
-//         },
-//         ],
-//         // optional callback
-//         cb);
-// }
-
-
-// function createBookInstances(cb) {
-//     async.parallel([
-//         function(callback) {
-//           bookInstanceCreate(books[0], 'London Gollancz, 2014.', false, 'Available', callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[1], ' Gollancz, 2011.', false, 'Loaned', callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[2], ' Gollancz, 2015.', false, false, callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[3], 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[3], 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[3], 'New York Tom Doherty Associates, 2016.', false, 'Available', callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[4], 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Available', callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[4], 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Maintenance', callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[4], 'New York, NY Tom Doherty Associates, LLC, 2015.', false, 'Loaned', callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[0], 'Imprint XXX2', false, false, callback)
-//         },
-//         function(callback) {
-//           bookInstanceCreate(books[1], 'Imprint XXX3', false, false, callback)
-//         }
-//         ],
-//         // Optional callback
-//         cb);
-// }
+function createUsers(cb) {
+  async.series([
+    function(callback) {
+      bcrypt.hash('123', 10).then((passwordHash) => {
+        userCreate('123', passwordHash, "ng", callback);
+      });
+    },
+    function(callback) {
+      bcrypt.hash('1234', 10).then((passwordHash) => {
+        userCreate('1234', passwordHash, "ng", callback);
+      });
+    },
+    function(callback) {
+      bcrypt.hash('12345', 10).then((passwordHash) => {
+        userCreate('12345', passwordHash, "ng", callback);
+      });
+    }
+    ],
+  cb);
+}
 
 async.series([
+    deleteAllEntries,
     createPets,
-    // createBooks,
-    // createBookInstances
-],
-// Optional callback
-function(err, results) {
+    createUsers,
+  ],
+  function(err, results) {
     if (err) {
         console.log('FINAL ERR: '+err);
     }
     else {
-        // console.log('Pets: '+pets);
-
+      // results
     }
-    // All done, disconnect from database
     mongoose.connection.close();
 });
