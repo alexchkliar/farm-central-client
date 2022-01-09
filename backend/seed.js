@@ -131,6 +131,15 @@ function createUsers(cb) {
 async.series([
     deleteAllEntries,
     createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
     createUsers,
   ],
   function(err, results) {
