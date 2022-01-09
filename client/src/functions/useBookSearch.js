@@ -17,14 +17,19 @@ export default function useBookSearch(query, pageNumber) {
     let cancel
     axios({
       method: 'GET',
+      // url: 'http://localhost:5000/pets',
       url: 'http://openlibrary.org/search.json',
       params: { q: query, page: pageNumber },
       cancelToken: new axios.CancelToken(c => cancel = c)
     }).then(res => {
+      // console.log("wow")
+      // console.log(res.data)
       setBooks(prevBooks => {
-        return [...new Set([...prevBooks, ...res.data.docs.map(b => b.title)])]
+        // return [...new Set([...prevBooks, ...res.data.docs.map(b => b.title)])]
+        return [...new Set([...prevBooks, ...res.data.pet_list.map(b => b.name)])]
       })
-      setHasMore(res.data.docs.length > 0)
+      // setHasMore(res.data.docs.length > 0)
+      setHasMore(res.data.pet_list.length > 0)
       setLoading(false)
     }).catch(e => {
       if (axios.isCancel(e)) return
