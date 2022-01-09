@@ -1,0 +1,4 @@
+.infinite-scroll-component {
+  display: flex;
+  flex-wrap: wrap;
+}

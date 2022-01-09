@@ -2,17 +2,13 @@
 require('dotenv').config()
 console.log('Running seed');
 
-// Get arguments passed on command line
-// const userArgs = process.argv.slice(2);
-
 const async = require('async')
 const Pet = require('./models/pet')
 const User = require('./models/user')
 const bcrypt = require('bcryptjs')
-
-
 const mongoose = require('mongoose');
 const mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pomqy.mongodb.net/pet_central`;
+
 mongoose.connect(mongoDB, {
   useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => {
@@ -73,19 +69,19 @@ function petCreate(petName, speciesName, breedName, dob, url, cb) {
 function createPets(cb) {
   async.series([
     function(callback) {
-      petCreate('Rufus', 'Dog', "Labrador", '2005-01-01', "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
+      petCreate('Rufus', 'Dog', "Labrador", 99, users[0], "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
     },
     function(callback) {
-      petCreate('Bob', 'Cat', "Scottish fold", '2015-01-01', "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
+      petCreate('Bob', 'Cat', "Scottish fold", 5, users[0], "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-girl-cat-names-1606245046.jpg?crop=0.668xw:1.00xh;0.126xw,0&resize=980:*", callback);
     },
     function(callback) {
-      petCreate('Cosmo', 'Cat', 'Domestic shorthair', '2020-01-01', "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-girl-cat-names-1606245046.jpg?crop=0.668xw:1.00xh;0.126xw,0&resize=980:*", callback);
+      petCreate('Cosmo', 'Cat', 'Domestic shorthair', 4, users[0], "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-girl-cat-names-1606245046.jpg?crop=0.668xw:1.00xh;0.126xw,0&resize=980:*", callback);
     },
     function(callback) {
-      petCreate('Chirp', 'Bird', "Parakeet", '2021-01-01', "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
+      petCreate('Chirp', 'Bird', "Parakeet", 1, users[0], "https://www.photoblog.com/learn/wp-content/uploads/2019/08/says-phoebe-bird-1024x683.jpg", callback);
     },
     function(callback) {
-      petCreate('Spot', 'Dog', "Hound", '2012-01-01', "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
+      petCreate('Spot', 'Dog', "Hound", 55, users[1], "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
     }
     ],
   cb);
@@ -130,17 +126,17 @@ function createUsers(cb) {
 
 async.series([
     deleteAllEntries,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
     createUsers,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
+    createPets,
   ],
   function(err, results) {
     if (err) {

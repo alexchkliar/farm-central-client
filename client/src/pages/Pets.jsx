@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import '../css_components/pets.css';
 
 function Pets() {
   const [activePet, setActivePet] = useState("All");
@@ -41,7 +42,7 @@ function Pets() {
       <button onClick={() => setActivePet("Dog")} value="Dog">Dogs</button>
       <button onClick={() => setActivePet("Bird")} value="Bird">Birds</button>
 
-      <div className="scroll-wrap">
+      <div>
         <InfiniteScroll
           dataLength={pets.length}
           next={fetchMoreData}
