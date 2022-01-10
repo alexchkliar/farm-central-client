@@ -1,4 +1,4 @@
-var Pet = require('../models/pet')
+const Pet = require('../models/pet')
 
 exports.pet_list = function (req, res, next) {
   Pet.find()

@@ -82,8 +82,6 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-
-
 router.post("/user", (req, res) => {
   // console.log(req.body)
   res.send(req.user)

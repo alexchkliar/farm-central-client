@@ -9,7 +9,7 @@ const Navbar = ({user, cartNum}) => {
   return (
     <div className="navbar">
       <span className="logo">
-        <Link className="link" to="/">Lama App</Link>
+        <Link className="link" to="/">Cool App</Link>
       </span>
       { user ? (
         <ul className="list">
@@ -25,7 +25,7 @@ const Navbar = ({user, cartNum}) => {
         </ul>
         ) : ( <Link className="link" to="login">Login</Link> )
       }
-      <p>Cart ({cartNum})</p>
+      <Link className="link" to="/cart">Cart ({cartNum})</Link>
     </div>
   )
 }
