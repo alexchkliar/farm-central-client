@@ -1,5 +1,4 @@
 var Pet = require('../models/pet')
-const { body, validationResult } = require("express-validator");
 
 exports.pet_list = function (req, res, next) {
   Pet.find()

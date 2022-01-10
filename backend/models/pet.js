@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { DateTime } = require("luxon");  //for date handling
+// const { DateTime } = require("luxon");  //for date handling
 
 const Schema = mongoose.Schema;
 
@@ -8,7 +8,7 @@ const PetSchema = new Schema({
   species: { type: String, required: true, maxLength: 100 },
   breed: { type: String, maxLength: 100 },
   quantity: { type: Number, min: 0, max: 99 },
-  seller : { type: Schema.Types.ObjectId, ref: 'User' },
+  seller: { type: Schema.Types.ObjectId, ref: 'User' },
   photo: { type: String }
 });
 

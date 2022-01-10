@@ -3,7 +3,7 @@ const passport = require("passport");
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 
-const CLIENT_URL = "http://localhost:3000/";
+const REDIRECT_URL = "http://localhost:3000/pets";
 
 router.get("/login/success", (req, res) => {
   if (req.user) {
@@ -27,7 +27,7 @@ router.get("/login/failed", (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect(CLIENT_URL);
+  res.redirect(REDIRECT_URL);
 });
 
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
@@ -35,7 +35,7 @@ router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: CLIENT_URL,
+    successRedirect: REDIRECT_URL,
     failureRedirect: "/login/failed",
   })
 );
@@ -45,7 +45,7 @@ router.get(
 // router.get(
 //   "/facebook/callback",
 //   passport.authenticate("facebook", {
-//     successRedirect: CLIENT_URL,
+//     successRedirect: REDIRECT_URL,
 //     failureRedirect: "/login/failed",
 //   })
 // );
@@ -76,7 +76,7 @@ router.post("/login", (req, res, next) => {
         // res.status(200);
         res.send("Successfully Authenticated");
         // console.log(req.user);
-        // res.redirect(CLIENT_URL);
+        // res.redirect(REDIRECT_URL);
       });
     }
   })(req, res, next);

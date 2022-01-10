@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import '../css_components/pets.css';
+import Axios from 'axios';
 
-function Pets() {
+function Pets({ currentCartNum, updateCartNum, user }) {
   const [activePet, setActivePet] = useState("All");
   const [pets, setPets] = useState([]);
   const [maxLength, setMaxLength] = useState(0);
@@ -34,10 +35,38 @@ function Pets() {
     )
   };
 
+  const addToCart = (e) => {
+    if (user === null) window.location.href = "http://localhost:3000/login";
+    // console.log(user);
+    // console.log(pets[e.target.value]);
+    // updateCartNum(currentCartNum + 1);
+    // cartAddDetail = { pet: pets[e.target.value], shopper: user }
+
+    Axios({
+      method: "POST",
+      data: {
+        pet: pets[e.target.value],
+        shopper: user
+      },
+      withCredentials: true,
+      url: "http://localhost:5000/cart/add"
+    }).then((res) => {
+      console.log(res.data);
+      // if (res.data === "Successfully added") {
+        // navigate("/");
+        // window.open("http://localhost:3000/pets", "_self");
+        // window.location.href = "http://localhost:3000/pets";
+      // }
+    })
+
+
+  }
+
   return (
     <div>
       <h1>Header</h1>
 
+      <button onClick={() => setActivePet("All")} value="All">All</button>
       <button onClick={() => setActivePet("Cat")} value="Cat">Cats</button>
       <button onClick={() => setActivePet("Dog")} value="Dog">Dogs</button>
       <button onClick={() => setActivePet("Bird")} value="Bird">Birds</button>
@@ -55,7 +84,9 @@ function Pets() {
               <li>{pet.name}</li>
               <li>{pet.species}</li>
               <li>{pet.breed}</li>
-              <li>{pet.birthDate}</li>
+              <li>{pet.seller}</li>
+              <li>{pet.quantity}</li>
+              <button onClick={(e) => addToCart(e)} value={index}>Add to cart</button>
             </ul>
           ))}
         </InfiniteScroll>

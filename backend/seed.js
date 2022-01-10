@@ -49,12 +49,10 @@ function deleteAllEntries(cb) {
     cb);
 }
 
-function petCreate(petName, speciesName, breedName, dob, url, cb) {
-  petDetail = {name: petName, species: speciesName, breed: breedName, birthDate: dob, photo: url }
-  if (dob != false) petDetail.birthDate = dob
-
+function petCreate(name, species, breed, quantity, seller, photo, cb) {
+  petDetail = {name: name, species: species, breed: breed, quantity: quantity, seller: seller, photo: photo }
+  // if (dob != false) petDetail.birthDate = dob
   const pet = new Pet(petDetail);
-
   pet.save(function (err) {
     if (err) {
       cb(err, null)

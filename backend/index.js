@@ -9,6 +9,7 @@ const passport = require("passport");
 // const passportLocal = require("passport-local").Strategy;
 const authRoutes = require("./routes/authRoutes");
 const petRoutes = require("./routes/petRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 const bodyParser = require('body-parser')
 const app = express();
 
@@ -44,6 +45,7 @@ app.use(
 
 app.use("/auth", authRoutes);
 app.use("/pets", petRoutes);
+app.use("/cart", cartRoutes);
 app.use(cookieParser("secretcode"))
 
 
