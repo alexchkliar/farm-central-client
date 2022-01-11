@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import '../css_components/pets.css';
 import Axios from 'axios';
 
-function Pets({ currentCartNum, updateCartNum, user }) {
+function Pets({ forceUpdate, user }) {
   const [activePet, setActivePet] = useState("All");
   const [pets, setPets] = useState([]);
   const [maxLength, setMaxLength] = useState(0);
@@ -36,10 +36,13 @@ function Pets({ currentCartNum, updateCartNum, user }) {
   };
 
   const addToCart = (e) => {
-    if (user === null) window.location.href = "http://localhost:3000/login";
+    if (user === null) {
+      window.location.href = "http://localhost:3000/login";
+      return
+    }
     // console.log(user);
     // console.log(pets[e.target.value]);
-    // updateCartNum(currentCartNum + 1);
+    forceUpdate();
     // cartAddDetail = { pet: pets[e.target.value], shopper: user }
 
     Axios({

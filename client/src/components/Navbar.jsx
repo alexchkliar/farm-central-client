@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Navbar = ({user, cartNum}) => {
+const Navbar = ({ user, cartNum, forceRender}) => {
 
   const logout = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
@@ -9,8 +9,9 @@ const Navbar = ({user, cartNum}) => {
   return (
     <div className="navbar">
       <span className="logo">
-        <Link className="link" to="/">Cool App</Link>
+        <Link className="link" to="/pets">Cool App</Link>
       </span>
+      <p>{forceRender}</p>
       { user ? (
         <ul className="list">
           <li className="listItem">
