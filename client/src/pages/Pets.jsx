@@ -37,20 +37,21 @@ function Pets({ setCartNum, user }) {
     )
   };
 
-  const addToCart = (e) => {
+  const addToCart = (index) => {
     if (user === null) {
       window.location.href = "http://localhost:3000/login";
       return
     }
     // console.log(user);
-    // console.log(pets[e.target.value]);
+    console.log(index);
+    console.log(pets[index]);
     setCartNum(cartNum => cartNum + 1);
     // cartAddDetail = { pet: pets[e.target.value], shopper: user }
 
     Axios({
       method: "POST",
       data: {
-        pet: pets[e.target.value],
+        pet: pets[index],
         shopper: user
       },
       withCredentials: true,
@@ -95,7 +96,7 @@ function Pets({ setCartNum, user }) {
           loader={<h5>Loading...</h5>}
         >
           {pets.map((pet, index) => (
-            <Pet key={index} pet={pet} petCountInCart={productList.filter(petInCart => petInCart === pet._id).length} addToCart={addToCart} user={user} />
+            <Pet key={index} index={index} pet={pet} petCountInCart={productList.filter(petInCart => petInCart === pet._id).length} addToCart={addToCart} user={user} />
           ))}
         </InfiniteScroll>
       </div>

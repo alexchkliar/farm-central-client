@@ -14,6 +14,15 @@ router.post("/add", (req, res) => {
     res.send("Product added to cart");
 });
 
+router.delete("/remove", (req, res) => {
+    console.log(req.body.pet._id)
+    console.log(req.body.shopper)
+    CartProduct.findOneAndDelete( {pet: req.body.pet._id, shopper: req.body.shopper._id}, (err) => {
+      if (err) { console.log(err) }
+    });
+    res.send("Product removed from cart")
+});
+
 router.get("/fetch", cart_controller.cart_list)
 router.get("/", cart_controller.cart_list)
 

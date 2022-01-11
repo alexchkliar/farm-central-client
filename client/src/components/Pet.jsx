@@ -14,7 +14,7 @@ const Pet = ({ pet, index, addToCart, user }) => {
         return array.pet
       }).filter(petInCart => petInCart === pet._id).length)
     })
-  },) // remove user dependence?
+  }, [user, pet._id]) // remove dependence?
 
   return (
     <div className={(activePetCount < pet.quantity) ? "pet-card" : "pet-card full-pet-card"}>
@@ -28,15 +28,19 @@ const Pet = ({ pet, index, addToCart, user }) => {
         <li>{pet.quantity}</li>
         <li>Number in your cart: { activePetCount }</li>
         <button
-          onClick={(e) => {
+          onClick={() => {
+            if (user === null) {
+              window.location.href = "http://localhost:3000/login";
+            }
             if ((activePetCount < pet.quantity)) {
-              addToCart(e)
-              setActivePetCount(activePetCount + 1)
+              console.log("index " + index)
+              addToCart(index)
+              setActivePetCount(prevActivePetCount => prevActivePetCount + 1)
             } else {
               console.log("Cannot add more")
             }}
           }
-          value={index} >
+        >
           Add to cart
         </button>
       </ul>
