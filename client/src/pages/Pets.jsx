@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import '../css_components/pets.css';
 import Axios from 'axios';
+import Pet from '../components/Pet';
 
-function Pets({ forceUpdate, user }) {
+function Pets({ setCartNum, user }) {
   const [activePet, setActivePet] = useState("All");
   const [pets, setPets] = useState([]);
   const [maxLength, setMaxLength] = useState(0);
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:5000/pets").then(res => {
@@ -42,7 +44,7 @@ function Pets({ forceUpdate, user }) {
     }
     // console.log(user);
     // console.log(pets[e.target.value]);
-    forceUpdate();
+    setCartNum(cartNum => cartNum + 1);
     // cartAddDetail = { pet: pets[e.target.value], shopper: user }
 
     Axios({
@@ -61,9 +63,20 @@ function Pets({ forceUpdate, user }) {
         // window.location.href = "http://localhost:3000/pets";
       // }
     })
-
-
   }
+
+  useEffect(() => {
+    fetch("http://localhost:5000/cart/fetch").then(res => {
+      return res.json()
+    }).then((jsonRes) => {
+      if (user === null) return
+      setProductList(jsonRes.cart_list.filter(function (item) {
+        return item.shopper === user._id
+      }).map(function (array) {
+        return array.pet
+      }))
+    })
+  }, [user]) // remove user dependence?
 
   return (
     <div>
@@ -82,15 +95,7 @@ function Pets({ forceUpdate, user }) {
           loader={<h5>Loading...</h5>}
         >
           {pets.map((pet, index) => (
-            <ul key={index}>
-              <li><img width="250" height="250" src={pet.photo} alt="" /></li>
-              <li>{pet.name}</li>
-              <li>{pet.species}</li>
-              <li>{pet.breed}</li>
-              <li>{pet.seller}</li>
-              <li>{pet.quantity}</li>
-              <button onClick={(e) => addToCart(e)} value={index}>Add to cart</button>
-            </ul>
+            <Pet key={index} pet={pet} petCountInCart={productList.filter(petInCart => petInCart === pet._id).length} addToCart={addToCart} user={user} />
           ))}
         </InfiniteScroll>
       </div>

@@ -10,8 +10,7 @@ import Cart from "./pages/Cart";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [cartNum, setCartNum] = useState(0);
-  const [forceRender, setForceRender] = useState(0);
+  const [cartNum, setCartNum] = useState();
 
   useEffect(() => {
     const getUser = async () => {
@@ -34,13 +33,6 @@ function App() {
     getUser();
   }, [])
 
-  function useForceUpdate() {
-    const [value, setValue] = useState(0); // integer state
-    return () => setValue(value => value + 1); // update the state to force render
-  }
-
-  const forceUpdate = useForceUpdate();
-
   useEffect(() => {
     fetch("http://localhost:5000/cart/fetch").then(res => {
       return res.json()
@@ -50,17 +42,17 @@ function App() {
         return item.shopper === user._id
       }).length)
     })
-  }, [user])
+  }, [user]) // remove user dependence?
 
   return (
     <BrowserRouter>
       <div>
-        <Navbar user={user} cartNum={cartNum} forceRender={forceRender} />
+        <Navbar user={user} cartNum={cartNum} />
         <Routes>
           <Route>
             <Route path ="/" element={<Home />} />
             <Route path ="/cart" element={<Cart />} />
-            <Route path="/pets" element={<Pets user={user} forceUpdate={forceUpdate} currentCartNum={cartNum} />} />
+            <Route path="/pets" element={<Pets user={user} setCartNum={setCartNum} />} />
             <Route
               path ="/login"
               element={user ? <Navigate to="/" /> : <Login />}

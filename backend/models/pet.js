@@ -9,6 +9,7 @@ const PetSchema = new Schema({
   breed: { type: String, maxLength: 100 },
   quantity: { type: Number, min: 0, max: 99 },
   seller: { type: Schema.Types.ObjectId, ref: 'User' },
+  price: { type: Number, min: 0, required: true },
   photo: { type: String }
 });
 
