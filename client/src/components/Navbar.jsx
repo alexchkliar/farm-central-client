@@ -10,6 +10,8 @@ const Navbar = ({ user, cartNum, refresh}) => {
     <div className="navbar">
       <span className="logo">
         <Link className="link" to="/pets">Cool App</Link>
+        <Link className="link" to="/orders">Orders</Link>
+        <Link className="link" to="/sold">Sold</Link>
       </span>
       <p></p>
       { user ? (

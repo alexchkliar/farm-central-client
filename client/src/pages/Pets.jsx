@@ -17,7 +17,7 @@ function Pets({ setCartNum, user }) {
       }
     }).then((jsonRes) => {
       const outputList = jsonRes.pet_list.filter(function (pet) {
-        return (pet.quantity >= 1 && (pet.species === activePet || activePet === "All"))
+        return (pet.species === activePet || activePet === "All")
       })
       setMaxLength(outputList.length)
       setPets(outputList.slice(0, 10))
@@ -32,7 +32,8 @@ function Pets({ setCartNum, user }) {
       }
     }).then((jsonRes) =>
       setPets(pets.concat(jsonRes.pet_list.filter(function (pet) {
-        return (pet.quantity >= 1 && (pet.species === activePet || activePet === "All"))
+        // return (pet.quantity >= 1 && (pet.species === activePet || activePet === "All"))
+        return (pet.species === activePet || activePet === "All")
       }).slice(pets.length, pets.length + 10)))
     )
   };

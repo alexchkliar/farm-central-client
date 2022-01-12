@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const CartProduct = require('../models/cart')
+const Order = require('../models/order')
 const Pet = require('../models/pet')
 cart_controller = require("../controllers/cartController");
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
@@ -16,6 +17,15 @@ router.post("/add", (req, res) => {
   res.send("Product added to cart");
 });
 
+router.post("/create_order", (req, res) => {
+  const newOrder = new Order({
+    items: req.body.items,
+    buyer: req.body.buyer,
+  });
+  newOrder.save();
+  res.send("Order registered");
+});
+
 router.delete("/remove", (req, res) => {
   // console.log(req.body.pet._id)
   // console.log(req.body.shopper)
@@ -28,8 +38,8 @@ router.delete("/remove", (req, res) => {
 router.get("/fetch", cart_controller.cart_list)
 
 router.patch("/adjust", (req, res) => {
-  console.log("adjust")
-  console.log(req.body.cartItems)
+  // console.log("adjusting count")
+  // console.log(req.body.cartItems)
   req.body.cartItems.forEach(item => {
     // petDetail = {_id: item.petObj._id, quantity: item.petObj.quantity - item.petQuantity, name: item.petObj.name, species: item.petObj.species, breed: item.petObj.breed, seller: item.petObj.seller, price: item.petObj.price, photo: item.petObj.photo }
     // const updatedPet = new Pet(petDetail);

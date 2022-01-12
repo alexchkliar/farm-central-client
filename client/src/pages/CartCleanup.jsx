@@ -50,31 +50,13 @@ function CartCleanup({ user }) {
     console.log(user)
     console.log(cartItems)
     adjustInventory(cartItems)
-    wipeCart(user)
+    registerNewOrder()
+    wipeCart()
     redirect()
   }
 
-  function wipeCart(user) {
-    console.log("wiping cart")
-    Axios({
-      method: "DELETE",
-      data: {
-        shopper: user
-      },
-      withCredentials: true,
-      url: "http://localhost:5000/cart/wipe"
-    })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(e => {
-        console.error(e)
-      })
-  }
-
   function adjustInventory(cartItems) {
-    console.log("adjusting inventory")
-
+    // console.log("adjusting inventory")
     Axios({
       method: "PATCH",
       data: {
@@ -91,14 +73,50 @@ function CartCleanup({ user }) {
       })
   }
 
+  function registerNewOrder() {
+    // console.log("creating new order")
+    Axios({
+      method: "POST",
+      data: {
+        items: cartItems,
+        buyer: user
+      },
+      withCredentials: true,
+      url: "http://localhost:5000/cart/create_order"
+    })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(e => {
+        console.error(e)
+      })
+  }
+
+  function wipeCart() {
+    // console.log("wiping cart")
+    Axios({
+      method: "DELETE",
+      data: {
+        shopper: user
+      },
+      withCredentials: true,
+      url: "http://localhost:5000/cart/wipe"
+    })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(e => {
+        console.error(e)
+      })
+  }
+
   function redirect() {
-    // console.log(123)
     // window.location = 'http://localhost:3000/'
   }
 
   return (
-    <div>
-    </div>
+    <>
+    </>
   )
 }
 
