@@ -13,16 +13,18 @@ const cartRoutes = require("./routes/cartRoutes");
 const bodyParser = require('body-parser')
 const app = express();
 
+
 mongoose.connect(
   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pomqy.mongodb.net/pet_central?retryWrites=true`,
   { useNewUrlParser: true, useUnifiedTopology: true }
 )
 
+// app.use(express.json())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(
-  cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
+  cookieSession({ name: "session", keys: ["temp_key"], maxAge: 24 * 60 * 60 * 100 })
 );
 
 app.use(session({
@@ -43,11 +45,10 @@ app.use(
   })
 );
 
+app.use(cookieParser("secretcode"))
 app.use("/auth", authRoutes);
 app.use("/pets", petRoutes);
 app.use("/cart", cartRoutes);
-app.use(cookieParser("secretcode"))
-
 
 app.listen("5000", () => {
   console.log("Server is running!");

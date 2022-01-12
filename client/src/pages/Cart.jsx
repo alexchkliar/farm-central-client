@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CartItem from '../components/CartItem';
+// import StripeCheckout from 'react-stripe-checkout'
 
 function Cart({ user, setCartNum }) {
   const [cartItems, setCartItems] = useState([]);
@@ -30,7 +31,7 @@ function Cart({ user, setCartNum }) {
         })
 
         const priceTotal = fullData.map(item => {
-          return item[0][5]
+          return (item[0][0] * item[0][5])
         }).reduce((partial_sum, a) => partial_sum + a, 0)
         setCartItems(fullData) // this
         setTotalPrice(priceTotal) // this
@@ -43,6 +44,28 @@ function Cart({ user, setCartNum }) {
   // const removeItem = (e) => {
 
   // }
+  function accessStripeCart() {
+    console.log("here")
+    fetch('http://localhost:5000/cart/create-checkout-session', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        items: cartItems,
+      }),
+    })
+      .then(res => {
+        if (res.ok) return res.json()
+        return res.json().then(json => Promise.reject(json))
+      })
+      .then(({ url }) => {
+        window.location = url
+      })
+      .catch(e => {
+        console.error(e.error)
+      })
+  }
 
   return (
     <div>
@@ -60,13 +83,20 @@ function Cart({ user, setCartNum }) {
           quantityAvailable={cartItem[0][7]}
           seller={cartItem[0][8]}
           pet={cartItem[0][9]}
-          user={user}
+          user={user}f
           setCartNum={setCartNum}
         />
       ))}
 
       <p>Total: {totalPrice}</p>
-      <button>Check out</button>
+      <button onClick={() => accessStripeCart()}>Check out</button>
+      {/* <StripeCheckout
+        stripeKey="pk_test_51KGr2RDsDjOodD6xPUNk6nfQtFblwWxaPcBtCxsu9rtqWJy5RBaqY4y6LNN31c9H4H3yeMUu4MXqIW4Nmqyz9YqQ00CKhhTOcO" // public key, can share
+        token={handleToken}
+        billingAddress
+        shippingAddress
+        amount={totalPrice}
+      /> */}
     </div>
   )
 }
