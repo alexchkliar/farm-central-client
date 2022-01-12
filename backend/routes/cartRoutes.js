@@ -37,7 +37,7 @@ const storeItems = new Map([
 router.post("/create-checkout-session", async (req, res) => {
   console.log("here2")
   try {
-    // console.log(req.body.items[0])
+    console.log(req.body.items)
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -46,11 +46,11 @@ router.post("/create-checkout-session", async (req, res) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: item[0][2],
+              name: item.petName,
             },
-            unit_amount: item[0][5] * 100,
+            unit_amount: item.petPrice * 100,
           },
-          quantity: item[0][0],
+          quantity: item.itemCartQuantity,
         }
       }),
       success_url: "http://localhost:3000/",

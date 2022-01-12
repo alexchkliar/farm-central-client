@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from 'axios';
 
-const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, animal, species, price, name, pet, user, setCartNum }) => {
+const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, species, price, name, pet, user, setCartNum }) => {
   const [itemQuantity, setItemQuantity] = useState(quantityInCart);
 
   // useEffect(() => {
@@ -70,7 +70,7 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, animal, 
         <li>Photo URL: {url}</li>
         <li>Pet ID: {id}</li>
         <li>Name: {name}</li>
-        <li>Animal: {animal}</li>
+        <li>Breed: {breed}</li>
         <li>Species: {species}</li>
         <li>Price: {price}</li>
         <li>Quantity in cart: {itemQuantity}</li>
