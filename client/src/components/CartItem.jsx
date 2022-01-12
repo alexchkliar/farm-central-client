@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from 'axios';
 
-const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, species, price, name, pet, user, setCartNum }) => {
+const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, species, price, name, pet, user, setCartNum, setTotalPrice }) => {
   const [itemQuantity, setItemQuantity] = useState(quantityInCart);
 
   // useEffect(() => {
@@ -20,7 +20,7 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
 
   function add(e) {
     console.log(e.target.value)
-    console.log("remove")
+    console.log("add")
     console.log(pet)
     if (itemQuantity < quantityAvailable) {
       Axios({
@@ -34,6 +34,7 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
       }).then((res) => {
         setItemQuantity(currentItemQuantity => currentItemQuantity + 1)
         setCartNum(currentCartNum => currentCartNum + 1);
+        setTotalPrice(currentTotalPrice => currentTotalPrice + price);
         console.log(res.data);
       }).catch(err => {
         console.log(err)
@@ -57,6 +58,7 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
       }).then((res) => {
         setItemQuantity(currentItemQuantity => currentItemQuantity -1)
         setCartNum(currentCartNum => currentCartNum - 1);
+        setTotalPrice(currentTotalPrice => currentTotalPrice - price);
         console.log(res.data);
       }).catch(err => {
         console.log(err)

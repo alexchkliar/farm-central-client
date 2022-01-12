@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CartItem from '../components/CartItem';
+import Axios from 'axios';
+
 // import StripeCheckout from 'react-stripe-checkout'
 
 function Cart({ user, setCartNum }) {
@@ -40,11 +42,11 @@ function Cart({ user, setCartNum }) {
           });
           return output[0];
         })
+        console.log(fullData)
 
         const priceTotal = fullData.map(item => {
           return (item.itemCartQuantity * item.petPrice)
         }).reduce((partial_sum, a) => partial_sum + a, 0)
-
         setCartItems(fullData) // this
         setTotalPrice(priceTotal) // this
       })
@@ -53,10 +55,7 @@ function Cart({ user, setCartNum }) {
       })
   }, [])
 
-  // const removeItem = (e) => {
-
-  // }
-  function accessStripeCart() {
+    function accessStripeCart() {
     console.log("here")
     fetch('http://localhost:5000/cart/create-checkout-session', {
       method: "POST",
@@ -65,18 +64,25 @@ function Cart({ user, setCartNum }) {
       },
       body: JSON.stringify({
         items: cartItems,
+        user: user,
       }),
     })
-      .then(res => {
-        if (res.ok) return res.json()
-        return res.json().then(json => Promise.reject(json))
-      })
-      .then(({ url }) => {
-        window.location = url
-      })
-      .catch(e => {
-        console.error(e.error)
-      })
+    .then(res => {
+      console.log("starting this stuff")
+      if (res.ok) {
+        return res.json()
+      }
+      return res.json().then(json => Promise.reject(json))
+    })
+    .then(({ url }) => {
+      console.log("starting this stuff 2")
+      // wipeCart();
+      // adjustQuantities(cartItems);
+      window.location = url
+    })
+    .catch(e => {
+      console.error(e.error)
+    })
   }
 
   return (
@@ -94,9 +100,10 @@ function Cart({ user, setCartNum }) {
           price={cartItem.petPrice}
           quantityAvailable={cartItem.petQuantity}
           seller={cartItem.petSeller}
-          pet={cartItem.petObt}
+          pet={cartItem.petObj}
           user={user}
           setCartNum={setCartNum}
+          setTotalPrice={setTotalPrice}
         />
       ))}
 

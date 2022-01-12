@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Pets from "./pages/Pets";
 import Cart from "./pages/Cart";
+import CartCleanup from './pages/CartCleanup';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,7 +35,18 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch("http://localhost:5000/cart/fetch").then(res => {
+    fetch("http://localhost:5000/cart/fetch", {
+      // method: "GET",
+      // body: {
+      //   user: user,
+      // }
+      // credentials: "include",
+      // headers: {
+      //   Accept: "application/json",
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Credentials": true
+      // },
+    }).then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return null
@@ -52,6 +64,7 @@ function App() {
           <Route>
             <Route path ="/" element={<Home />} />
             <Route path="/cart" element={<Cart user={user} setCartNum={setCartNum} />} />
+            <Route path="/cart_cleanup" element={<CartCleanup user={user} />}/>
             <Route path="/pets" element={<Pets user={user} setCartNum={setCartNum} />} />
             <Route
               path ="/login"
