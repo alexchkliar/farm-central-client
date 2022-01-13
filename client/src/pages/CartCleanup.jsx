@@ -1,9 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Axios from 'axios';
 
 function CartCleanup({ user }) {
   const [cartItems, setCartItems] = useState([]);
   const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+
+  const registerNewOrder = useCallback((fullData) => {
+    console.log("creating new order")
+    Axios({
+      method: "POST",
+      data: {
+        items: fullData,
+        buyer: user
+      },
+      withCredentials: true,
+      url: "http://localhost:5000/cart/create_order"
+    })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(e => {
+        console.error(e)
+      })
+  }, [user]);
+
+  const wipeCart = useCallback(() => {
+    console.log("wiping cart")
+    Axios({
+      method: "DELETE",
+      data: {
+        shopper: user
+      },
+      withCredentials: true,
+      url: "http://localhost:5000/cart/wipe"
+    })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(e => {
+        console.error(e)
+      })
+  }, [user]);
 
   useEffect(() => {
     Promise.all([
@@ -23,44 +60,33 @@ function CartCleanup({ user }) {
             if (pet._id === item) {
               output.push({
                 itemCartQuantity: countData[index],
-                petId: pet._id,
-                petName: pet.name,
-                petSpecies: pet.species,
-                petBreed: pet.breed,
-                petPrice: pet.price,
-                petPhoto: pet.photo,
-                petQuantity: pet.quantity,
-                petSeller: pet.seller,
-                petObj: pet
+                petId: pet._id, petName: pet.name, petSpecies: pet.species, petBreed: pet.breed, petPrice: pet.price, petPhoto: pet.photo, petQuantity: pet.quantity, petSeller: pet.seller, petObj: pet
               })
             }
           });
           return output[0];
         })
         setCartItems(fullData) // this
+        console.log("user")
+        console.log(user)
+        if (user) {
+          adjustInventory(fullData)
+          registerNewOrder(fullData)
+          wipeCart()
+          redirect()
+        }
       })
       .catch(err => {
         console.log(err)
       })
-  }, [])
+  }, [registerNewOrder, wipeCart, user])
 
-  console.log(user)
-
-  if (user) {
-    console.log(user)
-    console.log(cartItems)
-    adjustInventory(cartItems)
-    registerNewOrder()
-    wipeCart()
-    redirect()
-  }
-
-  function adjustInventory(cartItems) {
-    // console.log("adjusting inventory")
+  function adjustInventory(fullData) {
+    console.log("adjusting inventory")
     Axios({
       method: "PATCH",
       data: {
-        cartItems: cartItems
+        cartItems: fullData
       },
       withCredentials: true,
       url: "http://localhost:5000/cart/adjust"
@@ -73,46 +99,11 @@ function CartCleanup({ user }) {
       })
   }
 
-  function registerNewOrder() {
-    // console.log("creating new order")
-    Axios({
-      method: "POST",
-      data: {
-        items: cartItems,
-        buyer: user
-      },
-      withCredentials: true,
-      url: "http://localhost:5000/cart/create_order"
-    })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(e => {
-        console.error(e)
-      })
-  }
-
-  function wipeCart() {
-    // console.log("wiping cart")
-    Axios({
-      method: "DELETE",
-      data: {
-        shopper: user
-      },
-      withCredentials: true,
-      url: "http://localhost:5000/cart/wipe"
-    })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(e => {
-        console.error(e)
-      })
-  }
-
-  function redirect() {
+  function redirect () {
     // window.location = 'http://localhost:3000/'
   }
+
+
 
   return (
     <>

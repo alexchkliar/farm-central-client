@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import CartItem from '../components/CartItem';
-import Axios from 'axios';
 
 // import StripeCheckout from 'react-stripe-checkout'
 

@@ -38,30 +38,19 @@ router.delete("/remove", (req, res) => {
 router.get("/fetch", cart_controller.cart_list)
 
 router.patch("/adjust", (req, res) => {
-  // console.log("adjusting count")
-  // console.log(req.body.cartItems)
+  console.log("adjusting count")
+  console.log(req.body.cartItems)
+
   req.body.cartItems.forEach(item => {
-    // petDetail = {_id: item.petObj._id, quantity: item.petObj.quantity - item.petQuantity, name: item.petObj.name, species: item.petObj.species, breed: item.petObj.breed, seller: item.petObj.seller, price: item.petObj.price, photo: item.petObj.photo }
-    // const updatedPet = new Pet(petDetail);
 
-    // console.log("here check this 1 " + item.petObj._id)
-    // console.log("here check this 1 " + updatedPet)
-
-    Pet.findByIdAndUpdate(item.petObj._id, { quantity: item.petObj.quantity - item.petQuantity }, {}, (err) => {
+    Pet.findByIdAndUpdate(item.petObj._id, { quantity: item.petObj.quantity - item.itemCartQuantity }, {}, (err) => {
       if (err) { console.log(err); }
       console.log("Updated cart instance")
     });
 
-    // Pet.updateOne(
-    //   { _id: item.petObj._id },  // <-- find stage
-    //   { $set: {                // <-- set stage
-    //     quantity: item.petObj.quantity - item.itemCartQuantity
-    //     }
-    //   }
-    // )
-
   });
-  console.log("wat")
+
+  console.log("done adjusting count")
   res.send("Adjusted cart content")
 });
 
@@ -75,9 +64,9 @@ router.delete("/wipe", (req, res) => {
 });
 
 router.post("/create-checkout-session", async (req, res) => {
-  console.log("here2")
-  console.log(req.body.items)
-  console.log(req.body.user)
+  // console.log("here2")
+  // console.log(req.body.items)
+  // console.log(req.body.user)
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
