@@ -10,6 +10,7 @@ const passport = require("passport");
 const authRoutes = require("./routes/authRoutes");
 const petRoutes = require("./routes/petRoutes");
 const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 const bodyParser = require('body-parser')
 const app = express();
 
@@ -49,6 +50,7 @@ app.use(cookieParser("secretcode"))
 app.use("/auth", authRoutes);
 app.use("/pets", petRoutes);
 app.use("/cart", cartRoutes);
+app.use("/orders", orderRoutes);
 
 app.listen("5000", () => {
   console.log("Server is running!");
