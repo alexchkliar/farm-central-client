@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from "react";
-import Order from '../components/Order';
+import Sale from '../components/Sale';
 
-const Orders = ({ user }) => {
-  const [userOrders, setUserOrders] = useState([]);
+const Sales = ({ user }) => {
+  const [salesOrders, setSalesOrders] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/orders/").then(res => {
+    fetch("http://localhost:5000/sold/").then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return
-      console.log(jsonRes.order_list)
+      console.log(jsonRes.sale_list)
 
-      setUserOrders(jsonRes.order_list.filter((item) => {
-        return (item.buyer === user._id)
-      }))
+      const itemsSoldArray = jsonRes.sale_list.map((item) => {
+        let itemSoldByCurrentUserArray = item.items.filter((subItem) => {
+          return subItem.petSeller === user._id
+        })
+        return [itemSoldByCurrentUserArray, item.buyer, item.date]
+      })
+
+      console.log(itemsSoldArray)
+      // const itemsSoldArrayMerged = [].concat.apply([], itemsSoldArray);
+      // const sellerArray = itemsSoldArrayMerged.filter((element) => {
+      //   return element.petSeller === user._id
+      // })
+      setSalesOrders(itemsSoldArray)
+      console.log(salesOrders)
       // .map(function (array) {
       //   return array.pet
       // }).filter(petInCart => petInCart === pet._id).length)
@@ -29,8 +40,8 @@ const Orders = ({ user }) => {
 
   return (
     <div>
-      {userOrders.map((order, index) => (
-        <Order key={order._id} id={order._id} items={order.items} date={order.date} />
+      {salesOrders.map((sale, index) => (
+        <Sale key={index} items={sale[0]} buyerId={sale[1]} date={sale[2]} />
       ))}
 
       {/* <ul>
@@ -47,4 +58,4 @@ const Orders = ({ user }) => {
   )
 }
 
-export default Orders;
+export default Sales;

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import Axios from 'axios';
 
 function CartCleanup({ user }) {
-  const [cartItems, setCartItems] = useState([]);
   const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 
   const registerNewOrder = useCallback((fullData) => {
@@ -66,7 +65,6 @@ function CartCleanup({ user }) {
           });
           return output[0];
         })
-        setCartItems(fullData) // this
         console.log("user")
         console.log(user)
         if (user) {
@@ -100,10 +98,8 @@ function CartCleanup({ user }) {
   }
 
   function redirect () {
-    // window.location = 'http://localhost:3000/'
+    window.location = 'http://localhost:3000/'
   }
-
-
 
   return (
     <>

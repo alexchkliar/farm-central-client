@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Pets from "./pages/Pets";
 import Cart from "./pages/Cart";
+import Orders from "./pages/Orders";
+import Sales from "./pages/Sales";
 import CartCleanup from './pages/CartCleanup';
 
 function App() {
@@ -66,6 +68,8 @@ function App() {
             <Route path="/cart" element={<Cart user={user} setCartNum={setCartNum} />} />
             <Route path="/cart_cleanup" element={<CartCleanup user={user} />}/>
             <Route path="/pets" element={<Pets user={user} setCartNum={setCartNum} />} />
+            <Route path="/orders" element={<Orders user={user} />} />
+            <Route path="/sold" element={<Sales user={user} />} />
             <Route
               path ="/login"
               element={user ? <Navigate to="/" /> : <Login />}

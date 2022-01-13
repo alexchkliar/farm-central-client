@@ -16,14 +16,15 @@ function Pets({ setCartNum, user }) {
         return res.json()
       }
     }).then((jsonRes) => {
-      const outputList = jsonRes.pet_list.filter(function (pet) {
-        return (pet.species === activePet || activePet === "All")
-      })
-      setMaxLength(outputList.length)
-      setPets(outputList.slice(0, 10))
+      if (user) {
+        const outputList = jsonRes.pet_list.filter(function (pet) {
+          return pet.seller !== user._id && (pet.species === activePet || activePet === "All")
+        })
+        setMaxLength(outputList.length)
+        setPets(outputList.slice(0, 10))
       }
-    )
-  }, [activePet])
+    })
+  }, [activePet, user])
 
   const fetchMoreData = () => {
     fetch("http://localhost:5000/pets").then(res => {
@@ -33,7 +34,7 @@ function Pets({ setCartNum, user }) {
     }).then((jsonRes) =>
       setPets(pets.concat(jsonRes.pet_list.filter(function (pet) {
         // return (pet.quantity >= 1 && (pet.species === activePet || activePet === "All"))
-        return (pet.species === activePet || activePet === "All")
+        return pet.seller !== user && (pet.species === activePet || activePet === "All")
       }).slice(pets.length, pets.length + 10)))
     )
   };

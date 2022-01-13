@@ -11,6 +11,7 @@ const authRoutes = require("./routes/authRoutes");
 const petRoutes = require("./routes/petRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const saleRoutes = require("./routes/saleRoutes");
 const bodyParser = require('body-parser')
 const app = express();
 
@@ -51,6 +52,7 @@ app.use("/auth", authRoutes);
 app.use("/pets", petRoutes);
 app.use("/cart", cartRoutes);
 app.use("/orders", orderRoutes);
+app.use("/sold", saleRoutes);
 
 app.listen("5000", () => {
   console.log("Server is running!");
