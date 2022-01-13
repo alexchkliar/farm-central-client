@@ -18,6 +18,9 @@ router.post("/add", (req, res) => {
 });
 
 router.post("/create_order", (req, res) => {
+  console.log("right here")
+  console.log(req.body.items)
+  console.log(req.body.buyer)
   const newOrder = new Order({
     items: req.body.items,
     buyer: req.body.buyer,
