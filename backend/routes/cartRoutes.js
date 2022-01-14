@@ -2,15 +2,15 @@ const router = require("express").Router();
 const passport = require("passport");
 const CartProduct = require('../models/cart')
 const Order = require('../models/order')
-const Pet = require('../models/pet')
+const Food = require('../models/food')
 cart_controller = require("../controllers/cartController");
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 
-const REDIRECT_URL = "http://localhost:3000/pets";
+const REDIRECT_URL = "http://localhost:3000/foods";
 
 router.post("/add", (req, res) => {
   const newCartProduct = new CartProduct({
-    pet: req.body.pet,
+    food: req.body.food,
     shopper: req.body.shopper,
   });
   newCartProduct.save();
@@ -30,9 +30,9 @@ router.post("/create_order", (req, res) => {
 });
 
 router.delete("/remove", (req, res) => {
-  // console.log(req.body.pet._id)
+  // console.log(req.body.food._id)
   // console.log(req.body.shopper)
-  CartProduct.findOneAndDelete( {pet: req.body.pet._id, shopper: req.body.shopper._id}, (err) => {
+  CartProduct.findOneAndDelete( {food: req.body.food._id, shopper: req.body.shopper._id}, (err) => {
     if (err) { console.log(err) }
   });
   res.send("Product removed from cart")
@@ -46,7 +46,7 @@ router.patch("/adjust", (req, res) => {
 
   req.body.cartItems.forEach(item => {
 
-    Pet.findByIdAndUpdate(item.petObj._id, { quantity: item.petObj.quantity - item.itemCartQuantity }, {}, (err) => {
+    Food.findByIdAndUpdate(item.foodObj._id, { quantity: item.foodObj.quantity - item.itemCartQuantity }, {}, (err) => {
       if (err) { console.log(err); }
       console.log("Updated cart instance")
     });
@@ -79,9 +79,9 @@ router.post("/create-checkout-session", async (req, res) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: item.petName,
+              name: item.foodName,
             },
-            unit_amount: item.petPrice * 100,
+            unit_amount: item.foodPrice * 100,
           },
           quantity: item.itemCartQuantity,
         }

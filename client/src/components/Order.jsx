@@ -5,7 +5,7 @@ const Order = ({ id, date, items }) => {
 
   useEffect(() => {
     const total = items.map((item) => (
-      item.petPrice * item.itemCartQuantity
+      item.foodPrice * item.itemCartQuantity
     )).reduce((a, b) => a + b, 0)
     setOrderTotal(total);
   }, [items]) // remove dependence?
@@ -18,11 +18,11 @@ const Order = ({ id, date, items }) => {
         <div key={index} className="" >
           Item {index + 1}
           <ul>
-            <li>Name: {item.petName} </li>
-            <li>Species: {item.petSpecies} </li>
-            <li>Price: {item.petPrice} </li>
+            <li>Name: {item.foodName} </li>
+            <li>Species: {item.foodSpecies} </li>
+            <li>Price: {item.foodPrice} </li>
             <li>Quantity: {item.itemCartQuantity} </li>
-            <li>Subtotal: ${item.petPrice * item.itemCartQuantity} </li>
+            <li>Subtotal: ${item.foodPrice * item.itemCartQuantity} </li>
           </ul>
         </div>
       ))}

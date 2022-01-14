@@ -32,10 +32,10 @@ const Sale = ({ buyerId, date, items }) => {
         <div key={index} className="" >
           Item {index + 1}
           <ul>
-            <li>Name: {item.petName} </li>
-            <li>Price: {item.petPrice} </li>
+            <li>Name: {item.foodName} </li>
+            <li>Price: {item.foodPrice} </li>
             <li>Quantity: {item.itemCartQuantity} </li>
-            <li>Subtotal: ${item.petPrice * item.itemCartQuantity} </li>
+            <li>Subtotal: ${item.foodPrice * item.itemCartQuantity} </li>
           </ul>
         </div>
       ))}

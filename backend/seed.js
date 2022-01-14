@@ -3,13 +3,13 @@ require('dotenv').config()
 console.log('Running seed');
 
 const async = require('async')
-const Pet = require('./models/pet')
+const Food = require('./models/food')
 const User = require('./models/user')
 const Cart = require('./models/cart')
 const Order = require('./models/order')
 const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose');
-const mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pomqy.mongodb.net/pet_central`;
+const mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pomqy.mongodb.net/food_central`;
 
 mongoose.connect(mongoDB, {
   useNewUrlParser: true, useUnifiedTopology: true
@@ -23,7 +23,7 @@ mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-const pets = []
+const foods = []
 const users = []
 
 function deleteEntries(model, cb) {
@@ -41,7 +41,7 @@ function deleteEntries(model, cb) {
 function deleteAllEntries(cb) {
   async.series([
     function(callback) {
-      deleteEntries(Pet, callback);
+      deleteEntries(Food, callback);
     },
     function(callback) {
       deleteEntries(User, callback);
@@ -57,37 +57,37 @@ function deleteAllEntries(cb) {
     cb);
 }
 
-function petCreate(name, species, breed, quantity, seller, price, photo, cb) {
-  petDetail = {name: name, species: species, breed: breed, quantity: quantity, seller: seller, price:price, photo: photo }
-  // if (dob != false) petDetail.birthDate = dob
-  const pet = new Pet(petDetail);
-  pet.save(function (err) {
+function foodCreate(name, species, breed, quantity, seller, price, photo, cb) {
+  foodDetail = {name: name, species: species, breed: breed, quantity: quantity, seller: seller, price:price, photo: photo }
+  // if (dob != false) foodDetail.birthDate = dob
+  const food = new Food(foodDetail);
+  food.save(function (err) {
     if (err) {
       cb(err, null)
       return
     }
-    console.log('New Pet: ' + pet);
-    pets.push(pet)
-    cb(null, pet)
+    console.log('New Food: ' + food);
+    foods.push(food)
+    cb(null, food)
   });
 }
 
-function createPets(cb) {
+function createFoods(cb) {
   async.series([
     function(callback) {
-      petCreate('Rufus', 'Dog', "Labrador", 99, users[1], 55, "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
+      foodCreate('Rufus', 'Dog', "Labrador", 99, users[1], 55, "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
     },
     function(callback) {
-      petCreate('Bob', 'Cat', "Scottish fold", 5, users[2], 45, "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-girl-cat-names-1606245046.jpg?crop=0.668xw:1.00xh;0.126xw,0&resize=980:*", callback);
+      foodCreate('Bob', 'Cat', "Scottish fold", 5, users[2], 45, "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-girl-cat-names-1606245046.jpg?crop=0.668xw:1.00xh;0.126xw,0&resize=980:*", callback);
     },
     function(callback) {
-      petCreate('Cosmo', 'Cat', 'Domestic shorthair', 4, users[1], 10, "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-girl-cat-names-1606245046.jpg?crop=0.668xw:1.00xh;0.126xw,0&resize=980:*", callback);
+      foodCreate('Cosmo', 'Cat', 'Domestic shorthair', 4, users[1], 10, "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-girl-cat-names-1606245046.jpg?crop=0.668xw:1.00xh;0.126xw,0&resize=980:*", callback);
     },
     function(callback) {
-      petCreate('Chirp', 'Bird', "Parakeet", 1, users[2], 11, "https://www.photoblog.com/learn/wp-content/uploads/2019/08/says-phoebe-bird-1024x683.jpg", callback);
+      foodCreate('Chirp', 'Bird', "Parakeet", 1, users[2], 11, "https://www.photoblog.com/learn/wp-content/uploads/2019/08/says-phoebe-bird-1024x683.jpg", callback);
     },
     function(callback) {
-      petCreate('Spot', 'Dog', "Hound", 55, users[1], 15, "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
+      foodCreate('Spot', 'Dog', "Hound", 55, users[1], 15, "https://animalso.com/wp-content/uploads/2018/04/Goldador-372x247.jpg", callback);
     }
     ],
   cb);
@@ -133,16 +133,16 @@ function createUsers(cb) {
 async.series([
     deleteAllEntries,
     createUsers,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
-    createPets,
+    createFoods,
+    createFoods,
+    createFoods,
+    createFoods,
+    createFoods,
+    createFoods,
+    createFoods,
+    createFoods,
+    createFoods,
+    createFoods,
   ],
   function(err, results) {
     if (err) {

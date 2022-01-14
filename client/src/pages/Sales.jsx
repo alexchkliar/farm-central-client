@@ -14,9 +14,9 @@ const Sales = ({ user }) => {
       const itemsSoldArray = jsonRes.sale_list.map((item) => {
         let itemSoldByCurrentUserArray = item.items.filter((subItem) => {
           console.log(subItem)
-          console.log(subItem.petSeller)
+          console.log(subItem.foodSeller)
           console.log(user._id)
-          return subItem.petSeller === user._id
+          return subItem.foodSeller === user._id
         })
         console.log(itemSoldByCurrentUserArray)
         return [itemSoldByCurrentUserArray, item.buyer, item.date]
@@ -25,20 +25,20 @@ const Sales = ({ user }) => {
       console.log(itemsSoldArray)
       // const itemsSoldArrayMerged = [].concat.apply([], itemsSoldArray);
       // const sellerArray = itemsSoldArrayMerged.filter((element) => {
-      //   return element.petSeller === user._id
+      //   return element.foodSeller === user._id
       // })
       setSalesOrders(itemsSoldArray.reverse())
       console.log(salesOrders)
       // .map(function (array) {
-      //   return array.pet
-      // }).filter(petInCart => petInCart === pet._id).length)
+      //   return array.food
+      // }).filter(foodInCart => foodInCart === food._id).length)
 
 
       // setUserOrders(jsonRes.order_list.filter(function (item) {
       //   return item.shopper === user._id
       // }).map(function (array) {
-      //   return array.pet
-      // }).filter(petInCart => petInCart === pet._id).length)
+      //   return array.food
+      // }).filter(foodInCart => foodInCart === food._id).length)
     })
   }, [user]) // remove dependence?
 
@@ -49,14 +49,14 @@ const Sales = ({ user }) => {
       ))}
 
       {/* <ul>
-        <li><img width="250" height="250" src={pet.photo} alt="" /></li>
-        <li>{pet.name}</li>
-        <li>{pet.species}</li>
-        <li>{pet.breed}</li>
-        <li>{pet.seller}</li>
-        <li>${pet.price}</li>
-        <li>{pet.quantity}</li>
-        <li>Number in your cart: {activePetCount}</li>
+        <li><img width="250" height="250" src={food.photo} alt="" /></li>
+        <li>{food.name}</li>
+        <li>{food.species}</li>
+        <li>{food.breed}</li>
+        <li>{food.seller}</li>
+        <li>${food.price}</li>
+        <li>{food.quantity}</li>
+        <li>Number in your cart: {activeFoodCount}</li>
       </ul> */}
     </div>
   )

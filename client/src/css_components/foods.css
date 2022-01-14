@@ -5,7 +5,7 @@
   justify-content: space-around;
 }
 
-.pet-card {
+.food-card {
   background-color: aqua;
   outline: 2px solid teal;
   border-radius: 5px;
@@ -17,26 +17,26 @@
   text-align: center;
 }
 
-.pet-wrapper {
+.food-wrapper {
   width: min(2000px, 90%);
   margin: 0 auto;
   margin-top: 10px;
 }
 
-.pet-selector-wrapper {
+.food-selector-wrapper {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
 
-.pet-selector-button {
+.food-selector-button {
     width: 75px;
     background-color: white;
     color: gray;
     border: none;
 }
 
-.active-pet {
+.active-food {
   box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.2);
   font-weight: bold;
 }
@@ -53,17 +53,17 @@
   margin-top: 16px;
 }
 
-.pet-ul {
+.food-ul {
   padding: 0;
   position: relative;
 }
 
-.list-pet-name {
+.list-food-name {
   font-size: 25px;
   font-weight: 500;
 }
 
-.pet-card-img {
+.food-card-img {
   width: 320px;
   height: 175px;
   object-fit: cover;
@@ -72,7 +72,7 @@
   margin-top: 10px;
 }
 
-.list-pet-price {
+.list-food-price {
   position: absolute;
   font-size: 17px;
   top: 16px;
@@ -86,7 +86,7 @@
   font-weight: bold;
 }
 
-.pet-cart {
+.food-cart {
   position: absolute;
   font-size: 35px;
   top: 18px;
@@ -94,7 +94,7 @@
   color: white;
 }
 
-.pet-cart-number {
+.food-cart-number {
   background-color: teal;
   position: absolute;
   font-size: 17px;

@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 // const passportLocal = require("passport-local").Strategy;
 const authRoutes = require("./routes/authRoutes");
-const petRoutes = require("./routes/petRoutes");
+const foodRoutes = require("./routes/foodRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const saleRoutes = require("./routes/saleRoutes");
@@ -17,7 +17,7 @@ const app = express();
 
 
 mongoose.connect(
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pomqy.mongodb.net/pet_central?retryWrites=true`,
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.pomqy.mongodb.net/food_central?retryWrites=true`,
   { useNewUrlParser: true, useUnifiedTopology: true }
 )
 
@@ -49,7 +49,7 @@ app.use(
 
 app.use(cookieParser("secretcode"))
 app.use("/auth", authRoutes);
-app.use("/pets", petRoutes);
+app.use("/foods", foodRoutes);
 app.use("/cart", cartRoutes);
 app.use("/orders", orderRoutes);
 app.use("/sold", saleRoutes);

@@ -52,7 +52,7 @@ const Login = () => {
         url: "http://localhost:5000/auth/register"
       }).then((res) => {
         if (res.data === "User Created") {
-          // window.location.href = "http://localhost:3000/pets";
+          // window.location.href = "http://localhost:3000/foods";
         }
         if (res.data === "User Already Exists") {
           console.log("Username already exists.")

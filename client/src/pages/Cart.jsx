@@ -13,30 +13,30 @@ function Cart({ user, setCartNum }) {
   useEffect(() => {
     Promise.all([
       fetch('http://localhost:5000/cart/fetch'),
-      fetch('http://localhost:5000/pets'),
+      fetch('http://localhost:5000/foods'),
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([data1, data2]) => {
-        const cartData = data1.cart_list.map((item) => { return item.pet })
+        const cartData = data1.cart_list.map((item) => { return item.food })
         const cartDataUnique = [...new Set(cartData)];
         const countData = cartDataUnique.map(item => {
           return countOccurrences(cartData, item)
         })
         const fullData = cartDataUnique.map((item, index) => {
           let output = []
-          data2.pet_list.forEach(pet => {
-            if (pet._id === item) {
+          data2.food_list.forEach(food => {
+            if (food._id === item) {
               output.push({
                 itemCartQuantity: countData[index],
-                petId: pet._id,
-                petName: pet.name,
-                petSpecies: pet.species,
-                petBreed: pet.breed,
-                petPrice: pet.price,
-                petPhoto: pet.photo,
-                petQuantity: pet.quantity,
-                petSeller: pet.seller,
-                petObj: pet
+                foodId: food._id,
+                foodName: food.name,
+                foodSpecies: food.species,
+                foodBreed: food.breed,
+                foodPrice: food.price,
+                foodPhoto: food.photo,
+                foodQuantity: food.quantity,
+                foodSeller: food.seller,
+                foodObj: food
               })
             }
           });
@@ -45,7 +45,7 @@ function Cart({ user, setCartNum }) {
         console.log(fullData)
 
         const priceTotal = fullData.map(item => {
-          return (item.itemCartQuantity * item.petPrice)
+          return (item.itemCartQuantity * item.foodPrice)
         }).reduce((partial_sum, a) => partial_sum + a, 0)
         console.log("before here 1?")
         setCartItems(fullData) // this
@@ -92,17 +92,17 @@ function Cart({ user, setCartNum }) {
       <h1>Header</h1>
       {cartItems.map((cartItem, index) => (
         <CartItem
-          key={cartItem.petId}
-          id={cartItem.petId}
-          url={cartItem.petPhoto}
+          key={cartItem.foodId}
+          id={cartItem.foodId}
+          url={cartItem.foodPhoto}
           quantityInCart={cartItem.itemCartQuantity}
-          name={cartItem.petName}
-          breed={cartItem.petBreed}
-          species={cartItem.petSpecies}
-          price={cartItem.petPrice}
-          quantityAvailable={cartItem.petQuantity}
-          seller={cartItem.petSeller}
-          pet={cartItem.petObj}
+          name={cartItem.foodName}
+          breed={cartItem.foodBreed}
+          species={cartItem.foodSpecies}
+          price={cartItem.foodPrice}
+          quantityAvailable={cartItem.foodQuantity}
+          seller={cartItem.foodSeller}
+          food={cartItem.foodObj}
           user={user}
           setCartNum={setCartNum}
           setTotalPrice={setTotalPrice}

@@ -27,9 +27,9 @@ const Navigation = ({ user, cartNum, refresh}) => {
             <NavDropdown.Item href="/orders">My orders</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/sold">My sold items</NavDropdown.Item>
-            <NavDropdown.Item href="/pets">My listings</NavDropdown.Item>
+            <NavDropdown.Item href="/foods">My listings</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href="/pets">Browse pets</Nav.Link>
+          <Nav.Link href="/foods">Browse foods</Nav.Link>
           { user ?
             (<> <Nav.Link href="/#">{user.username + " profile"}</Nav.Link>
             <Nav.Link onClick={logout}>Logout</Nav.Link></>) :

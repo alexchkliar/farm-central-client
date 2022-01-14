@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const PetSchema = new Schema({
+const FoodSchema = new Schema({
   name: { type: String, required: true, maxLength: 100 },
   species: { type: String, required: true, maxLength: 100 },
   breed: { type: String, maxLength: 100 },
@@ -13,14 +13,14 @@ const PetSchema = new Schema({
   photo: { type: String }
 });
 
-// Virtual for this pet instance URL.
-PetSchema.virtual('url').get(function() {
-  return '/catalog/pet/' + this._id;
+// Virtual for this food instance URL.
+FoodSchema.virtual('url').get(function() {
+  return '/catalog/food/' + this._id;
 });
 
-// PetSchema.virtual('birthDate_yyyy_mm_dd').get(function() {
+// FoodSchema.virtual('birthDate_yyyy_mm_dd').get(function() {
 //   return DateTime.fromJSDate(this.birthDate).toISODate(); //format 'YYYY-MM-DD'
 // });
 
 // Export model.
-module.exports = mongoose.model('Pet', PetSchema);
+module.exports = mongoose.model('Food', FoodSchema);

@@ -33,8 +33,8 @@ const Login = () => {
       if (res.data === "Successfully Authenticated") {
         console.log("redirecting");
         // navigate("/");
-        // window.open("http://localhost:3000/pets", "_self");
-        window.location.href = "http://localhost:3000/pets";
+        // window.open("http://localhost:3000/foods", "_self");
+        window.location.href = "http://localhost:3000/foods";
       } else {
         setAlertClass("alert alert-danger")
         setValidation("Incorrect username or password.")

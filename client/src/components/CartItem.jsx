@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from 'axios';
 
-const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, species, price, name, pet, user, setCartNum, setTotalPrice, setCartRefreshTrigger }) => {
+const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, species, price, name, food, user, setCartNum, setTotalPrice, setCartRefreshTrigger }) => {
   const [itemQuantity, setItemQuantity] = useState(quantityInCart);
 
   // useEffect(() => {
@@ -9,11 +9,11 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
   //     return res.json()
   //   }).then((jsonRes) => {
   //     if (user === null) return
-  //     setActivePetCount(jsonRes.cart_list.filter(function (item) {
+  //     setActiveFoodCount(jsonRes.cart_list.filter(function (item) {
   //       return item.shopper === user._id
   //     }).map(function (array) {
-  //       return array.pet
-  //     }).filter(petInCart => petInCart === pet._id).length)
+  //       return array.food
+  //     }).filter(foodInCart => foodInCart === food._id).length)
   //   })
   // }, []) // remove user dependence?
 
@@ -22,12 +22,12 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
     // console.log(cartItems)
     console.log(e.target.value)
     console.log("add")
-    console.log(pet)
+    console.log(food)
     if (itemQuantity < quantityAvailable) {
       Axios({
         method: "POST",
         data: {
-          pet: pet,
+          food: food,
           shopper: user
         },
         withCredentials: true,
@@ -47,12 +47,12 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
   function remove(e) {
     console.log(e.target.value)
     console.log("remove")
-    console.log(pet)
+    console.log(food)
     if (itemQuantity >= 1) {
       Axios({
         method: "DELETE",
         data: {
-          pet: pet,
+          food: food,
           shopper: user
         },
         withCredentials: true,
@@ -73,7 +73,7 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
     <div className="abc">
       <ul>
         <li>Photo URL: {url}</li>
-        <li>Pet ID: {id}</li>
+        <li>Food ID: {id}</li>
         <li>Name: {name}</li>
         <li>Breed: {breed}</li>
         <li>Species: {species}</li>

@@ -16,15 +16,15 @@ const Orders = ({ user }) => {
         return (item.buyer === user._id)
       }).reverse()) // reversing so it renders in reverse chronological order
       // .map(function (array) {
-      //   return array.pet
-      // }).filter(petInCart => petInCart === pet._id).length)
+      //   return array.food
+      // }).filter(foodInCart => foodInCart === food._id).length)
 
 
       // setUserOrders(jsonRes.order_list.filter(function (item) {
       //   return item.shopper === user._id
       // }).map(function (array) {
-      //   return array.pet
-      // }).filter(petInCart => petInCart === pet._id).length)
+      //   return array.food
+      // }).filter(foodInCart => foodInCart === food._id).length)
     })
   }, [user]) // remove dependence?
 
@@ -35,14 +35,14 @@ const Orders = ({ user }) => {
       ))}
 
       {/* <ul>
-        <li><img width="250" height="250" src={pet.photo} alt="" /></li>
-        <li>{pet.name}</li>
-        <li>{pet.species}</li>
-        <li>{pet.breed}</li>
-        <li>{pet.seller}</li>
-        <li>${pet.price}</li>
-        <li>{pet.quantity}</li>
-        <li>Number in your cart: {activePetCount}</li>
+        <li><img width="250" height="250" src={food.photo} alt="" /></li>
+        <li>{food.name}</li>
+        <li>{food.species}</li>
+        <li>{food.breed}</li>
+        <li>{food.seller}</li>
+        <li>${food.price}</li>
+        <li>{food.quantity}</li>
+        <li>Number in your cart: {activeFoodCount}</li>
       </ul> */}
     </div>
   )

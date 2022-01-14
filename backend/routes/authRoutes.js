@@ -3,7 +3,7 @@ const passport = require("passport");
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 
-const REDIRECT_URL = "http://localhost:3000/pets";
+const REDIRECT_URL = "http://localhost:3000/foods";
 
 router.get("/login/success", (req, res) => {
   if (req.user) {
