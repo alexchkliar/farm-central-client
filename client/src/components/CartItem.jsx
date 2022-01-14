@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from 'axios';
 
-const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, species, price, name, pet, user, setCartNum, setTotalPrice }) => {
+const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, species, price, name, pet, user, setCartNum, setTotalPrice, setCartRefreshTrigger }) => {
   const [itemQuantity, setItemQuantity] = useState(quantityInCart);
 
   // useEffect(() => {
@@ -19,6 +19,7 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
 
 
   function add(e) {
+    // console.log(cartItems)
     console.log(e.target.value)
     console.log("add")
     console.log(pet)
@@ -33,8 +34,9 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
         url: "http://localhost:5000/cart/add"
       }).then((res) => {
         setItemQuantity(currentItemQuantity => currentItemQuantity + 1)
-        setCartNum(currentCartNum => currentCartNum + 1);
-        setTotalPrice(currentTotalPrice => currentTotalPrice + price);
+        setCartNum(currentCartNum => currentCartNum + 1)
+        setTotalPrice(currentTotalPrice => currentTotalPrice + price)
+        setCartRefreshTrigger(x => x + 1)
         console.log(res.data);
       }).catch(err => {
         console.log(err)
@@ -57,8 +59,9 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
         url: "http://localhost:5000/cart/remove"
       }).then((res) => {
         setItemQuantity(currentItemQuantity => currentItemQuantity -1)
-        setCartNum(currentCartNum => currentCartNum - 1);
-        setTotalPrice(currentTotalPrice => currentTotalPrice - price);
+        setCartNum(currentCartNum => currentCartNum - 1)
+        setTotalPrice(currentTotalPrice => currentTotalPrice - price)
+        setCartRefreshTrigger(x => x + 1)
         console.log(res.data);
       }).catch(err => {
         console.log(err)

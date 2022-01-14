@@ -64,6 +64,7 @@ const Login = () => {
                 required
                 onChange={e => setUsername(e.target.value)}
               />
+              <div className="mt-3 w-100" role="alert"> {} </div>
               {/* <Form.Control.Feedback type="invalid">
                 Please input a valid username. {usernameValidation}
               </Form.Control.Feedback> */}

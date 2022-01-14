@@ -9,6 +9,7 @@ function Pets({ setCartNum, user }) {
   const [pets, setPets] = useState([]);
   const [maxLength, setMaxLength] = useState(0);
   const [productList, setProductList] = useState([]);
+  const loadItems = 27 // works best with 1440p
 
   useEffect(() => {
     fetch("http://localhost:5000/pets").then(res => {
@@ -21,7 +22,7 @@ function Pets({ setCartNum, user }) {
           return pet.seller !== user._id && (pet.species === activePet || activePet === "All")
         })
         setMaxLength(outputList.length)
-        setPets(outputList.slice(0, 27))
+        setPets(outputList.slice(0, loadItems))
       }
     })
   }, [activePet, user])
@@ -35,7 +36,7 @@ function Pets({ setCartNum, user }) {
       setPets(pets.concat(jsonRes.pet_list.filter(function (pet) {
         // return (pet.quantity >= 1 && (pet.species === activePet || activePet === "All"))
         return pet.seller !== user && (pet.species === activePet || activePet === "All")
-      }).slice(pets.length, pets.length + 27)))
+      }).slice(pets.length, pets.length + loadItems)))
     )
   };
 
@@ -82,15 +83,16 @@ function Pets({ setCartNum, user }) {
   }, [user]) // remove user dependence?
 
   return (
-    <div>
+    <div className="">
       <h1>Header</h1>
+      <div className="pet-selector-wrapper">
+        <button className={"pet-selector-button " + (activePet === "All" ? "active-pet" : "")} onClick={() => setActivePet("All")} value="All">All</button>
+        <button className={"pet-selector-button " + (activePet === "Cat" ? "active-pet" : "")} onClick={() => setActivePet("Cat")} value="Cat">Cats</button>
+        <button className={"pet-selector-button " + (activePet === "Dog" ? "active-pet" : "")} onClick={() => setActivePet("Dog")} value="Dog">Dogs</button>
+        <button className={"pet-selector-button " + (activePet === "Bird" ? "active-pet" : "")} onClick={() => setActivePet("Bird")} value="Bird">Birds</button>
+      </div>
 
-      <button onClick={() => setActivePet("All")} value="All">All</button>
-      <button onClick={() => setActivePet("Cat")} value="Cat">Cats</button>
-      <button onClick={() => setActivePet("Dog")} value="Dog">Dogs</button>
-      <button onClick={() => setActivePet("Bird")} value="Bird">Birds</button>
-
-      <div>
+      <div className="pet-wrapper">
         <InfiniteScroll
           dataLength={pets.length}
           next={fetchMoreData}

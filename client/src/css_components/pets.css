@@ -1,4 +1,111 @@
 .infinite-scroll-component {
   display: flex;
   flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: space-around;
+}
+
+.pet-card {
+  background-color: aqua;
+  outline: 2px solid teal;
+  border-radius: 5px;
+  margin: 15px 0px;
+  width: min(350px, 95%);
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.pet-wrapper {
+  width: min(2000px, 90%);
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.pet-selector-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.pet-selector-button {
+    width: 75px;
+    background-color: white;
+    color: gray;
+    border: none;
+}
+
+.active-pet {
+  box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+.add-to-cart-button {
+  width: 100%;
+  height: 45px;
+  border-radius: 3px;
+  border: none;
+  outline: 3px solid teal;
+  color: teal;
+  font-weight: bold;
+  background-color: white;
+  margin-top: 16px;
+}
+
+.pet-ul {
+  padding: 0;
+  position: relative;
+}
+
+.list-pet-name {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.pet-card-img {
+  width: 320px;
+  height: 175px;
+  object-fit: cover;
+  outline: 3px solid teal;
+  border-radius: 3px;
+  margin-top: 10px;
+}
+
+.list-pet-price {
+  position: absolute;
+  font-size: 17px;
+  top: 16px;
+  right: 8px;
+  background-color: teal;
+  width: 60px;
+  padding: 2px 5px;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.pet-cart {
+  position: absolute;
+  font-size: 35px;
+  top: 18px;
+  left: 15px;
+  color: white;
+}
+
+.pet-cart-number {
+  background-color: teal;
+  position: absolute;
+  font-size: 17px;
+  top: 12px;
+  left: 45px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-weight: bold;
+  border: 2px solid white;
+  color: white;
+  line-height:24px;
+  text-align: center;
 }

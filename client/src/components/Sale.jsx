@@ -25,6 +25,7 @@ const Sale = ({ buyerId, date, items }) => {
 
   return (
     <div className="" >
+      Test
       <li>Buyer: {buyerId}, placed on {date}</li>
       {items.map((item, index) => (
         // <li><img width="250" height="250" src={order.photo} alt="" /></li>
@@ -32,7 +33,6 @@ const Sale = ({ buyerId, date, items }) => {
           Item {index + 1}
           <ul>
             <li>Name: {item.petName} </li>
-            <li>Species: {item.petSpecies} </li>
             <li>Price: {item.petPrice} </li>
             <li>Quantity: {item.itemCartQuantity} </li>
             <li>Subtotal: ${item.petPrice * item.itemCartQuantity} </li>

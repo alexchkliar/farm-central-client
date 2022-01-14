@@ -4,6 +4,7 @@ import Order from '../components/Order';
 const Orders = ({ user }) => {
   const [userOrders, setUserOrders] = useState([]);
 
+
   useEffect(() => {
     fetch("http://localhost:5000/orders/").then(res => {
       return res.json()
@@ -13,7 +14,7 @@ const Orders = ({ user }) => {
 
       setUserOrders(jsonRes.order_list.filter((item) => {
         return (item.buyer === user._id)
-      }))
+      }).reverse()) // reversing so it renders in reverse chronological order
       // .map(function (array) {
       //   return array.pet
       // }).filter(petInCart => petInCart === pet._id).length)

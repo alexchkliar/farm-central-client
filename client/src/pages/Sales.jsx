@@ -13,8 +13,12 @@ const Sales = ({ user }) => {
 
       const itemsSoldArray = jsonRes.sale_list.map((item) => {
         let itemSoldByCurrentUserArray = item.items.filter((subItem) => {
+          console.log(subItem)
+          console.log(subItem.petSeller)
+          console.log(user._id)
           return subItem.petSeller === user._id
         })
+        console.log(itemSoldByCurrentUserArray)
         return [itemSoldByCurrentUserArray, item.buyer, item.date]
       })
 
@@ -23,7 +27,7 @@ const Sales = ({ user }) => {
       // const sellerArray = itemsSoldArrayMerged.filter((element) => {
       //   return element.petSeller === user._id
       // })
-      setSalesOrders(itemsSoldArray)
+      setSalesOrders(itemsSoldArray.reverse())
       console.log(salesOrders)
       // .map(function (array) {
       //   return array.pet

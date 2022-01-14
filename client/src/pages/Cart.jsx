@@ -6,6 +6,7 @@ import CartItem from '../components/CartItem';
 function Cart({ user, setCartNum }) {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [cartRefreshTrigger, setCartRefreshTrigger] = useState(0);
 
   const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 
@@ -46,15 +47,17 @@ function Cart({ user, setCartNum }) {
         const priceTotal = fullData.map(item => {
           return (item.itemCartQuantity * item.petPrice)
         }).reduce((partial_sum, a) => partial_sum + a, 0)
+        console.log("before here 1?")
         setCartItems(fullData) // this
+        console.log("before here 2?")
         setTotalPrice(priceTotal) // this
       })
       .catch(err => {
         console.log(err)
       })
-  }, [])
+  }, [cartRefreshTrigger])
 
-    function accessStripeCart() {
+  function accessStripeCart() {
     console.log("here")
     fetch('http://localhost:5000/cart/create-checkout-session', {
       method: "POST",
@@ -103,6 +106,8 @@ function Cart({ user, setCartNum }) {
           user={user}
           setCartNum={setCartNum}
           setTotalPrice={setTotalPrice}
+          setCartItems={setCartItems}
+          setCartRefreshTrigger={setCartRefreshTrigger}
         />
       ))}
 
