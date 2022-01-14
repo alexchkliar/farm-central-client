@@ -1,5 +1,5 @@
 import './App.css';
-import Navbar from './components/Navbar';
+import Navigation from './components/Navbar';
 import Home from './pages/Home';
 import Post from './pages/Post';
 import Login from './pages/Login';
@@ -9,6 +9,7 @@ import Pets from "./pages/Pets";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Sales from "./pages/Sales";
+import Register from "./pages/Register";
 import CartCleanup from './pages/CartCleanup';
 
 function App() {
@@ -61,7 +62,7 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <Navbar user={user} cartNum={cartNum} />
+        <Navigation user={user} cartNum={cartNum} />
         <Routes>
           <Route>
             <Route path ="/" element={<Home />} />
@@ -70,6 +71,7 @@ function App() {
             <Route path="/pets" element={<Pets user={user} setCartNum={setCartNum} />} />
             <Route path="/orders" element={<Orders user={user} />} />
             <Route path="/sold" element={<Sales user={user} />} />
+            <Route path="/register" element={<Register user={user} />} />
             <Route
               path ="/login"
               element={user ? <Navigate to="/" /> : <Login />}

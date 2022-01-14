@@ -1,36 +1,26 @@
 import Google from "../img/googpng.png"
-import GitHub from "../img/githubpng.png"
-import Facebook from "../img/fbpng.png"
 import React, { useState } from "react";
 import Axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+import '../css_components/authentication.css';
+import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap'
 
 const Login = () => {
+  const [validated, setValidated] = useState(false);
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   const google = () => {
     window.open("http://localhost:5000/auth/google", "_self"); // can replace with window.location.href
   };
 
-  const facebook = () => {
-    window.open("http://localhost:5000/auth/facebook", "_self"); // can replace with window.location.href
-  };
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
 
-  const register = (e) => {
-    e.preventDefault();
-    Axios({
-      method: "POST",
-      data: {
-        username: registerUsername,
-        password: registerPassword
-      },
-      withCredentials: true,
-      url:"http://localhost:5000/auth/register"
-    }).then((res) => console.log(res))
-  }
-
-  // const navigate = useNavigate();
-  const login = (e) => {
-    e.preventDefault();
     Axios({
       method: "POST",
       data: {
@@ -41,69 +31,68 @@ const Login = () => {
       url: "http://localhost:5000/auth/login"
     }).then((res) => {
       console.log(res.data);
-      if (res.data === "Successfully Authenticated"){
+      if (res.data === "Successfully Authenticated") {
         console.log("redirecting");
         // navigate("/");
         // window.open("http://localhost:3000/pets", "_self");
         window.location.href = "http://localhost:3000/pets";
-    }})
-  }
-
-  const getUser = (e) => {
-    e.preventDefault();
-    Axios({
-      method: "GET",
-      withCredentials: true,
-      url: "http://localhost:5000/auth/user"
-    }).then((res) => console.log(res))
-  }
-
-
-  const [registerUsername, setRegisterUsername] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [loginUsername, setLoginUsername] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+      }
+    })
+  };
 
   return (
     <div className="login">
+
       <h1 className="loginTitle">Choose a login method</h1>
-      <div className="wrapper">
-        <div className="left">
-          <div className="loginButton google" onClick={google}>
-            <img src={Google} alt="" className="icon" />
-            Google
-          </div>
-          <div className="loginButton facebook">
-            <img src={Facebook} alt="" className="icon" onClick={facebook}/>
-            Facebook
-          </div>
-          <div className="loginButton github">
-            <img src={GitHub} alt="" className="icon" />
-            Github
-          </div>
-        </div>
-        <div className="center">
-          <div className="line"></div>
-          <div className="or">OR</div>
-        </div>
-        <div className="right">
-          <form>
-            <input type="text" placeholder="Username" onChange={e => setRegisterUsername(e.target.value) }/>
-            <input type="text" placeholder="Password" onChange={e => setRegisterPassword(e.target.value) } />
-            <button className="submit" onClick={register}>Register</button>
-          </form>
-          <br />
-          <form>
-            <input type="text" placeholder="Username" onChange={e => setLoginUsername(e.target.value) } />
-            <input type="text" placeholder="Password" onChange={e => setLoginPassword(e.target.value) } />
-            <button className="submit" onClick={login}>Login</button>
-          </form>
 
-          <h2>get user</h2>
-          <button className="submit" onClick={getUser}>Get user</button>
-
-        </div>
+      <div className="loginButton google" md="4" onClick={google}>
+        <div className="left-google"><img src={Google} alt="" className="icon" /></div>
+        <div className="right-google w-100">Sign in with Google</div>
       </div>
+
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="validationCustomUsername">
+            <Form.Label>Username</Form.Label>
+            <InputGroup hasValidation>
+              <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                aria-describedby="inputGroupPrepend"
+                required
+                onChange={e => setLoginUsername(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please input a username.
+              </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="validationCustom05">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              required
+              onChange={e => setLoginPassword(e.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid password.
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        {/* <Form.Group className="mb-3">
+          <Form.Check
+            required
+            label="Agree to terms and conditions"
+            feedback="You must agree before submitting."
+            feedbackType="invalid"
+          />
+        </Form.Group> */}
+        <Button type="submit" className="w-100" >Login</Button>
+      </Form>
     </div>
   )
 }

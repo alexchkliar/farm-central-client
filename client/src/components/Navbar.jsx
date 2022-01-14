@@ -1,36 +1,42 @@
-import { Link } from "react-router-dom";
+import logo from '../img/farm-logo.png';
+// import { Link } from "react-router-dom";
+import '../App.css';
+import '../css_components/navbar.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 
-const Navbar = ({ user, cartNum, refresh}) => {
+const Navigation = ({ user, cartNum, refresh}) => {
 
   const logout = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
   }
   // console.log(user)
   return (
-    <div className="navbar">
-      <span className="logo">
-        <Link className="link" to="/pets">Cool App</Link>
-        <Link className="link" to="/orders">Orders</Link>
-        <Link className="link" to="/sold">Sold</Link>
-      </span>
-      <p></p>
-      { user ? (
-        <ul className="list">
-          <li className="listItem">
-            {/* <img
-              src={user.photos[0].value}
-              alt=""
-              className="avatar"
-              /> */}
-          </li>
-          <li className="listItem">{user.username}</li>
-          <li className="listItem" onClick={logout}>Logout</li>
-        </ul>
-        ) : ( <Link className="link" to="login">Login</Link> )
-      }
-      <Link className="link" to="/cart">{refresh} Cart ({cartNum})</Link>
-    </div>
+    <Navbar bg="dark" variant="dark"
+      sticky="top" expand="sm" collapseOnSelect>
+      <Navbar.Brand>
+        FarmCentral
+      </Navbar.Brand>
+
+      <Navbar.Toggle className="coloring" />
+      <Navbar.Collapse>
+        <Nav>
+          <NavDropdown title="Orders">
+            <NavDropdown.Item href="/orders">My orders</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/sold">My sold items</NavDropdown.Item>
+            <NavDropdown.Item href="/pets">My listings</NavDropdown.Item>
+          </NavDropdown>
+          <Nav.Link href="/pets">Browse pets</Nav.Link>
+          { user ?
+            ( <Nav.Link onClick={logout}>Logout</Nav.Link>) :
+            (<> <Nav.Link href="/register">Sign up</Nav.Link>
+            <Nav.Link href="/login">Login</Nav.Link> </>)
+          }
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   )
 }
 
-export default Navbar;
+export default Navigation;
