@@ -4,6 +4,8 @@ import '../App.css';
 import '../css_components/navbar.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
 const Navigation = ({ user, cartNum, refresh}) => {
 
@@ -34,6 +36,9 @@ const Navigation = ({ user, cartNum, refresh}) => {
             (<> <Nav.Link href="/register">Sign up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link> </>)
           }
+          <i className="far fa-shopping-cart"></i>
+          <Nav.Link href="/cart"><FontAwesomeIcon icon={faShoppingCart} className="font-awesome-icon" /> <span className="cart-number">({cartNum})</span></Nav.Link>
+
         </Nav>
 
       </Navbar.Collapse>

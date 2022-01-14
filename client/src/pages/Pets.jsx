@@ -21,7 +21,7 @@ function Pets({ setCartNum, user }) {
           return pet.seller !== user._id && (pet.species === activePet || activePet === "All")
         })
         setMaxLength(outputList.length)
-        setPets(outputList.slice(0, 10))
+        setPets(outputList.slice(0, 27))
       }
     })
   }, [activePet, user])
@@ -35,7 +35,7 @@ function Pets({ setCartNum, user }) {
       setPets(pets.concat(jsonRes.pet_list.filter(function (pet) {
         // return (pet.quantity >= 1 && (pet.species === activePet || activePet === "All"))
         return pet.seller !== user && (pet.species === activePet || activePet === "All")
-      }).slice(pets.length, pets.length + 10)))
+      }).slice(pets.length, pets.length + 27)))
     )
   };
 
