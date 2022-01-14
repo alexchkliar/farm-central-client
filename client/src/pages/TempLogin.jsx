@@ -3,28 +3,29 @@ import React, { useState } from "react";
 import Axios from 'axios';
 import '../css_components/authentication.css';
 import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap'
-// import { useNavigate } from 'react-router-dom';
-
-
 
 const Login = () => {
-
-  const [validation, setValidation] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [alertClass, setAlertClass] = useState("");
+  const [validated, setValidated] = useState(false);
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   const google = () => {
     window.open("http://localhost:5000/auth/google", "_self"); // can replace with window.location.href
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+
     Axios({
       method: "POST",
       data: {
-        username: username,
-        password: password
+        username: loginUsername,
+        password: loginPassword
       },
       withCredentials: true,
       url: "http://localhost:5000/auth/login"
@@ -35,23 +36,21 @@ const Login = () => {
         // navigate("/");
         // window.open("http://localhost:3000/pets", "_self");
         window.location.href = "http://localhost:3000/pets";
-      } else {
-        setAlertClass("alert alert-danger")
-        setValidation("Incorrect username or password.")
       }
     })
   };
 
   return (
-    <div className="login mt-3">
-      <h1 className="login-title mb-5">Sign in</h1>
-      <div className="google" md="4" onClick={google}>
+    <div className="login">
+
+      <h1 className="loginTitle">Choose a login method</h1>
+
+      <div className="loginButton google" md="4" onClick={google}>
         <div className="left-google"><img src={Google} alt="" className="icon" /></div>
         <div className="right-google w-100">Sign in with Google</div>
       </div>
-      <div className="separator-line"></div>
 
-      <Form noValidate onSubmit={handleSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="validationCustomUsername">
             <Form.Label>Username</Form.Label>
@@ -62,11 +61,11 @@ const Login = () => {
                 placeholder="Username"
                 aria-describedby="inputGroupPrepend"
                 required
-                onChange={e => setUsername(e.target.value)}
+                onChange={e => setLoginUsername(e.target.value)}
               />
-              {/* <Form.Control.Feedback type="invalid">
-                Please input a valid username. {usernameValidation}
-              </Form.Control.Feedback> */}
+              <Form.Control.Feedback type="invalid">
+                Please input a username.
+              </Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
         </Row>
@@ -77,12 +76,11 @@ const Login = () => {
               type="password"
               placeholder="Password"
               required
-              onChange={e => setPassword(e.target.value)}
+              onChange={e => setLoginPassword(e.target.value)}
             />
-            <div className={alertClass + " mt-3 w-100"} role="alert"> {validation} </div>
-            {/* <Form.Control.Feedback type="invalid">
-              Please provide a valid password. {passwordValidation}
-            </Form.Control.Feedback> */}
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid password.
+            </Form.Control.Feedback>
           </Form.Group>
         </Row>
         {/* <Form.Group className="mb-3">
@@ -93,10 +91,8 @@ const Login = () => {
             feedbackType="invalid"
           />
         </Form.Group> */}
-        <Button type="submit" className="w-100" >Sign in</Button>
+        <Button type="submit" className="w-100" >Login</Button>
       </Form>
-      <br />
-      <div className="sign-in-prompt">Don't have an account? <a href="/login">Register now!</a></div>
     </div>
   )
 }

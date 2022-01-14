@@ -9,7 +9,6 @@ import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap'
 
 const Login = () => {
 
-  const [validated, setValidated] = useState(false);
   const [usernameValidation, setUsernameValidation] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
   const [username, setUsername] = useState("");

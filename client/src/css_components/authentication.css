@@ -34,3 +34,33 @@
   border-radius: 2px;
   outline: 2px solid rgba(66, 133, 244, 1);
 }
+
+.separator-line {
+  border-bottom: 2px solid rgba(150, 150, 150, 0.3);
+  width: 80%;
+  margin: 15px auto;
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.login {
+  margin: 0 auto;
+  width: min(500px, 80%);
+  border-radius: 5px;
+  padding: 20px;
+  background: rgba(150, 150, 150, 0.1);
+  outline: 1px solid rgba(150, 150, 150, 0.5);
+  box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.sign-in-prompt {
+  text-align: center;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 25px;
+}
