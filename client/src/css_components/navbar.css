@@ -4,10 +4,14 @@
 }
 
 .content {
-  padding: 12px;
+  /* padding: 12px; */
   height: 3000px;
 }
 
 .coloring {
   color: black;
+}
+
+.nav-link {
+  margin-left: 25px;
 }

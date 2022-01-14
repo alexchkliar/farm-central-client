@@ -13,8 +13,8 @@ const Navigation = ({ user, cartNum, refresh}) => {
   // console.log(user)
   return (
     <Navbar bg="dark" variant="dark"
-      sticky="top" expand="sm" collapseOnSelect>
-      <Navbar.Brand>
+      sticky="top" expand="sm" collapseOnSelect >
+      <Navbar.Brand href="/">
         FarmCentral
       </Navbar.Brand>
 
@@ -29,12 +29,15 @@ const Navigation = ({ user, cartNum, refresh}) => {
           </NavDropdown>
           <Nav.Link href="/pets">Browse pets</Nav.Link>
           { user ?
-            ( <Nav.Link onClick={logout}>Logout</Nav.Link>) :
+            (<> <Nav.Link href="/#">{user.username + " profile"}</Nav.Link>
+            <Nav.Link onClick={logout}>Logout</Nav.Link></>) :
             (<> <Nav.Link href="/register">Sign up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link> </>)
           }
         </Nav>
+
       </Navbar.Collapse>
+
     </Navbar>
   )
 }
