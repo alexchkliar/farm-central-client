@@ -3,7 +3,7 @@ import CartItem from '../components/CartItem';
 
 // import StripeCheckout from 'react-stripe-checkout'
 
-function Cart({ user, setCartNum }) {
+function Cart({ user, setCartNum, userList }) {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartRefreshTrigger, setCartRefreshTrigger] = useState(0);
@@ -50,7 +50,7 @@ function Cart({ user, setCartNum }) {
         }).reduce((partial_sum, a) => partial_sum + a, 0)
         console.log("before here 1?")
         setCartItems(fullData) // this
-        console.log("before here 2?")
+        console.log(fullData)
         setTotalPrice(priceTotal) // this
       })
       .catch(err => {
@@ -88,42 +88,59 @@ function Cart({ user, setCartNum }) {
     })
   }
 
-  return (
-    <div>
-      <h1>My shopping cart</h1>
-      {cartItems.map((cartItem, index) => (
-        <CartItem
-          key={cartItem.foodId}
-          id={cartItem.foodId}
-          url={cartItem.foodPhoto}
-          quantityInCart={cartItem.itemCartQuantity}
-          name={cartItem.foodName}
-          units={cartItem.foodUnits}
-          category={cartItem.foodCategory}
-          price={cartItem.foodPrice}
-          quantityAvailable={cartItem.foodQuantity}
-          location={cartItem.foodLocation}
-          seller={cartItem.foodSeller}
-          food={cartItem.foodObj}
-          user={user}
-          setCartNum={setCartNum}
-          setTotalPrice={setTotalPrice}
-          setCartItems={setCartItems}
-          setCartRefreshTrigger={setCartRefreshTrigger}
-        />
-      ))}
-
-      <p>Total: {totalPrice}</p>
-      <button onClick={() => accessStripeCart()}>Check out</button>
-      {/* <StripeCheckout
-        stripeKey="pk_test_51KGr2RDsDjOodD6xPUNk6nfQtFblwWxaPcBtCxsu9rtqWJy5RBaqY4y6LNN31c9H4H3yeMUu4MXqIW4Nmqyz9YqQ00CKhhTOcO" // public key, can share
-        token={handleToken}
-        billingAddress
-        shippingAddress
-        amount={totalPrice}
-      /> */}
-    </div>
-  )
+  if (cartItems.length >= 1) {
+    return (
+      <>
+        <h1>My shopping cart</h1>
+        <div className="main-cart-wrapper">
+          <div className="cart-table-headers">
+            <li className="cart-details-header">Details</li>
+            <li className="cart-totals-header">Totals</li>
+          </div>
+          {cartItems.map((cartItem, index) => (
+            <CartItem
+              key={cartItem.foodId}
+              id={cartItem.foodId}
+              url={cartItem.foodPhoto}
+              quantityInCart={cartItem.itemCartQuantity}
+              name={cartItem.foodName}
+              units={cartItem.foodUnits}
+              category={cartItem.foodCategory}
+              price={cartItem.foodPrice}
+              quantityAvailable={cartItem.foodQuantity}
+              location={cartItem.foodLocation}
+              seller={cartItem.foodSeller}
+              food={cartItem.foodObj}
+              user={user}
+              setCartNum={setCartNum}
+              setTotalPrice={setTotalPrice}
+              setCartItems={setCartItems}
+              setCartRefreshTrigger={setCartRefreshTrigger}
+              userList={userList}
+            />
+          ))}
+          <div className="bottom-cart-checkout">
+            <p className="cart-total">Total: ${totalPrice.toFixed(2)}</p>
+            <button className="checkout-button" onClick={() => accessStripeCart()}>Checkout</button>
+          </div>
+          {/* <StripeCheckout
+            stripeKey="pk_test_51KGr2RDsDjOodD6xPUNk6nfQtFblwWxaPcBtCxsu9rtqWJy5RBaqY4y6LNN31c9H4H3yeMUu4MXqIW4Nmqyz9YqQ00CKhhTOcO" // public key, can share
+            token={handleToken}
+            billingAddress
+            shippingAddress
+            amount={totalPrice}
+          /> */}
+        </div>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <h1>My shopping cart</h1>
+        <p>Shopping cart is empty</p>
+      </>
+    )
+  }
 }
 
 export default Cart;

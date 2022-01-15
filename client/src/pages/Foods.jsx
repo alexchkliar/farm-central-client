@@ -4,12 +4,12 @@ import '../css_components/foods.css';
 import Axios from 'axios';
 import Food from '../components/Food';
 
-function Foods({ setCartNum, user }) {
+function Foods({ setCartNum, user, userList }) {
   const [activeFood, setActiveFood] = useState("All");
   const [foods, setFoods] = useState([]);
   const [maxLength, setMaxLength] = useState(0);
   const [productList, setProductList] = useState([]);
-  const [userList, setUserList] = useState([]);
+  // const [userList, setUserList] = useState([]);
   const loadItems = 27 // works best with 1440p
 
   useEffect(() => {
@@ -32,15 +32,6 @@ function Foods({ setCartNum, user }) {
         setFoods(outputList.slice(0, loadItems))
       }
     })
-
-    fetch("http://localhost:5000/auth/usersList").then(res => {
-      return res.json()
-    }).then((jsonRes) => {
-      setUserList(jsonRes);
-    }).catch((err) => {
-      console.log(err);
-    });
-
   }, [activeFood, user])
 
   const fetchMoreData = () => {

@@ -11,10 +11,12 @@ import Orders from "./pages/Orders";
 import Sales from "./pages/Sales";
 import Register from "./pages/Register";
 import CartCleanup from './pages/CartCleanup';
+import Footer from './components/Footer';
 
 function App() {
   const [user, setUser] = useState(null);
   const [cartNum, setCartNum] = useState(0);
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -35,6 +37,15 @@ function App() {
       })
     };
     getUser();
+
+    fetch("http://localhost:5000/auth/usersList").then(res => {
+      return res.json()
+    }).then((jsonRes) => {
+      setUserList(jsonRes);
+    }).catch((err) => {
+      console.log(err);
+    });
+
   }, [])
 
   useEffect(() => {
@@ -61,14 +72,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div>
         <Navigation user={user} cartNum={cartNum} />
         <Routes>
           <Route>
             <Route path ="/" element={<Home />} />
-            <Route path="/cart" element={<Cart user={user} setCartNum={setCartNum} />} />
+            <Route path="/cart" element={<Cart user={user} setCartNum={setCartNum} userList={userList}/>} />
             <Route path="/cart_cleanup" element={<CartCleanup user={user} />}/>
-            <Route path="/foods" element={<Foods user={user} setCartNum={setCartNum} />} />
+            <Route path="/foods" element={<Foods user={user} setCartNum={setCartNum} userList={userList}/>} />
             <Route path="/orders" element={<Orders user={user} />} />
             <Route path="/sold" element={<Sales user={user} />} />
             <Route path="/register" element={<Register user={user} />} />
@@ -79,7 +89,7 @@ function App() {
             <Route path="/post/:id" element={user ? <Post /> : <Navigate to="/" />} />
           </Route>
         </Routes>
-      </div>
+      <Footer />
     </BrowserRouter>
   );
 }

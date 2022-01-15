@@ -23,13 +23,14 @@ const Navigation = ({ user, cartNum}) => {
       <Navbar.Toggle className="coloring" />
       <Navbar.Collapse>
         <Nav>
+          <Nav.Link href="/foods">Browse foods</Nav.Link>
           <NavDropdown title="Orders">
+            <NavDropdown.Item href="/favorites">My favorites</NavDropdown.Item>
             <NavDropdown.Item href="/orders">My orders</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/sold">My sold items</NavDropdown.Item>
             <NavDropdown.Item href="/foods">My listings</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href="/foods">Browse foods</Nav.Link>
           { user ?
             (<> <Nav.Link href="/#">{user.username + " profile"}</Nav.Link>
             <Nav.Link onClick={logout}>Logout</Nav.Link></>) :
