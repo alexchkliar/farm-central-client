@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+document.body.style = 'background-color: rgb(253,253,253);';
 
 ReactDOM.render(
   <React.StrictMode>

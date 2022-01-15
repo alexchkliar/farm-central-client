@@ -9,6 +9,7 @@ function Foods({ setCartNum, user }) {
   const [foods, setFoods] = useState([]);
   const [maxLength, setMaxLength] = useState(0);
   const [productList, setProductList] = useState([]);
+  const [userList, setUserList] = useState([]);
   const loadItems = 27 // works best with 1440p
 
   useEffect(() => {
@@ -19,18 +20,27 @@ function Foods({ setCartNum, user }) {
     }).then((jsonRes) => {
       if (user) {
         const outputList = jsonRes.food_list.filter(function (food) {
-          return food.seller !== user._id && (food.species === activeFood || activeFood === "All")
+          return food.seller !== user._id && (food.category === activeFood || activeFood === "All")
         })
         setMaxLength(outputList.length)
         setFoods(outputList.slice(0, loadItems))
       } else {
         const outputList = jsonRes.food_list.filter(function (food) {
-          return (food.species === activeFood || activeFood === "All")
+          return (food.category === activeFood || activeFood === "All")
         })
         setMaxLength(outputList.length)
         setFoods(outputList.slice(0, loadItems))
       }
     })
+
+    fetch("http://localhost:5000/auth/usersList").then(res => {
+      return res.json()
+    }).then((jsonRes) => {
+      setUserList(jsonRes);
+    }).catch((err) => {
+      console.log(err);
+    });
+
   }, [activeFood, user])
 
   const fetchMoreData = () => {
@@ -40,8 +50,8 @@ function Foods({ setCartNum, user }) {
       }
     }).then((jsonRes) =>
       setFoods(foods.concat(jsonRes.food_list.filter(function (food) {
-        // return (food.quantity >= 1 && (food.species === activeFood || activeFood === "All"))
-        return food.seller !== user && (food.species === activeFood || activeFood === "All")
+        // return (food.quantity >= 1 && (food.category === activeFood || activeFood === "All"))
+        return food.seller !== user && (food.category === activeFood || activeFood === "All")
       }).slice(foods.length, foods.length + loadItems)))
     )
   };
@@ -90,12 +100,12 @@ function Foods({ setCartNum, user }) {
 
   return (
     <div className="">
-      <h1>Header</h1>
+      <h1>Browse foods</h1>
       <div className="food-selector-wrapper">
         <button className={"food-selector-button " + (activeFood === "All" ? "active-food" : "")} onClick={() => setActiveFood("All")} value="All">All</button>
-        <button className={"food-selector-button " + (activeFood === "Cat" ? "active-food" : "")} onClick={() => setActiveFood("Cat")} value="Cat">Cats</button>
-        <button className={"food-selector-button " + (activeFood === "Dog" ? "active-food" : "")} onClick={() => setActiveFood("Dog")} value="Dog">Dogs</button>
-        <button className={"food-selector-button " + (activeFood === "Bird" ? "active-food" : "")} onClick={() => setActiveFood("Bird")} value="Bird">Birds</button>
+        <button className={"food-selector-button " + (activeFood === "Vegetable" ? "active-food" : "")} onClick={() => setActiveFood("Vegetable")} value="Vegetable">Vegetables</button>
+        <button className={"food-selector-button " + (activeFood === "Fruit" ? "active-food" : "")} onClick={() => setActiveFood("Fruit")} value="Fruit">Fruits</button>
+        <button className={"food-selector-button " + (activeFood === "Other" ? "active-food" : "")} onClick={() => setActiveFood("Other")} value="Other">Others</button>
       </div>
 
       <div className="food-wrapper">
@@ -106,7 +116,7 @@ function Foods({ setCartNum, user }) {
           loader={<h5>Loading...</h5>}
         >
           {foods.map((food, index) => (
-            <Food key={index} index={index} food={food} foodCountInCart={productList.filter(foodInCart => foodInCart === food._id).length} addToCart={addToCart} user={user} />
+            <Food key={index} index={index} userList={userList} food={food} foodCountInCart={productList.filter(foodInCart => foodInCart === food._id).length} addToCart={addToCart} user={user} />
           ))}
         </InfiniteScroll>
       </div>

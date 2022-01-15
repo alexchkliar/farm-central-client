@@ -7,7 +7,7 @@ import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
-const Navigation = ({ user, cartNum, refresh}) => {
+const Navigation = ({ user, cartNum}) => {
 
   const logout = () => {
     window.open("http://localhost:5000/auth/logout", "_self");

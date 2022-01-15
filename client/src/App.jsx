@@ -14,7 +14,7 @@ import CartCleanup from './pages/CartCleanup';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [cartNum, setCartNum] = useState();
+  const [cartNum, setCartNum] = useState(0);
 
   useEffect(() => {
     const getUser = async () => {

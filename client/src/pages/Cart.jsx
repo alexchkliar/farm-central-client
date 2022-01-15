@@ -30,12 +30,13 @@ function Cart({ user, setCartNum }) {
                 itemCartQuantity: countData[index],
                 foodId: food._id,
                 foodName: food.name,
-                foodSpecies: food.species,
-                foodBreed: food.breed,
+                foodCategory: food.category,
+                foodUnits: food.units,
                 foodPrice: food.price,
                 foodPhoto: food.photo,
                 foodQuantity: food.quantity,
                 foodSeller: food.seller,
+                foodLocation: food.location,
                 foodObj: food
               })
             }
@@ -89,7 +90,7 @@ function Cart({ user, setCartNum }) {
 
   return (
     <div>
-      <h1>Header</h1>
+      <h1>My shopping cart</h1>
       {cartItems.map((cartItem, index) => (
         <CartItem
           key={cartItem.foodId}
@@ -97,10 +98,11 @@ function Cart({ user, setCartNum }) {
           url={cartItem.foodPhoto}
           quantityInCart={cartItem.itemCartQuantity}
           name={cartItem.foodName}
-          breed={cartItem.foodBreed}
-          species={cartItem.foodSpecies}
+          units={cartItem.foodUnits}
+          category={cartItem.foodCategory}
           price={cartItem.foodPrice}
           quantityAvailable={cartItem.foodQuantity}
+          location={cartItem.foodLocation}
           seller={cartItem.foodSeller}
           food={cartItem.foodObj}
           user={user}

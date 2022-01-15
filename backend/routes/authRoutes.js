@@ -87,12 +87,16 @@ router.post("/user", (req, res) => {
   res.send(req.user)
 });
 
-router.post("/user_name", (req, res) => {
-  console.log(req.body)
-  User.findOne({ _id: req.body.buyerId }, (err, doc) => {
-    if (err) throw err;
-    res.send(doc);
-  })
+router.get("/usersList", (req, res) => {
+  User.find({}, function(err, users) {
+    // var userMap = {};
+
+    // users.forEach(function(user) {
+    //   userMap[user._id] = user;
+    // });
+
+    res.send(users);
+  });
 });
 
 module.exports = router

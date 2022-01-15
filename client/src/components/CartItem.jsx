@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Axios from 'axios';
+import '../css_components/cartitem.css';
 
-const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, species, price, name, food, user, setCartNum, setTotalPrice, setCartRefreshTrigger }) => {
+const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, units, category, price, name, food, user, location, setCartNum, setTotalPrice, setCartRefreshTrigger }) => {
   const [itemQuantity, setItemQuantity] = useState(quantityInCart);
 
   // useEffect(() => {
@@ -70,21 +71,22 @@ const CartItem = ({ url, id, quantityInCart, quantityAvailable, seller, breed, s
   }
 
   return (
-    <div className="abc">
-      <ul>
-        <li>Photo URL: {url}</li>
-        <li>Food ID: {id}</li>
-        <li>Name: {name}</li>
-        <li>Breed: {breed}</li>
-        <li>Species: {species}</li>
-        <li>Price: {price}</li>
-        <li>Quantity in cart: {itemQuantity}</li>
-        <li>Quantity available: {quantityAvailable}</li>
-        <li>Seller: {seller}</li>
-        <li>Subtotal: {price * itemQuantity}</li>
-        <button onClick={(e) => add(e)} value="test" >Add</button>
-        <button onClick={(e) => remove(e)} value="test" >Remove</button>
-      </ul>
+    <div className="cart-item-container">
+      <div className="cart-divider-1">
+        <img className="cart-img" src={url} alt="" />
+      </div>
+      <div className="cart-divider-2">
+        <p>Name: {name}</p>
+        <p>Bundle: {units}</p>
+        <p>Location: {location}</p>
+        <p>Seller: {seller}</p>
+      </div>
+
+      <p>Price: {price}</p>
+      <button className="cart-item-qty-change-button" onClick={(e) => remove(e)} value="test" >–</button>
+        <div className="cart-item-qty">{itemQuantity}</div>
+      <button className="cart-item-qty-change-button" onClick={(e) => add(e)} value="test" >+</button>
+      <p>Subtotal: {price * itemQuantity}</p>
     </div>
   )
 }
