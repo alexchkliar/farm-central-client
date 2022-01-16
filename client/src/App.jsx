@@ -31,9 +31,11 @@ function App() {
       if (res.status===200) return res.json();
       throw new Error("Authentication has failed")
     }).then(resObject => {
+
       // if Google account detected, authenticate differently
+      // console.log(resObject)
       if (resObject.user.displayName !== undefined) {
-        console.log("hey")
+        // console.log("hey")
         fetch("http://localhost:5000/auth/specificUser", {
           method: "GET",
           credentials: "include",
@@ -47,16 +49,20 @@ function App() {
           throw new Error("Authentication has failed")
         }).then(responseObject => {
           setUser(responseObject)
-
         }).catch((err) => {
           console.log(err)
         })
+      } else {
+        setUser(resObject.user);
       }
 
-      console.log(resObject.user.displayName !== undefined)
-      setUser(resObject.user);
+      // console.log(resObject.user.displayName !== undefined)
+
     }).catch(err => {
+      console.log(err)
     })
+
+    console.log(user)
 
     fetch("http://localhost:5000/auth/usersList").then(res => {
       return res.json()
@@ -90,8 +96,6 @@ function App() {
     })
   }, [user]) // remove user dependence?
 
-  // console.log(user)
-
   return (
     <BrowserRouter>
         <Navigation user={user} cartNum={cartNum} />
@@ -101,8 +105,8 @@ function App() {
             <Route path="/cart" element={<Cart user={user} setCartNum={setCartNum} userList={userList}/>} />
             <Route path="/cart_cleanup" element={<CartCleanup user={user} />}/>
             <Route path="/foods" element={<Foods user={user} setCartNum={setCartNum} userList={userList}/>} />
-            <Route path="/orders" element={<Orders user={user} />} />
-            <Route path="/sold" element={<Sales user={user} />} />
+            <Route path="/orders" element={<Orders user={user} userList={userList} />} />
+            <Route path="/sold" element={<Sales user={user} userList={userList} />} />
             <Route path="/register" element={<Register user={user} />} />
             <Route
               path ="/login"

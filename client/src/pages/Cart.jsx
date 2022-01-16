@@ -17,8 +17,14 @@ function Cart({ user, setCartNum, userList }) {
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([data1, data2]) => {
-        const cartData = data1.cart_list.map((item) => { return item.food })
-        const cartDataUnique = [...new Set(cartData)];
+        const cartData = data1.cart_list.filter((item) => {
+          return item.shopper === user._id
+        }).map((item) => { return item.food })
+        // const cartData = data1.cart_list.map((item) => { return item.food })
+        console.log(data1.cart_list)
+        console.log(cartData)
+        console.log(user)
+        const cartDataUnique = [...new Set(cartData)].sort();
         const countData = cartDataUnique.map(item => {
           return countOccurrences(cartData, item)
         })
@@ -48,18 +54,18 @@ function Cart({ user, setCartNum, userList }) {
         const priceTotal = fullData.map(item => {
           return (item.itemCartQuantity * item.foodPrice)
         }).reduce((partial_sum, a) => partial_sum + a, 0)
-        console.log("before here 1?")
+        // console.log("before here 1?")
         setCartItems(fullData) // this
-        console.log(fullData)
+        // console.log(fullData)
         setTotalPrice(priceTotal) // this
       })
       .catch(err => {
-        console.log(err)
+        // console.log(err)
       })
-  }, [cartRefreshTrigger])
+  }, [cartRefreshTrigger, user])
 
   function accessStripeCart() {
-    console.log("here")
+    // console.log("here")
     fetch('http://localhost:5000/cart/create-checkout-session', {
       method: "POST",
       headers: {
@@ -71,14 +77,14 @@ function Cart({ user, setCartNum, userList }) {
       }),
     })
     .then(res => {
-      console.log("starting this stuff")
+      // console.log("starting this stuff")
       if (res.ok) {
         return res.json()
       }
       return res.json().then(json => Promise.reject(json))
     })
     .then(({ url }) => {
-      console.log("starting this stuff 2")
+      // console.log("starting this stuff 2")
       // wipeCart();
       // adjustQuantities(cartItems);
       window.location = url
@@ -87,6 +93,8 @@ function Cart({ user, setCartNum, userList }) {
       console.error(e.error)
     })
   }
+
+console.log(user)
 
   if (cartItems.length >= 1) {
     return (

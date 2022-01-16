@@ -42,7 +42,7 @@ const Food = ({ food, index, addToCart, user, userList }) => {
 
   return (
     <div className={(activeFoodCount < food.quantity) ? "food-card" : "food-card full-food-card"}>
-      <ul className="food-ul">
+      <ul className={"food-ul" + (food.quantity === 0 ? " empty-food-card" : "")}>
         <img className="food-card-img" src={food.photo} alt="" />
         <div className="food-cart-bottom-container">
 
@@ -59,7 +59,7 @@ const Food = ({ food, index, addToCart, user, userList }) => {
 
             <div className="food-card-right">
               <li className="list-food-price">${food.price.toFixed(2)}</li>
-              <li className="list-food-available">{food.quantity} available</li>
+              <li className="list-food-available">{ (food.quantity > 0) ? (food.quantity + " availble") : "Sold out"}</li>
               <li className="list-food-breed">Seller: {sellerName}</li>
             </div>
           </div>

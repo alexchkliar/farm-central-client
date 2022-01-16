@@ -91,7 +91,7 @@ function Foods({ setCartNum, user, userList }) {
 
   return (
     <div className="">
-      <h1>Browse food</h1>
+      <h1>Browse foods</h1>
       <div className="food-selector-wrapper">
         <button className={"food-selector-button " + (activeFood === "All" ? "active-food" : "")} onClick={() => setActiveFood("All")} value="All">All</button>
         <button className={"food-selector-button " + (activeFood === "Vegetable" ? "active-food" : "")} onClick={() => setActiveFood("Vegetable")} value="Vegetable">Vegetables</button>
@@ -104,7 +104,7 @@ function Foods({ setCartNum, user, userList }) {
           dataLength={foods.length}
           next={fetchMoreData}
           hasMore={maxLength > foods.length}
-          loader={<h5>Loading...</h5>}
+          loader={<p>Loading...</p>}
         >
           {foods.map((food, index) => (
             <Food key={index} index={index} userList={userList} food={food} foodCountInCart={productList.filter(foodInCart => foodInCart === food._id).length} addToCart={addToCart} user={user} />

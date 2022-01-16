@@ -1,46 +1,36 @@
 import React, { useState, useEffect } from "react";
+import '../css_components/orders.css';
 
-const Sale = ({ buyerId, date, items }) => {
+const Sale = ({ buyerId, date, items, userList }) => {
   // // const [buyerName, setBuyerName] = useState();
+  const [buyerName, setBuyerName] = useState();
 
-  // useEffect(() => {
-  //   const requestOptions = {
-  //     method: 'POST',
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Credentials": true,
-  //     },
-  //     credentials: "include",
-  //     // body: { buyerId: buyerId }
-  //   }
-  //   fetch("http://localhost:5000/auth/user_name", requestOptions).then(res => {
-  //     return res
-  //   }).then((jsonRes) => {
-  //     console.log(jsonRes)
-  //   }).catch((err) => {
-  //     console.log(err);
-  //   });
-  // }, [buyerId]) // remove dependence?
+  useEffect(() => {
+    setBuyerName(userList.find((element) => {
+      return element._id === buyerId
+    }).name);
+  }, [buyerId, userList]) // remove dependence?
 
   return (
-    <div className="" >
-      Test
-      <li>Buyer: {buyerId}, placed on {date}</li>
-      {items.map((item, index) => (
-        // <li><img width="250" height="250" src={order.photo} alt="" /></li>
-        <div key={index} className="" >
-          Item {index + 1}
-          <ul>
-            <li>Name: {item.foodName} </li>
-            <li>Price: {item.foodPrice} </li>
-            <li>Quantity: {item.itemCartQuantity} </li>
-            <li>Subtotal: ${item.foodPrice * item.itemCartQuantity} </li>
-          </ul>
-        </div>
-      ))}
-
-    </div>
+    <>
+      <div>Buyer: {buyerName}</div>
+      <div>Placed on {date}</div>
+      <br />
+      <div className="order-item-list">
+        {items.map((item, index) => (
+          // <li><img width="250" height="250" src={order.photo} alt="" /></li>
+          <div key={index} className="" >
+            Item {index + 1}
+            <ul>
+              <li>{item.foodName}, {item.foodUnits} per bundle </li>
+              <li>Price: ${item.foodPrice.toFixed(2)} </li>
+              <li>Quantity: {item.itemCartQuantity} </li>
+              <li>Subtotal: ${(item.foodPrice * item.itemCartQuantity).toFixed(2)} </li>
+            </ul>
+          </div>
+        ))}
+      </div>
+    </>
   )
 }
 

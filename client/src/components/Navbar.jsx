@@ -12,7 +12,7 @@ const Navigation = ({ user, cartNum}) => {
   const logout = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
   }
-  console.log(user)
+  // console.log(user)
   // console.log((typeof user.name) === "object")
   return (
     <Navbar bg="dark" variant="dark"
@@ -40,11 +40,8 @@ const Navigation = ({ user, cartNum}) => {
           }
           <i className="far fa-shopping-cart"></i>
           <Nav.Link href="/cart"><FontAwesomeIcon icon={faShoppingCart} className="font-awesome-icon" /> <span className="cart-number">({cartNum})</span></Nav.Link>
-
         </Nav>
-
       </Navbar.Collapse>
-
     </Navbar>
   )
 }

@@ -59,7 +59,7 @@ function CartCleanup({ user }) {
             if (food._id === item) {
               output.push({
                 itemCartQuantity: countData[index],
-                foodId: food._id, foodName: food.name, foodSpecies: food.species, foodBreed: food.breed, foodPrice: food.price, foodPhoto: food.photo, foodQuantity: food.quantity, foodSeller: food.seller, foodObj: food
+                foodId: food._id, foodName: food.name, foodLocation: food.location, foodUnits: food.units, foodPrice: food.price, foodPhoto: food.photo, foodQuantity: food.quantity, foodSeller: food.seller, foodObj: food
               })
             }
           });
@@ -100,7 +100,7 @@ function CartCleanup({ user }) {
   }
 
   function redirect () {
-    // window.location = 'http://localhost:3000/orders'
+    window.location = 'http://localhost:3000/orders'
   }
 
   return (

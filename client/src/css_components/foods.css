@@ -17,6 +17,8 @@
   display: flex;
   justify-content: center;
   text-align: center;
+    box-shadow: 5px 5px 5px 0px #BEBEBE;
+
 }
 
 .food-wrapper {
@@ -65,6 +67,11 @@
 .food-ul {
   padding: 0;
   position: relative;
+}
+
+.empty-food-card {
+  opacity: 0.3;
+  outline: 2px solid rgba(0,128,128, 0.1);
 }
 
 .food-card-img {

@@ -29,9 +29,12 @@ const Orders = ({ user }) => {
   }, [user]) // remove dependence?
 
   return (
-    <div>
+    <>
       {userOrders.map((order, index) => (
-        <Order key={order._id} id={order._id} items={order.items} date={order.date} />
+        <div key={index} >
+          <strong>{`Order  ${index + 1}`}</strong>
+          <Order id={order._id} items={order.items} date={order.date} />
+        </div>
       ))}
 
       {/* <ul>
@@ -44,7 +47,7 @@ const Orders = ({ user }) => {
         <li>{food.quantity}</li>
         <li>Number in your cart: {activeFoodCount}</li>
       </ul> */}
-    </div>
+    </>
   )
 }
 

@@ -71,7 +71,7 @@ const Login = () => {
 
   return (
     <div className="login mt-5">
-      <h1 className="login-title mb-5">Register now</h1>
+      <h2 className="login-title mb-4">Register now</h2>
       <div className="google" md="4" onClick={google}>
         <div className="left-google"><img src={Google} alt="" className="icon" /></div>
         <div className="right-google w-100">Sign in with Google</div>

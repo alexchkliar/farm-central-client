@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sale from '../components/Sale';
 
-const Sales = ({ user }) => {
+const Sales = ({ user, userList }) => {
   const [salesOrders, setSalesOrders] = useState([]);
 
   useEffect(() => {
@@ -13,13 +13,16 @@ const Sales = ({ user }) => {
 
       const itemsSoldArray = jsonRes.sale_list.map((item) => {
         let itemSoldByCurrentUserArray = item.items.filter((subItem) => {
-          console.log(subItem)
-          console.log(subItem.foodSeller)
-          console.log(user._id)
+          // console.log(subItem)
+          // console.log(subItem.foodSeller)
+          // console.log(user._id)
           return subItem.foodSeller === user._id
         })
-        console.log(itemSoldByCurrentUserArray)
+        // console.log(itemSoldByCurrentUserArray)
+        // console.log(user)
         return [itemSoldByCurrentUserArray, item.buyer, item.date]
+      }).filter((element) => {
+        return element[0].length !== 0
       })
 
       console.log(itemsSoldArray)
@@ -28,7 +31,7 @@ const Sales = ({ user }) => {
       //   return element.foodSeller === user._id
       // })
       setSalesOrders(itemsSoldArray.reverse())
-      console.log(salesOrders)
+      // console.log(salesOrders)
       // .map(function (array) {
       //   return array.food
       // }).filter(foodInCart => foodInCart === food._id).length)
@@ -40,12 +43,16 @@ const Sales = ({ user }) => {
       //   return array.food
       // }).filter(foodInCart => foodInCart === food._id).length)
     })
-  }, [user]) // remove dependence?
+  }, [user])
 
   return (
     <div>
       {salesOrders.map((sale, index) => (
-        <Sale key={index} items={sale[0]} buyerId={sale[1]} date={sale[2]} />
+        <div key={index} >
+          <strong>Sale {index + 1}</strong>
+          <Sale items={sale[0]} buyerId={sale[1]} date={sale[2]} userList={userList} />
+          <br />
+        </div>
       ))}
 
       {/* <ul>

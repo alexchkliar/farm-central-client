@@ -44,7 +44,7 @@ const Login = () => {
 
   return (
     <div className="login mt-5">
-      <h1 className="login-title mb-5">Sign in</h1>
+      <h2 className="login-title mb-4">Sign in</h2>
       <div className="google" md="4" onClick={google}>
         <div className="left-google"><img src={Google} alt="" className="icon" /></div>
         <div className="right-google w-100">Sign in with Google</div>
@@ -97,7 +97,7 @@ const Login = () => {
         <Button type="submit" className="w-100" >Sign in</Button>
       </Form>
       <br />
-      <div className="sign-in-prompt">Don't have an account? <a href="/login">Register now!</a></div>
+      <div className="sign-in-prompt">Don't have an account? <a href="/register">Register now!</a></div>
     </div>
   )
 }
