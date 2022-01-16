@@ -19,24 +19,44 @@ function App() {
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
-    const getUser = async () => {
-      fetch("http://localhost:5000/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true
-        },
-      }).then((response) => {
-        if (response.status===200) return response.json();
-        throw new Error("Authentication has failed")
-      }).then(resObject => {
-        setUser(resObject.user);
-      }).catch(err => {
-      })
-    };
-    getUser();
+    fetch("http://localhost:5000/auth/login/success", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true
+      },
+    }).then((res) => {
+      if (res.status===200) return res.json();
+      throw new Error("Authentication has failed")
+    }).then(resObject => {
+      // if Google account detected, authenticate differently
+      if (resObject.user.displayName !== undefined) {
+        console.log("hey")
+        fetch("http://localhost:5000/auth/specificUser", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true
+          },
+        }).then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("Authentication has failed")
+        }).then(responseObject => {
+          setUser(responseObject)
+
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
+
+      console.log(resObject.user.displayName !== undefined)
+      setUser(resObject.user);
+    }).catch(err => {
+    })
 
     fetch("http://localhost:5000/auth/usersList").then(res => {
       return res.json()
@@ -69,6 +89,8 @@ function App() {
       }).length)
     })
   }, [user]) // remove user dependence?
+
+  // console.log(user)
 
   return (
     <BrowserRouter>

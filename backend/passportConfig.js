@@ -19,17 +19,18 @@ module.exports = function(passport) {
         callbackURL: "/auth/google/callback",
       },
       function (accessToken, refreshToken, profile, done) {
+        console.log(profile)
 
-        User.findOne({ google_sub_id: profile.id }, (err, obj) => {
+        User.findOne({ google_sub_id: profile.id }, async (err, obj) => {
           if (err) throw err;
           if (!obj) {
             const newUser = new User({
-              // username: req.body.username,
-              username: "google_account",
+              name: profile.displayName,
+              username: profile.id,
               password: "google_account",
               google_sub_id: profile.id,
             });
-            newUser.save()
+            await newUser.save()
           }
         });
 
@@ -96,5 +97,4 @@ module.exports = function(passport) {
     // console.log(user)
     done(null, user);
   });
-
 }

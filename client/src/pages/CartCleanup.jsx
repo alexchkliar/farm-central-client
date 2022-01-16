@@ -100,7 +100,7 @@ function CartCleanup({ user }) {
   }
 
   function redirect () {
-    window.location = 'http://localhost:3000/orders'
+    // window.location = 'http://localhost:3000/orders'
   }
 
   return (

@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs')
 const REDIRECT_URL = "http://localhost:3000/foods";
 
 router.get("/login/success", (req, res) => {
+  console.log(req.user)
   if (req.user) {
     res.status(200).json({
       success: true,
@@ -90,12 +91,16 @@ router.post("/user", (req, res) => {
 router.get("/usersList", (req, res) => {
   User.find({}, function(err, users) {
     // var userMap = {};
-
     // users.forEach(function(user) {
     //   userMap[user._id] = user;
     // });
-
     res.send(users);
+  });
+});
+
+router.get("/specificUser", (req, res) => {
+  User.findOne({ google_sub_id: req.user.id }, function(err, user) {
+    res.send(user);
   });
 });
 

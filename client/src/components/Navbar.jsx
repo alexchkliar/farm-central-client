@@ -12,7 +12,8 @@ const Navigation = ({ user, cartNum}) => {
   const logout = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
   }
-  // console.log(user)
+  console.log(user)
+  // console.log((typeof user.name) === "object")
   return (
     <Navbar bg="dark" variant="dark"
       sticky="top" expand="sm" collapseOnSelect >
@@ -23,7 +24,7 @@ const Navigation = ({ user, cartNum}) => {
       <Navbar.Toggle className="coloring" />
       <Navbar.Collapse>
         <Nav>
-          <Nav.Link href="/foods">Browse foods</Nav.Link>
+          <Nav.Link href="/foods">Browse food</Nav.Link>
           <NavDropdown title="Orders">
             <NavDropdown.Item href="/favorites">My favorites</NavDropdown.Item>
             <NavDropdown.Item href="/orders">My orders</NavDropdown.Item>
@@ -32,7 +33,7 @@ const Navigation = ({ user, cartNum}) => {
             <NavDropdown.Item href="/foods">My listings</NavDropdown.Item>
           </NavDropdown>
           { user ?
-            (<> <Nav.Link href="/#">{user.username + " profile"}</Nav.Link>
+            (<> <Nav.Link href="/#">{(user.name ? user.name : user.name.givenName) + " profile"}</Nav.Link>
             <Nav.Link onClick={logout}>Logout</Nav.Link></>) :
             (<> <Nav.Link href="/register">Sign up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link> </>)
