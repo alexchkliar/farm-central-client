@@ -11,31 +11,40 @@ function Foods({ setCartNum, user, userList }) {
   const [productList, setProductList] = useState([]);
   // const [userList, setUserList] = useState([]);
   const loadItems = 27 // works best with 1440p
+  // console.log(process.env.REACT_APP_URL_BASE_BACKEND)
 
   useEffect(() => {
-    fetch(`${process.env.URL_BASE_BACKEND}/foods`).then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-    }).then((jsonRes) => {
+    Axios({
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      withCredentials: true,
+      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/foods`
+    }).then(async jsonRes => {
+      console.log(jsonRes.data)
+      const foodList = await jsonRes.data.food_list
       if (user) {
-        const outputList = jsonRes.food_list.filter(function (food) {
+        const outputList = foodList.filter(function (food) {
           return food.seller !== user._id && (food.category === activeFood || activeFood === "All")
         })
+        // console.log(outputList)
         setMaxLength(outputList.length)
         setFoods(outputList.slice(0, loadItems))
       } else {
-        const outputList = jsonRes.food_list.filter(function (food) {
+        const outputList = foodList.filter(function (food) {
           return (food.category === activeFood || activeFood === "All")
         })
         setMaxLength(outputList.length)
         setFoods(outputList.slice(0, loadItems))
       }
+    }).catch(err => {
+      throw err
     })
   }, [activeFood, user])
 
   const fetchMoreData = () => {
-    fetch(`${process.env.URL_BASE_BACKEND}/foods`).then(res => {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`).then(res => {
       if (res.ok) {
         return res.json()
       }
@@ -49,7 +58,7 @@ function Foods({ setCartNum, user, userList }) {
 
   const addToCart = (index) => {
     if (user === null) {
-      window.location.href = `${process.env.URL_BASE_CLIENT}/login`;
+      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
       return
     }
     // console.log(user);
@@ -65,7 +74,7 @@ function Foods({ setCartNum, user, userList }) {
         shopper: user
       },
       withCredentials: true,
-      url: `${process.env.URL_BASE_BACKEND}/cart/add`
+      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/add`
     }).then((res) => {
       console.log(res.data);
       // if (res.data === "Successfully added") {
@@ -77,7 +86,7 @@ function Foods({ setCartNum, user, userList }) {
   }
 
   useEffect(() => {
-    fetch(`${process.env.URL_BASE_BACKEND}/cart/fetch`).then(res => {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`).then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return

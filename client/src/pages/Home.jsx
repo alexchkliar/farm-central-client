@@ -9,7 +9,7 @@ const Home = () => {
       {/* <h1>Home page</h1> */}
       <section className="home-page-section-1">
         <div className="landing-page-main-text-div">
-          <h1 className="landing-page-main-header">Fresh food from local farmers</h1>
+          <h1 className="landing-page-main-header">Fresh food from local farms</h1>
           <p className="landing-page-main-text">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, libero. Totam magni ipsum sed maiores eos numquam.
           </p>

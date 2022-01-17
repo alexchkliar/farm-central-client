@@ -3,19 +3,19 @@ import React, { useState } from "react";
 import Axios from 'axios';
 import '../css_components/authentication.css';
 import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap'
+// import dotenv from 'dotenv'
+// import path from 'path'
+
 // import { useNavigate } from 'react-router-dom';
 
-
-
 const Login = () => {
-
   const [validation, setValidation] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [alertClass, setAlertClass] = useState("");
 
   const google = () => {
-    window.open(`${process.env.URL_BASE_BACKEND}/auth/google`, "_self"); // can replace with window.location.href
+    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/google`, "_self"); // can replace with window.location.href
   };
 
   const handleSubmit = (event) => {
@@ -27,14 +27,14 @@ const Login = () => {
         password: password
       },
       withCredentials: true,
-      url: `${process.env.URL_BASE_BACKEND}/auth/login`
+      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/auth/login`
     }).then((res) => {
       console.log(res.data);
       if (res.data === "Successfully Authenticated") {
         console.log("redirecting");
         // navigate("/");
         // window.open(`${process.env.URL_BASE_CLIENT}/foods`, "_self");
-        window.location.href = `${process.env.URL_BASE_CLIENT}/foods`;
+        window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/foods`;
       } else {
         setAlertClass("alert alert-danger")
         setValidation("Incorrect username or password.")

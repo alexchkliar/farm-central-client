@@ -87,8 +87,8 @@ router.post("/create-checkout-session", async (req, res) => {
           quantity: item.itemCartQuantity,
         }
       }),
-      success_url: `${process.env.URL_BASE_BACKEND}/cart_cleanup`,
-      cancel_url: `${process.env.URL_BASE_BACKEND}/cart`,
+      success_url: `${process.env.URL_BASE_CLIENT}/cart_cleanup`,
+      cancel_url: `${process.env.URL_BASE_CLIENT}/cart`,
     })
 
     // if(session.payment_status != null) {

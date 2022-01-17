@@ -19,7 +19,7 @@ function App() {
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.URL_BASE_BACKEND}/auth/login/success`, {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/login/success`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -36,7 +36,7 @@ function App() {
       // console.log(resObject)
       if (resObject.user.displayName !== undefined) {
         // console.log("hey")
-        fetch(`${process.env.URL_BASE_BACKEND}/auth/specificUser`, {
+        fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/specificUser`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -64,7 +64,7 @@ function App() {
 
     // console.log(user)
 
-    fetch(`${process.env.URL_BASE_BACKEND}/auth/usersList`).then(res => {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/usersList`).then(res => {
       return res.json()
     }).then((jsonRes) => {
       setUserList(jsonRes);
@@ -75,7 +75,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch(`${process.env.URL_BASE_BACKEND}/cart/fetch`, {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`, {
       // method: "GET",
       // body: {
       //   user: user,

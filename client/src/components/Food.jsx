@@ -10,7 +10,7 @@ const Food = ({ food, index, addToCart, user, userList }) => {
   const [favoritedStatus, setFavoritedStatus] = useState(false);
 
   useEffect(() => {
-    fetch(`${process.env.URL_BASE_BACKEND}/cart/fetch
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch
     `).then(res => {
       return res.json()
     }).then((jsonRes) => {

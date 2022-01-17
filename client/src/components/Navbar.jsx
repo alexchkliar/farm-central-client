@@ -13,7 +13,7 @@ const Navigation = ({ user, cartNum}) => {
   const logout = () => {
     window.open(`${process.env.URL_BASE_BACKEND}/auth/logout`, "_self");
   }
-  console.log(user === null)
+  // console.log(user === null)
   // console.log((typeof user.name) === "object")
   return (
     <Navbar bg="dark" variant="dark"
