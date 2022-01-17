@@ -99,7 +99,7 @@ console.log(user)
   if (cartItems.length >= 1) {
     return (
       <>
-        <h1>My shopping cart</h1>
+        <h1 className="header-h1">My shopping cart</h1>
         <div className="main-cart-wrapper">
           <div className="cart-table-headers">
             <li className="cart-details-header">Details</li>
@@ -144,7 +144,7 @@ console.log(user)
   } else {
     return (
       <>
-        <h1>My shopping cart</h1>
+        <h1 className="header-h1">My shopping cart</h1>
         <p>Shopping cart is empty</p>
       </>
     )

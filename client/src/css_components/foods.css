@@ -1,7 +1,7 @@
 .infinite-scroll-component {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   justify-content: center;
   gap: 30px;
   padding: 10px;

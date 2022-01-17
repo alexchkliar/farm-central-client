@@ -78,9 +78,9 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
     <>
       <div className="cart-item-container">
         <div className="cart-divider-left">
-          <div className="cart-divider-left-top">
-            <img className="cart-img" src={url} alt="" />
-          </div>
+          {/* <div className="cart-divider-left-top"> */}
+          <img className="cart-img" src={category === "Vegetable" ? "carrot-solid.svg" : (category === "Fruit" ? "apple-alt-solid.svg" : "egg-solid.svg")} alt="" />
+          {/* </div> */}
           <div className="cart-divider-left-bottom">
             <ul>
               <li><strong>Name: </strong>{name}</li>
