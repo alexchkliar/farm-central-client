@@ -13,7 +13,7 @@ const Navigation = ({ user, cartNum}) => {
   const logout = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
   }
-  // console.log(user)
+  console.log(user === null)
   // console.log((typeof user.name) === "object")
   return (
     <Navbar bg="dark" variant="dark"
@@ -28,11 +28,11 @@ const Navigation = ({ user, cartNum}) => {
         <Nav>
           <Nav.Link href="/foods">Browse food</Nav.Link>
           <NavDropdown title="Orders">
-            <NavDropdown.Item href="/favorites">My favorites</NavDropdown.Item>
-            <NavDropdown.Item href="/orders">My orders</NavDropdown.Item>
+            <NavDropdown.Item href={(user !== null) ? "/favorites" : "/login"}>My favorites</NavDropdown.Item>
+            <NavDropdown.Item href={(user !== null) ? "/orders" : "/login"}>My orders</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="/sold">My sold items</NavDropdown.Item>
-            <NavDropdown.Item href="/foods">My listings</NavDropdown.Item>
+            <NavDropdown.Item href={(user !== null) ? "/sold" : "/login"}>My sold items</NavDropdown.Item>
+            <NavDropdown.Item href={(user !== null) ? "/foods" : "/login"}>My listings</NavDropdown.Item>
           </NavDropdown>
           { user ?
             (<> <Nav.Link href="/#">{(user.name ? user.name : user.name.givenName) + " profile"}</Nav.Link>
@@ -41,7 +41,9 @@ const Navigation = ({ user, cartNum}) => {
             <Nav.Link href="/login">Login</Nav.Link> </>)
           }
           <i className="far fa-shopping-cart"></i>
-          <Nav.Link href="/cart"><FontAwesomeIcon icon={faShoppingCart} className="font-awesome-icon" /> <span className="cart-number">({cartNum})</span></Nav.Link>
+          <Nav.Link href={(user !== null) ? "/cart" : "/login"}>
+            <FontAwesomeIcon icon={faShoppingCart} className="font-awesome-icon" /> <span className="cart-number">({cartNum})</span>
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

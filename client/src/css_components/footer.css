@@ -1,6 +1,42 @@
-.footer {
-  height: 20px;
+footer {
+  /* height: 5vh; */
   width: 100%;
-  background-color: purple;
-  outline: 1px solid blue;
+  background-color: rgba(33, 37, 41, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: min(4%, 40px);
+  font-size: 25px;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+header {
+  min-height: 50px;
+  background: lightcyan;
+}
+
+body::after {
+  content: '';
+  display: block;
+  height: 50px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+}
+
+.fontawesome-footer-logos {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.fontawesome-footer-logos:hover {
+  color: rgba(255, 255, 255, 1);
 }

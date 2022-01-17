@@ -77,10 +77,11 @@
   margin-bottom: 16px;
   width: 350px;
   height: 235px;
-  object-fit: cover;
+  object-fit: scale-down;
   outline: 2px solid teal;
   border-radius: 2px 2px 0 0;
   /* margin-top: 15px; */
+  background-color: white;
 }
 
 .favorited {
@@ -95,11 +96,9 @@
 
 .favorite-icon {
   font-size: 30px;
-
   border-radius: 5px;
   color: white;
   font-weight: bold;
-
 }
 
 .full {

@@ -1,12 +1,12 @@
-section {
+.home-page-section-1 {
   position: relative;
   width: 100%;
-  height: 95vh;
+  height: 100vh;
   background: darkgreen;
   overflow: hidden;
 }
 
-section .wave {
+.home-page-section-1 .wave {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -16,7 +16,7 @@ section .wave {
   background-size: 1000px 100px;
 }
 
-section .wave.wave1 {
+.home-page-section-1 .wave.wave1 {
  animation: animate 30s linear infinite;
  z-index: 1000;
  opacity: 1;
@@ -24,7 +24,7 @@ section .wave.wave1 {
  bottom: 0;
 }
 
-section .wave.wave2 {
+.home-page-section-1 .wave.wave2 {
   animation: animate2 15s linear infinite;
   z-index: 999;
   opacity: 0.5;
@@ -32,7 +32,7 @@ section .wave.wave2 {
   bottom: 10px;
 }
 
-section .wave.wave3 {
+.home-page-section-1 .wave.wave3 {
   animation: animate 15s linear infinite;
   z-index: 998;
   opacity: 0.2;
@@ -40,7 +40,7 @@ section .wave.wave3 {
   bottom: 15px;
 }
 
-section .wave.wave4 {
+.home-page-section-1 .wave.wave4 {
   animation: animate2 15s linear infinite;
   z-index: 997;
   opacity: 0.7;
@@ -72,20 +72,21 @@ section .wave.wave4 {
 
 .landing-page-main-header {
   color: white;
-  margin-top: 70px;
-  /* font-size: 25px; */
+  padding-top: 100px;
+  margin: 0px 20px 0 20px;
+  font-size: 25px;
 
 }
 
 .landing-page-main-text {
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   margin: 20px 20px 40px 20px;
 }
 
 .landing-page-main-button {
   color: white;
-  border: 2px solid white;
+  border: 1px solid white;
   background-color: rgba(53, 134, 255, 0.8);
   text-decoration: inherit;
   padding: 10px 50px;
@@ -96,7 +97,7 @@ section .wave.wave4 {
 
 .landing-page-main-button:hover {
   color: white;
-  border: 3px solid white;
+  border: 2px solid white;
   background-color: rgba(53, 134, 255, 1);
 }
 
@@ -109,8 +110,54 @@ section .wave.wave4 {
 
 .carousel {
   /* height: 500px; */
-  margin: 50px auto 0 auto;
-  width: 95%;
-  border: 3px solid white;
+  margin: 40px auto 0 auto;
+  /* width: 95%; */
+  border: 2px solid white;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 800px) {
+  .carousel {
+    width: 95%;
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1200px) {
+  .carousel {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1500px) {
+  .carousel {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .carousel {
+    width: 45%;
+  }
+}
+
+.home-page-section-2,
+.home-page-section-3 {
+  height: 100vh;
+}
+
+.home-page-section-2 {
+  background-color: purple;
+}
+
+.home-page-section-3 {
+  background-color: blue;
+}
+
+html {
+  scroll-snap-points-y: repeat(100vh);
+  scroll-snap-type: y proximity;
+}
+
+section {
+  scroll-snap-align: start;
 }

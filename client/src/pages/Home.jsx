@@ -1,5 +1,3 @@
-import {posts} from "../data"
-import Card from "../components/Card"
 import '../css_components/home.css';
 import Carousel from 'react-bootstrap/Carousel'
 
@@ -7,11 +5,11 @@ import Carousel from 'react-bootstrap/Carousel'
 
 const Home = () => {
   return (
-    <div className="home">
+    <div className="home-container">
       {/* <h1>Home page</h1> */}
       <section className="home-page-section-1">
         <div className="landing-page-main-text-div">
-          <h1 className="landing-page-main-header">Order fresh food from local farmers!</h1>
+          <h1 className="landing-page-main-header">Fresh food from local farmers</h1>
           <p className="landing-page-main-text">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, libero. Totam magni ipsum sed maiores eos numquam.
           </p>
@@ -20,7 +18,7 @@ const Home = () => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+                src="https://www.thespruceeats.com/thmb/ZnWDXm0VjfY2wy25ocFqZccy5YY=/2164x1217/smart/filters:no_upscale()/freshvegetablesAlexRaths-4c1ea186a88e4fd7b95283eee614600c.jpg"
                 alt="First slide"
               />
               <Carousel.Caption>
@@ -31,7 +29,7 @@ const Home = () => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+                src="https://www.thespruceeats.com/thmb/ZnWDXm0VjfY2wy25ocFqZccy5YY=/2164x1217/smart/filters:no_upscale()/freshvegetablesAlexRaths-4c1ea186a88e4fd7b95283eee614600c.jpg"
                 alt="Second slide"
               />
 
@@ -43,7 +41,7 @@ const Home = () => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+                src="https://www.thespruceeats.com/thmb/ZnWDXm0VjfY2wy25ocFqZccy5YY=/2164x1217/smart/filters:no_upscale()/freshvegetablesAlexRaths-4c1ea186a88e4fd7b95283eee614600c.jpg"
                 alt="Third slide"
               />
 
@@ -59,10 +57,8 @@ const Home = () => {
         <div className="wave wave3"></div>
         <div className="wave wave4"></div>
       </section>
-      {/* <section className="home-page-section-2">
-      </section> */}
-
-
+      <section className="home-page-section-2">
+      </section>
     </div>
   )
 }

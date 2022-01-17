@@ -43,7 +43,7 @@ const Food = ({ food, index, addToCart, user, userList }) => {
   return (
     <div className={(activeFoodCount < food.quantity) ? "food-card" : "food-card full-food-card"}>
       <ul className={"food-ul" + (food.quantity === 0 ? " empty-food-card" : "")}>
-        <img className="food-card-img" src={food.photo} alt="" />
+        <img className="food-card-img" src={food.category === "Vegetable" ? "carrot-solid.svg" : (food.category === "Fruit" ? "apple-alt-solid.svg" : "egg-solid.svg")} alt="" />
         <div className="food-cart-bottom-container">
 
           <div className="food-card-text-container">
