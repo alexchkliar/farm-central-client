@@ -91,7 +91,7 @@ function Foods({ setCartNum, user, userList }) {
 
   return (
     <div className="">
-      <h1>Browse foods</h1>
+      <h1 className="header-h1">Browse foods</h1>
       <div className="food-selector-wrapper">
         <button className={"food-selector-button " + (activeFood === "All" ? "active-food" : "")} onClick={() => setActiveFood("All")} value="All">All</button>
         <button className={"food-selector-button " + (activeFood === "Vegetable" ? "active-food" : "")} onClick={() => setActiveFood("Vegetable")} value="Vegetable">Vegetables</button>

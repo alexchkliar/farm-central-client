@@ -17,8 +17,7 @@
   display: flex;
   justify-content: center;
   text-align: center;
-    box-shadow: 5px 5px 5px 0px #BEBEBE;
-
+  box-shadow: 5px 5px 5px 0px #BEBEBE;
 }
 
 .food-wrapper {

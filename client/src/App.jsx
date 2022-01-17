@@ -62,7 +62,7 @@ function App() {
       console.log(err)
     })
 
-    console.log(user)
+    // console.log(user)
 
     fetch("http://localhost:5000/auth/usersList").then(res => {
       return res.json()

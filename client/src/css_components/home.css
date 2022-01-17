@@ -1,7 +1,7 @@
 section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 95vh;
   background: darkgreen;
   overflow: hidden;
 }
@@ -70,6 +70,47 @@ section .wave.wave4 {
   }
 }
 
-.home-page-section-2 {
+.landing-page-main-header {
+  color: white;
+  margin-top: 70px;
+  /* font-size: 25px; */
 
+}
+
+.landing-page-main-text {
+  color: white;
+  font-size: 20px;
+  margin: 20px 20px 40px 20px;
+}
+
+.landing-page-main-button {
+  color: white;
+  border: 2px solid white;
+  background-color: rgba(53, 134, 255, 0.8);
+  text-decoration: inherit;
+  padding: 10px 50px;
+  font-size: 20px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.landing-page-main-button:hover {
+  color: white;
+  border: 3px solid white;
+  background-color: rgba(53, 134, 255, 1);
+}
+
+.landing-page-main-text-div {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  text-align: center;
+}
+
+.carousel {
+  /* height: 500px; */
+  margin: 50px auto 0 auto;
+  width: 95%;
+  border: 3px solid white;
+  border-radius: 5px;
 }

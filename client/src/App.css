@@ -16,7 +16,7 @@ body {
   background-color: gray;
 }
 
-h1 {
+.header-h1 {
   background-color: darkgreen;
   padding: 12px 0 12px 16px;
   color: white;
