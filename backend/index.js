@@ -41,7 +41,7 @@ require('./passportConfig')(passport);
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.URL_BASE_BACKEND,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true
   })

@@ -1,3 +1,4 @@
+require('dotenv').config()
 const router = require("express").Router();
 const passport = require("passport");
 const CartProduct = require('../models/cart')
@@ -6,7 +7,7 @@ const Food = require('../models/food')
 cart_controller = require("../controllers/cartController");
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 
-const REDIRECT_URL = "http://localhost:3000/foods";
+const REDIRECT_URL = `${process.env.URL_BASE_BACKEND}/foods`;
 
 router.post("/add", (req, res) => {
   const newCartProduct = new CartProduct({
@@ -86,8 +87,8 @@ router.post("/create-checkout-session", async (req, res) => {
           quantity: item.itemCartQuantity,
         }
       }),
-      success_url: "http://localhost:3000/cart_cleanup",
-      cancel_url: "http://localhost:3000/cart",
+      success_url: `${process.env.URL_BASE_BACKEND}/cart_cleanup`,
+      cancel_url: `${process.env.URL_BASE_BACKEND}/cart`,
     })
 
     // if(session.payment_status != null) {

@@ -12,8 +12,8 @@ function Cart({ user, setCartNum, userList }) {
 
   useEffect(() => {
     Promise.all([
-      fetch('http://localhost:5000/cart/fetch'),
-      fetch('http://localhost:5000/foods'),
+      fetch(`${process.env.URL_BASE_BACKEND}/cart/fetch`),
+      fetch(`${process.env.URL_BASE_BACKEND}/foods`),
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([data1, data2]) => {
@@ -66,7 +66,7 @@ function Cart({ user, setCartNum, userList }) {
 
   function accessStripeCart() {
     // console.log("here")
-    fetch('http://localhost:5000/cart/create-checkout-session', {
+    fetch(`${process.env.URL_BASE_BACKEND}/cart/create-checkout-session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

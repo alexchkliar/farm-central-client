@@ -13,7 +13,7 @@ function Foods({ setCartNum, user, userList }) {
   const loadItems = 27 // works best with 1440p
 
   useEffect(() => {
-    fetch("http://localhost:5000/foods").then(res => {
+    fetch(`${process.env.URL_BASE_BACKEND}/foods`).then(res => {
       if (res.ok) {
         return res.json()
       }
@@ -35,7 +35,7 @@ function Foods({ setCartNum, user, userList }) {
   }, [activeFood, user])
 
   const fetchMoreData = () => {
-    fetch("http://localhost:5000/foods").then(res => {
+    fetch(`${process.env.URL_BASE_BACKEND}/foods`).then(res => {
       if (res.ok) {
         return res.json()
       }
@@ -49,7 +49,7 @@ function Foods({ setCartNum, user, userList }) {
 
   const addToCart = (index) => {
     if (user === null) {
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = `${process.env.URL_BASE_CLIENT}/login`;
       return
     }
     // console.log(user);
@@ -65,19 +65,19 @@ function Foods({ setCartNum, user, userList }) {
         shopper: user
       },
       withCredentials: true,
-      url: "http://localhost:5000/cart/add"
+      url: `${process.env.URL_BASE_BACKEND}/cart/add`
     }).then((res) => {
       console.log(res.data);
       // if (res.data === "Successfully added") {
         // navigate("/");
-        // window.open("http://localhost:3000/foods", "_self");
-        // window.location.href = "http://localhost:3000/foods";
+        // window.open(`${process.env.URL_BASE_CLIENT}/foods`, "_self");
+        // window.location.href = `${process.env.URL_BASE_CLIENT}/foods`;
       // }
     })
   }
 
   useEffect(() => {
-    fetch("http://localhost:5000/cart/fetch").then(res => {
+    fetch(`${process.env.URL_BASE_BACKEND}/cart/fetch`).then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return

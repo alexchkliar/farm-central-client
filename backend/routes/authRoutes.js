@@ -3,7 +3,7 @@ const passport = require("passport");
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 
-const REDIRECT_URL = "http://localhost:3000/foods";
+const REDIRECT_URL = `${process.env.URL_BASE_BACKEND}/foods`;
 
 router.get("/login/success", (req, res) => {
   console.log(req.user)

@@ -11,7 +11,7 @@ import { faCarrot } from '@fortawesome/free-solid-svg-icons'
 const Navigation = ({ user, cartNum}) => {
 
   const logout = () => {
-    window.open("http://localhost:5000/auth/logout", "_self");
+    window.open(`${process.env.URL_BASE_BACKEND}/auth/logout`, "_self");
   }
   console.log(user === null)
   // console.log((typeof user.name) === "object")

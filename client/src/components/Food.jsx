@@ -10,7 +10,8 @@ const Food = ({ food, index, addToCart, user, userList }) => {
   const [favoritedStatus, setFavoritedStatus] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/cart/fetch").then(res => {
+    fetch(`${process.env.URL_BASE_BACKEND}/cart/fetch
+    `).then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return
@@ -29,7 +30,7 @@ const Food = ({ food, index, addToCart, user, userList }) => {
 
   function handleEvent() {
     if (user === null) {
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = `${process.env.URL_BASE_CLIENT}/login`;
     }
     if ((activeFoodCount < food.quantity)) {
       console.log("index " + index)

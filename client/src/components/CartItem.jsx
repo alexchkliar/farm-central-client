@@ -7,7 +7,7 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
   const [sellerName, setSellerName] = useState("");
 
   useEffect(() => {
-    // fetch("http://localhost:5000/cart/fetch").then(res => {
+    // fetch(`${process.env.URL_BASE_BACKEND}/cart/fetch`).then(res => {
     //   return res.json()
     // }).then((jsonRes) => {
     //   if (user === null) return
@@ -36,7 +36,7 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
           shopper: user
         },
         withCredentials: true,
-        url: "http://localhost:5000/cart/add"
+        url: `${process.env.URL_BASE_BACKEND}/cart/add`
       }).then((res) => {
         setItemQuantity(currentItemQuantity => currentItemQuantity + 1)
         setCartNum(currentCartNum => currentCartNum + 1)
@@ -61,7 +61,7 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
           shopper: user
         },
         withCredentials: true,
-        url: "http://localhost:5000/cart/remove"
+        url: `${process.env.URL_BASE_BACKEND}/cart/remove`
       }).then((res) => {
         setItemQuantity(currentItemQuantity => currentItemQuantity -1)
         setCartNum(currentCartNum => currentCartNum - 1)

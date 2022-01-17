@@ -13,7 +13,7 @@ function CartCleanup({ user }) {
         buyer: user
       },
       withCredentials: true,
-      url: "http://localhost:5000/cart/create_order"
+      url: `${process.env.URL_BASE_BACKEND}/cart/create_order`
     })
       .then(res => {
         console.log(res)
@@ -31,7 +31,7 @@ function CartCleanup({ user }) {
         shopper: user
       },
       withCredentials: true,
-      url: "http://localhost:5000/cart/wipe"
+      url: `${process.env.URL_BASE_BACKEND}/cart/wipe`
     })
       .then(res => {
         console.log(res)
@@ -43,8 +43,8 @@ function CartCleanup({ user }) {
 
   useEffect(() => {
     Promise.all([
-      fetch('http://localhost:5000/cart/fetch'),
-      fetch('http://localhost:5000/foods'),
+      fetch(`${process.env.URL_BASE_BACKEND}/cart/fetch`),
+      fetch(`${process.env.URL_BASE_BACKEND}/foods`),
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([data1, data2]) => {
@@ -89,7 +89,7 @@ function CartCleanup({ user }) {
         cartItems: fullData
       },
       withCredentials: true,
-      url: "http://localhost:5000/cart/adjust"
+      url: `${process.env.URL_BASE_BACKEND}/cart/adjust`
     })
       .then(res => {
         console.log(res)
@@ -100,7 +100,7 @@ function CartCleanup({ user }) {
   }
 
   function redirect () {
-    window.location = 'http://localhost:3000/orders'
+    window.location = `${process.env.URL_BASE_CLIENT}/orders`
   }
 
   return (

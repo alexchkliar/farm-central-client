@@ -5,7 +5,7 @@ const Sales = ({ user, userList }) => {
   const [salesOrders, setSalesOrders] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/sold/").then(res => {
+    fetch(`${process.env.URL_BASE_BACKEND}/sold`).then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return
