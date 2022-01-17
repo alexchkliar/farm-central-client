@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faCarrot } from '@fortawesome/free-solid-svg-icons'
 
 const Navigation = ({ user, cartNum}) => {
 
@@ -18,7 +19,8 @@ const Navigation = ({ user, cartNum}) => {
     <Navbar bg="dark" variant="dark"
       sticky="top" expand="sm" collapseOnSelect >
       <Navbar.Brand href="/">
-        FarmCentral
+        <FontAwesomeIcon icon={faCarrot} className="font-awesome-icon" />
+        <span> FarmCentral</span>
       </Navbar.Brand>
 
       <Navbar.Toggle className="coloring" />
