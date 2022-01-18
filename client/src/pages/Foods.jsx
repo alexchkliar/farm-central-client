@@ -11,7 +11,6 @@ function Foods({ setCartNum, user, userList }) {
   const [productList, setProductList] = useState([]);
   // const [userList, setUserList] = useState([]);
   const loadItems = 27 // works best with 1440p
-  // console.log(process.env.REACT_APP_URL_BASE_BACKEND)
 
   useEffect(() => {
     Axios({
@@ -20,7 +19,7 @@ function Foods({ setCartNum, user, userList }) {
         "Content-Type": "application/json"
       },
       withCredentials: true,
-      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/foods`
+      url: `foods`
     }).then(async jsonRes => {
       console.log(jsonRes.data)
       const foodList = await jsonRes.data.food_list
@@ -41,10 +40,13 @@ function Foods({ setCartNum, user, userList }) {
     }).catch(err => {
       throw err
     })
+
+    return () => console.log("cleanup")
+
   }, [activeFood, user])
 
   const fetchMoreData = () => {
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`).then(res => {
+    fetch(`foods`).then(res => {
       if (res.ok) {
         return res.json()
       }
@@ -58,8 +60,7 @@ function Foods({ setCartNum, user, userList }) {
 
   const addToCart = (index) => {
     if (user === null) {
-      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
-      return
+      window.location.href = `login`;
     }
     // console.log(user);
     console.log(index);
@@ -74,7 +75,7 @@ function Foods({ setCartNum, user, userList }) {
         shopper: user
       },
       withCredentials: true,
-      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/add`
+      url: `cart/add`
     }).then((res) => {
       console.log(res.data);
       // if (res.data === "Successfully added") {
@@ -86,7 +87,7 @@ function Foods({ setCartNum, user, userList }) {
   }
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`).then(res => {
+    fetch(`cart/fetch`).then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return

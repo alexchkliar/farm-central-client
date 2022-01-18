@@ -15,7 +15,7 @@ const Login = () => {
   const [alertClass, setAlertClass] = useState("");
 
   const google = () => {
-    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/google`, "_self"); // can replace with window.location.href
+    window.open(`/auth/google`, "_self"); // can replace with window.location.href
   };
 
   const handleSubmit = (event) => {
@@ -27,14 +27,14 @@ const Login = () => {
         password: password
       },
       withCredentials: true,
-      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/auth/login`
+      url: `auth/login`
     }).then((res) => {
       console.log(res.data);
       if (res.data === "Successfully Authenticated") {
         console.log("redirecting");
         // navigate("/");
         // window.open(`${process.env.URL_BASE_CLIENT}/foods`, "_self");
-        window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/foods`;
+        window.location.href = `/foods`;
       } else {
         setAlertClass("alert alert-danger")
         setValidation("Incorrect username or password.")

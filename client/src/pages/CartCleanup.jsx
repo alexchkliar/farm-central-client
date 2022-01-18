@@ -13,7 +13,7 @@ function CartCleanup({ user }) {
         buyer: user
       },
       withCredentials: true,
-      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/create_order`
+      url: `cart/create_order`
     })
       .then(res => {
         console.log(res)
@@ -31,7 +31,7 @@ function CartCleanup({ user }) {
         shopper: user
       },
       withCredentials: true,
-      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/wipe`
+      url: `cart/wipe`
     })
       .then(res => {
         console.log(res)
@@ -43,8 +43,8 @@ function CartCleanup({ user }) {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`),
-      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`),
+      fetch(`cart/fetch`),
+      fetch(`foods`),
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([data1, data2]) => {
@@ -89,7 +89,7 @@ function CartCleanup({ user }) {
         cartItems: fullData
       },
       withCredentials: true,
-      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/adjust`
+      url: `cart/adjust`
     })
       .then(res => {
         console.log(res)

@@ -19,7 +19,7 @@ function App() {
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/login/success`, {
+    fetch(`auth/login/success`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -28,7 +28,7 @@ function App() {
         "Access-Control-Allow-Credentials": true
       },
     }).then((res) => {
-      if (res.status===200) return res.json();
+      if (res.status === 200) return res.json();
       throw new Error("Authentication has failed")
     }).then(resObject => {
 
@@ -36,7 +36,7 @@ function App() {
       // console.log(resObject)
       if (resObject.user.displayName !== undefined) {
         // console.log("hey")
-        fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/specificUser`, {
+        fetch(`auth/specificUser`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -64,7 +64,7 @@ function App() {
 
     // console.log(user)
 
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/usersList`).then(res => {
+    fetch(`auth/usersList`).then(res => {
       return res.json()
     }).then((jsonRes) => {
       setUserList(jsonRes);
@@ -72,10 +72,12 @@ function App() {
       console.log(err);
     });
 
+    return () => console.log("cleanup")
+
   }, [])
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`, {
+    fetch(`cart/fetch`, {
       // method: "GET",
       // body: {
       //   user: user,
@@ -98,23 +100,23 @@ function App() {
 
   return (
     <BrowserRouter>
-        <Navigation user={user} cartNum={cartNum} />
-        <Routes>
-          <Route>
-            <Route path ="/" element={<Home />} />
-            <Route path="/cart" element={<Cart user={user} setCartNum={setCartNum} userList={userList}/>} />
-            <Route path="/cart_cleanup" element={<CartCleanup user={user} />}/>
-            <Route path="/foods" element={<Foods user={user} setCartNum={setCartNum} userList={userList}/>} />
-            <Route path="/orders" element={<Orders user={user} userList={userList} />} />
-            <Route path="/sold" element={<Sales user={user} userList={userList} />} />
-            <Route path="/register" element={<Register user={user} />} />
-            <Route
-              path ="/login"
-              element={user ? <Navigate to="/" /> : <Login />}
-            />
-            <Route path="/post/:id" element={user ? <Post /> : <Navigate to="/" />} />
-          </Route>
-        </Routes>
+      <Navigation user={user} cartNum={cartNum} />
+      <Routes>
+        <Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart user={user} setCartNum={setCartNum} userList={userList} />} />
+          <Route path="/cart_cleanup" element={<CartCleanup user={user} />} />
+          <Route path="/foods" element={<Foods user={user} setCartNum={setCartNum} userList={userList} />} />
+          <Route path="/orders" element={<Orders user={user} userList={userList} />} />
+          <Route path="/sold" element={<Sales user={user} userList={userList} />} />
+          <Route path="/register" element={<Register user={user} />} />
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" /> : <Login />}
+          />
+          <Route path="/post/:id" element={user ? <Post /> : <Navigate to="/" />} />
+        </Route>
+      </Routes>
       <Footer />
     </BrowserRouter>
   );

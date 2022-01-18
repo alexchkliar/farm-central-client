@@ -10,7 +10,7 @@ const Food = ({ food, index, addToCart, user, userList }) => {
   const [favoritedStatus, setFavoritedStatus] = useState(false);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch
+    fetch(`cart/fetch
     `).then(res => {
       return res.json()
     }).then((jsonRes) => {
@@ -22,10 +22,14 @@ const Food = ({ food, index, addToCart, user, userList }) => {
       }).filter(foodInCart => foodInCart === food._id).length)
     })
 
-
+    console.log(userList)
     setSellerName(userList.find((element) => {
+      console.log(element)
       return element._id === food.seller
     }).name);
+
+    return () => console.log("cleanup")
+
   }, [user, food._id, food.seller, userList, sellerName]) // remove dependence?
 
   function handleEvent() {
@@ -60,14 +64,14 @@ const Food = ({ food, index, addToCart, user, userList }) => {
 
             <div className="food-card-right">
               <li className="list-food-price">${food.price.toFixed(2)}</li>
-              <li className="list-food-available">{ (food.quantity > 0) ? (food.quantity + " availble") : "Sold out"}</li>
+              <li className="list-food-available">{(food.quantity > 0) ? (food.quantity + " availble") : "Sold out"}</li>
               <li className="list-food-breed">Seller: {sellerName}</li>
             </div>
           </div>
           <div className="add-to-cart-button" onClick={() => handleEvent()}>+1 TO CART</div>
         </div>
         <div className={"favorite-icon-div" + (favoritedStatus ? " favorite-icon-div-favorited" : "")} onClick={() => setFavoritedStatus(currentStatus => !currentStatus)}>
-          <FontAwesomeIcon icon={faHeart} className={"favorite-icon" + (favoritedStatus ? " favorited" : "") } />
+          <FontAwesomeIcon icon={faHeart} className={"favorite-icon" + (favoritedStatus ? " favorited" : "")} />
         </div>
 
         <div className="food-cart-wrapper">

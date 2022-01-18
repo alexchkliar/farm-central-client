@@ -6,7 +6,7 @@ const Orders = ({ user }) => {
 
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/orders`).then(res => {
+    fetch(`orders`).then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return
