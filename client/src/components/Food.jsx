@@ -10,8 +10,7 @@ const Food = ({ food, index, addToCart, user, userList }) => {
   const [favoritedStatus, setFavoritedStatus] = useState(false);
 
   useEffect(() => {
-    fetch(`cart/fetch
-    `).then(res => {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`).then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return
@@ -22,11 +21,13 @@ const Food = ({ food, index, addToCart, user, userList }) => {
       }).filter(foodInCart => foodInCart === food._id).length)
     })
 
-    console.log(userList)
-    setSellerName(userList.find((element) => {
-      console.log(element)
-      return element._id === food.seller
-    }).name);
+    console.log(userList.length)
+    if(userList.length !== 0) {
+      setSellerName(userList.find((element) => {
+        console.log(element)
+        return element._id === food.seller
+      }).name);
+    }
 
     return () => console.log("cleanup")
 
@@ -34,7 +35,7 @@ const Food = ({ food, index, addToCart, user, userList }) => {
 
   function handleEvent() {
     if (user === null) {
-      window.location.href = `${process.env.URL_BASE_CLIENT}/login`;
+      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
     }
     if ((activeFoodCount < food.quantity)) {
       console.log("index " + index)

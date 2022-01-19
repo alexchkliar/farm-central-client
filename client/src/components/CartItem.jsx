@@ -36,7 +36,7 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
           shopper: user
         },
         withCredentials: true,
-        url: `cart/add`
+        url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/add`
       }).then((res) => {
         setItemQuantity(currentItemQuantity => currentItemQuantity + 1)
         setCartNum(currentCartNum => currentCartNum + 1)
@@ -61,7 +61,7 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
           shopper: user
         },
         withCredentials: true,
-        url: `cart/remove`
+        url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/remove`
       }).then((res) => {
         setItemQuantity(currentItemQuantity => currentItemQuantity -1)
         setCartNum(currentCartNum => currentCartNum - 1)

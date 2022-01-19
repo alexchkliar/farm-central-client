@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Sales from "./pages/Sales";
 import Register from "./pages/Register";
+import User from "./pages/User";
 import CartCleanup from './pages/CartCleanup';
 import Footer from './components/Footer';
 
@@ -19,7 +20,7 @@ function App() {
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
-    fetch(`auth/login/success`, {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/login/success`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -36,7 +37,7 @@ function App() {
       // console.log(resObject)
       if (resObject.user.displayName !== undefined) {
         // console.log("hey")
-        fetch(`auth/specificUser`, {
+        fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/specificUser`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -64,7 +65,7 @@ function App() {
 
     // console.log(user)
 
-    fetch(`auth/usersList`).then(res => {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/usersList`).then(res => {
       return res.json()
     }).then((jsonRes) => {
       setUserList(jsonRes);
@@ -77,7 +78,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch(`cart/fetch`, {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`, {
       // method: "GET",
       // body: {
       //   user: user,
@@ -110,6 +111,7 @@ function App() {
           <Route path="/orders" element={<Orders user={user} userList={userList} />} />
           <Route path="/sold" element={<Sales user={user} userList={userList} />} />
           <Route path="/register" element={<Register user={user} />} />
+          <Route path="/user/:id" element={<User user={user} />} />
           <Route
             path="/login"
             element={user ? <Navigate to="/" /> : <Login />}

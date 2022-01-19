@@ -12,6 +12,7 @@ const foodRoutes = require("./routes/foodRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const saleRoutes = require("./routes/saleRoutes");
+const userRoutes = require("./routes/userRoutes");
 const bodyParser = require('body-parser')
 const app = express();
 
@@ -53,6 +54,7 @@ app.use("/foods", foodRoutes);
 app.use("/cart", cartRoutes);
 app.use("/orders", orderRoutes);
 app.use("/sold", saleRoutes);
+app.use("/user", userRoutes);
 
 app.listen("5000", () => {
   console.log("Server is running!");

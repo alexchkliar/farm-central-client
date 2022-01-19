@@ -39,18 +39,18 @@ module.exports = function(passport) {
     )
   );
 
-  passport.use(
-    new FacebookStrategy(
-      {
-        clientID: process.env.FACEBOOK_APP_ID,
-        clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: "/auth/facebook/callback",
-      },
-      function (accessToken, refreshToken, profile, done) {
-        done(null, profile);
-      }
-    )
-  );
+  // passport.use(
+  //   new FacebookStrategy(
+  //     {
+  //       clientID: process.env.FACEBOOK_APP_ID,
+  //       clientSecret: process.env.FACEBOOK_APP_SECRET,
+  //       callbackURL: "/auth/facebook/callback",
+  //     },
+  //     function (accessToken, refreshToken, profile, done) {
+  //       done(null, profile);
+  //     }
+  //   )
+  // );
 
   passport.use(
     new localStrategy((username, password, done) => {

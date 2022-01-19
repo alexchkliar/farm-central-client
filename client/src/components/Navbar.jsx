@@ -1,5 +1,3 @@
-import logo from '../img/farm-logo.png';
-// import { Link } from "react-router-dom";
 import '../App.css';
 import '../css_components/navbar.css';
 import 'bootstrap/dist/css/bootstrap.css'
@@ -11,7 +9,7 @@ import { faCarrot } from '@fortawesome/free-solid-svg-icons'
 const Navigation = ({ user, cartNum}) => {
 
   const logout = () => {
-    window.open(`/auth/logout`, "_self");
+    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`, "_self");
   }
   // console.log(user === null)
   // console.log((typeof user.name) === "object")
@@ -35,7 +33,7 @@ const Navigation = ({ user, cartNum}) => {
             <NavDropdown.Item href={(user !== null) ? "/foods" : "/login"}>My listings</NavDropdown.Item>
           </NavDropdown>
           { user ?
-            (<> <Nav.Link href="/#">{(user.name ? user.name : user.name.givenName) + " profile"}</Nav.Link>
+            (<> <Nav.Link href={`/user/${user._id}`}>{(user.name ? user.name : user.name.givenName) + " profile"}</Nav.Link>
             <Nav.Link onClick={logout}>Logout</Nav.Link></>) :
             (<> <Nav.Link href="/register">Sign up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link> </>)

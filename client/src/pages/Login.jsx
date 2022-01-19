@@ -15,7 +15,7 @@ const Login = () => {
   const [alertClass, setAlertClass] = useState("");
 
   const google = () => {
-    window.open(`/auth/google`, "_self"); // can replace with window.location.href
+    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/google`, "_self"); // can replace with window.location.href
   };
 
   const handleSubmit = (event) => {
@@ -27,7 +27,7 @@ const Login = () => {
         password: password
       },
       withCredentials: true,
-      url: `auth/login`
+      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/auth/login`
     }).then((res) => {
       console.log(res.data);
       if (res.data === "Successfully Authenticated") {

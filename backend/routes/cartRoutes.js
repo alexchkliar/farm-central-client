@@ -7,7 +7,7 @@ const Food = require('../models/food')
 cart_controller = require("../controllers/cartController");
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 
-const REDIRECT_URL = `${process.env.URL_BASE_BACKEND}/foods`;
+const REDIRECT_URL = `${process.env.URL_BASE_CLIENT}/foods`;
 
 router.post("/add", (req, res) => {
   const newCartProduct = new CartProduct({
