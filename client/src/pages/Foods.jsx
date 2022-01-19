@@ -62,11 +62,7 @@ function Foods({ setCartNum, user, userList }) {
     if (user === null) {
       window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
     }
-    // console.log(user);
-    console.log(index);
-    console.log(foods[index]);
     setCartNum(cartNum => cartNum + 1);
-    // cartAddDetail = { food: foods[e.target.value], shopper: user }
 
     Axios({
       method: "POST",
@@ -78,11 +74,42 @@ function Foods({ setCartNum, user, userList }) {
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/add`
     }).then((res) => {
       console.log(res.data);
-      // if (res.data === "Successfully added") {
-        // navigate("/");
-        // window.open(`${process.env.URL_BASE_CLIENT}/foods`, "_self");
-        // window.location.href = `${process.env.URL_BASE_CLIENT}/foods`;
-      // }
+    })
+  }
+
+  const addToFavorite = (index) => {
+    if (user === null) {
+      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
+    }
+
+    Axios({
+      method: "POST",
+      data: {
+        food: foods[index],
+        shopper: user
+      },
+      withCredentials: true,
+      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/add`
+    }).then((res) => {
+      console.log(res.data);
+    })
+  }
+
+  const deleteFromFavorite = (index) => {
+    if (user === null) {
+      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
+    }
+
+    Axios({
+      method: "DELETE",
+      data: {
+        food: foods[index],
+        shopper: user
+      },
+      withCredentials: true,
+      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/remove`
+    }).then((res) => {
+      console.log(res.data);
     })
   }
 
@@ -114,10 +141,20 @@ function Foods({ setCartNum, user, userList }) {
           dataLength={foods.length}
           next={fetchMoreData}
           hasMore={maxLength > foods.length}
-          loader={<p>Loading...</p>}
+          loader={<p className="loader">Loading...</p>}
         >
           {foods.map((food, index) => (
-            <Food key={index} index={index} userList={userList} food={food} foodCountInCart={productList.filter(foodInCart => foodInCart === food._id).length} addToCart={addToCart} user={user} />
+            <Food
+              key={index}
+              index={index}
+              userList={userList}
+              food={food}
+              foodCountInCart={productList.filter(foodInCart => foodInCart === food._id).length}
+              addToCart={addToCart}
+              addToFavorite={addToFavorite}
+              deleteFromFavorite={deleteFromFavorite}
+              user={user}
+            />
           ))}
         </InfiniteScroll>
       </div>

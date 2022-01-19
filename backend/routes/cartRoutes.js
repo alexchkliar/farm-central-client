@@ -2,6 +2,7 @@ require('dotenv').config()
 const router = require("express").Router();
 const passport = require("passport");
 const CartProduct = require('../models/cart')
+const Favorite = require('../models/favorite')
 const Order = require('../models/order')
 const Food = require('../models/food')
 cart_controller = require("../controllers/cartController");

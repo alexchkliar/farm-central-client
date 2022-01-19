@@ -27,3 +27,7 @@
   text-align: center;
   display: inline-block; */
 }
+
+.navbar-toggler {
+  margin-right: 8px;
+}

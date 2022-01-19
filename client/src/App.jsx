@@ -1,13 +1,13 @@
 import './App.css';
 import Navigation from './components/Navbar';
 import Home from './pages/Home';
-import Post from './pages/Post';
 import Login from './pages/Login';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Foods from "./pages/Foods";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
+import Favorites from "./pages/Favorite";
 import Sales from "./pages/Sales";
 import Register from "./pages/Register";
 import User from "./pages/User";
@@ -111,12 +111,12 @@ function App() {
           <Route path="/orders" element={<Orders user={user} userList={userList} />} />
           <Route path="/sold" element={<Sales user={user} userList={userList} />} />
           <Route path="/register" element={<Register user={user} />} />
+          <Route path="/favorites" element={<Favorites user={user} />} />
           <Route path="/user/:id" element={<User user={user} />} />
           <Route
             path="/login"
             element={user ? <Navigate to="/" /> : <Login />}
           />
-          <Route path="/post/:id" element={user ? <Post /> : <Navigate to="/" />} />
         </Route>
       </Routes>
       <Footer />

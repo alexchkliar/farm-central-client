@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import Axios from 'axios';
 
-const Food = ({ food, index, addToCart, user, userList }) => {
+const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFromFavorite }) => {
   const [activeFoodCount, setActiveFoodCount] = useState(0);
   const [sellerName, setSellerName] = useState("");
   const [favoritedStatus, setFavoritedStatus] = useState(false);
@@ -21,19 +22,35 @@ const Food = ({ food, index, addToCart, user, userList }) => {
       }).filter(foodInCart => foodInCart === food._id).length)
     })
 
-    console.log(userList.length)
+    // console.log(userList.length)
     if(userList.length !== 0) {
       setSellerName(userList.find((element) => {
-        console.log(element)
+        // console.log(element)
         return element._id === food.seller
       }).name);
     }
 
-    return () => console.log("cleanup")
+    Axios({
+      method: "POST",
+      data: {
+        food: food,
+        shopper: user
+      },
+      withCredentials: true,
+      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/check`
+    }).then((res) => {
+      console.log(res.data)
+      setFavoritedStatus(res.data)
+      // truth = res.data;
+    }).catch((err) => {
+      console.log(err);
+    })
 
-  }, [user, food._id, food.seller, userList, sellerName]) // remove dependence?
+    //return () => console.log("Cleanup")
 
-  function handleEvent() {
+  }, [user, food._id, food.seller, userList, sellerName, food, index]) // remove dependence?
+
+  function handleCartEvent() {
     if (user === null) {
       window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
     }
@@ -45,6 +62,20 @@ const Food = ({ food, index, addToCart, user, userList }) => {
       console.log("Cannot add more")
     }
   }
+
+  function handleFavoriteEvent() {
+    if (user === null) {
+      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
+    }
+    if (favoritedStatus === false) {
+      // console.log("index " + index)
+      addToFavorite(index)
+    } else {
+      deleteFromFavorite(index)
+    }
+    setFavoritedStatus(currentStatus => !currentStatus)
+  }
+
 
   return (
     <div className={(activeFoodCount < food.quantity) ? "food-card" : "food-card full-food-card"}>
@@ -69,9 +100,9 @@ const Food = ({ food, index, addToCart, user, userList }) => {
               <li className="list-food-breed">Seller: {sellerName}</li>
             </div>
           </div>
-          <div className="add-to-cart-button" onClick={() => handleEvent()}>+1 TO CART</div>
+          <div className="add-to-cart-button" onClick={() => handleCartEvent()}>+1 TO CART</div>
         </div>
-        <div className={"favorite-icon-div" + (favoritedStatus ? " favorite-icon-div-favorited" : "")} onClick={() => setFavoritedStatus(currentStatus => !currentStatus)}>
+        <div className={"favorite-icon-div" + (favoritedStatus ? " favorite-icon-div-favorited" : "")} onClick={() => handleFavoriteEvent()}>
           <FontAwesomeIcon icon={faHeart} className={"favorite-icon" + (favoritedStatus ? " favorited" : "")} />
         </div>
 

@@ -168,6 +168,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.favorite-icon-div {
   cursor: pointer;
 }
 
@@ -198,4 +201,10 @@
 .list-food-available,
 .list-food-breed {
   font-size: 18px;
+}
+
+.loader {
+  font-style: italic;
+  margin-top: 25px;
+  /* font-size: 20px; */
 }

@@ -19,7 +19,7 @@ const Sale = ({ buyerId, date, items, userList }) => {
       <div className="order-item-list">
         {items.map((item, index) => (
           // <li><img width="250" height="250" src={order.photo} alt="" /></li>
-          <div key={index} className="" >
+          <div key={index} className="sale-item-div" >
             Item {index + 1}
             <ul>
               <li>{item.foodName}, {item.foodUnits} per bundle </li>

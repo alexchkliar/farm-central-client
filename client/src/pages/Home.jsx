@@ -9,7 +9,7 @@ const Home = () => {
       {/* <h1>Home page</h1> */}
       <section className="home-page-section-1">
         <div className="landing-page-main-text-div">
-          <h1 className="landing-page-main-header">Fresh food from local farms</h1>
+          <h1 className="landing-page-main-header">Order fresh organic food from local farms</h1>
           <p className="landing-page-main-text">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, libero. Totam magni ipsum sed maiores eos numquam.
           </p>
@@ -22,7 +22,7 @@ const Home = () => {
                 alt="First slide"
               />
               <Carousel.Caption>
-                <h3>First slide label</h3>
+                <h3>Fresh organic food</h3>
                 <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -34,7 +34,7 @@ const Home = () => {
               />
 
               <Carousel.Caption>
-                <h3>Second slide label</h3>
+                <h3>Sourced from local farms</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -46,7 +46,7 @@ const Home = () => {
               />
 
               <Carousel.Caption>
-                <h3>Third slide label</h3>
+                <h3>Delivered straight to your door</h3>
                 <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -58,6 +58,9 @@ const Home = () => {
         <div className="wave wave4"></div>
       </section>
       <section className="home-page-section-2">
+        <div className="home-page-card"></div>
+        <div className="home-page-card"></div>
+        <div className="home-page-card"></div>
       </section>
     </div>
   )

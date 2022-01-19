@@ -128,7 +128,7 @@ console.log(user)
             />
           ))}
           <div className="bottom-cart-checkout">
-            <p className="cart-total">Total: ${totalPrice.toFixed(2)}</p>
+            <p className="cart-total"><strong>Total: ${totalPrice.toFixed(2)}</strong></p>
             <button className="checkout-button" onClick={() => accessStripeCart()}>Checkout</button>
           </div>
           {/* <StripeCheckout
