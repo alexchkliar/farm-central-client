@@ -32,7 +32,7 @@ app.use(
 );
 
 app.use(session({
-  secret: "secretcode",
+  secret: process.env.COOKIE_PASSWORD,
   resave: true,
   saveUninitialized: true
 }))
@@ -49,7 +49,7 @@ app.use(
   })
 );
 
-app.use(cookieParser("secretcode"))
+app.use(cookieParser(process.env.COOKIE_PASSWORD))
 app.use("/auth", authRoutes);
 app.use("/foods", foodRoutes);
 app.use("/cart", cartRoutes);
@@ -57,6 +57,11 @@ app.use("/orders", orderRoutes);
 app.use("/sold", saleRoutes);
 app.use("/user", userRoutes);
 app.use("/favorite", favoriteRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"))
+  res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"))
+}
 
 app.listen("5000", () => {
   console.log("Server is running!");
