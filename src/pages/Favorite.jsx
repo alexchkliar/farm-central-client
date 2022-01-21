@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Food from '../components/Food';
 
 const Favorites = ({ user }) => {
+  const [favoriteFood, setFavoriteFood] = useState([]);
+
   useEffect(() => {
     Promise.all([
       fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/fetch`),
@@ -39,7 +42,7 @@ const Favorites = ({ user }) => {
           });
           return output[0];
         })
-        console.log(fullData)
+        setFavoriteFood(fullData)
 
 
       })
@@ -50,7 +53,20 @@ const Favorites = ({ user }) => {
 
   return (
     <div className="">
-
+      {favoriteFood.map((food, index) => (
+        <div>
+          <ul>
+            <li>{food.foodId}</li>
+            <li>{food.foodName}</li>
+            <li>{food.foodUnits}</li>
+            <li>${food.foodPrice.toFixed(2)}</li>
+            <li>{food.foodQuantity}</li>
+            <li>{food.foodSeller}</li>
+            <li>{food.foodLocation}</li>
+          </ul>
+          <br />
+        </div>
+      ))}
     </div>
   )
 }

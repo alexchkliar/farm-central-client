@@ -27,7 +27,7 @@ const Login = () => {
         password: password
       },
       withCredentials: true,
-      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/auth/login`
+      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/auth/login` // switched for deployment debugging
     }).then((res) => {
       console.log(res.data);
       if (res.data === "Successfully Authenticated") {

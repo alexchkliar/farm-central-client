@@ -9,51 +9,80 @@ function Foods({ setCartNum, user, userList }) {
   const [foods, setFoods] = useState([]);
   const [maxLength, setMaxLength] = useState(0);
   const [productList, setProductList] = useState([]);
-  // const [userList, setUserList] = useState([]);
+  const [favoritesOn, setFavoritesOn] = useState(false);
   const loadItems = 27 // works best with 1440p
 
   useEffect(() => {
-    Axios({
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      withCredentials: true,
-      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/foods`
-    }).then(async jsonRes => {
-      const foodList = await jsonRes.data.food_list
-      if (user) {
-        const outputList = foodList.filter(function (food) {
-          return food.seller !== user._id && (food.category === activeFood || activeFood === "All")
-        })
-        setMaxLength(outputList.length)
-        setFoods(outputList.slice(0, loadItems))
-      } else {
-        const outputList = foodList.filter(function (food) {
-          return (food.category === activeFood || activeFood === "All")
-        })
-        setMaxLength(outputList.length)
-        setFoods(outputList.slice(0, loadItems))
-      }
+    Promise.all([
+      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/fetch`),
+      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`),
+    ])
+      .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
+      .then(([data1, data2]) => {
+        const favoriteFoodIdList = data1.favorite_list.map((item) => { return item.food })
+        const favoriteFoodShopperList = data1.favorite_list.map((item) => { return item.shopper })
+        let foodList = []
+
+        if (favoritesOn && user) {
+          foodList = data2.food_list.filter((food) => { return (favoriteFoodIdList.includes(food._id) && favoriteFoodShopperList.includes(user._id)) })
+        } else {
+          foodList = data2.food_list
+        }
+        console.log(foodList)
+
+        if (user) {
+          const outputList = foodList.filter(function (food) {
+            return food.seller !== user._id && (food.category === activeFood || activeFood === "All")
+          })
+          setMaxLength(outputList.length)
+          setFoods(outputList.slice(0, loadItems))
+          console.log(outputList)
+
+        } else {
+          const outputList = foodList.filter(function (food) {
+            return (food.category === activeFood || activeFood === "All")
+          })
+          setMaxLength(outputList.length)
+          setFoods(outputList.slice(0, loadItems))
+        }
     }).catch(err => {
       throw err
     })
-
     // return () => console.log("cleanup")
 
-  }, [activeFood, user])
+  }, [activeFood, user, favoritesOn])
 
   const fetchMoreData = () => {
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`).then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-    }).then((jsonRes) =>
-      setFoods(foods.concat(jsonRes.food_list.filter(function (food) {
-        // return (food.quantity >= 1 && (food.category === activeFood || activeFood === "All"))
-        return food.seller !== user && (food.category === activeFood || activeFood === "All")
-      }).slice(foods.length, foods.length + loadItems)))
-    )
+    Promise.all([
+      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/fetch`),
+      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`),
+    ])
+      .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
+      .then(([data1, data2]) => {
+        const favoriteFoodIdList = data1.favorite_list.map((item) => { return item.food })
+        const favoriteFoodShopperList = data1.favorite_list.map((item) => { return item.shopper })
+        let foodList = []
+
+        if (favoritesOn && user) {
+          foodList = data2.food_list.filter((food) => { return (favoriteFoodIdList.includes(food._id) && favoriteFoodShopperList.includes(user._id)) })
+        } else {
+          foodList = data2.food_list
+        }
+
+        if (user) {
+          const outputList = foodList.filter(function (food) {
+            return food.seller !== user._id && (food.category === activeFood || activeFood === "All")
+          })
+          setFoods(foods.concat(outputList.slice(foods.length, foods.length + loadItems)))
+        } else {
+          const outputList = foodList.filter(function (food) {
+            return (food.category === activeFood || activeFood === "All")
+          })
+          setFoods(foods.concat(outputList.slice(foods.length, foods.length + loadItems)))
+        }
+      }).catch(err => {
+        throw err
+      })
   };
 
   const addToCart = (index) => {
@@ -124,14 +153,22 @@ function Foods({ setCartNum, user, userList }) {
     })
   }, [user]) // remove user dependence?
 
+
+
+
   return (
     <div className="">
-      <h1 className="header-h1">Browse foods</h1>
-      <div className="food-selector-wrapper">
-        <button className={"food-selector-button " + (activeFood === "All" ? "active-food" : "")} onClick={() => setActiveFood("All")} value="All">All</button>
-        <button className={"food-selector-button " + (activeFood === "Vegetable" ? "active-food" : "")} onClick={() => setActiveFood("Vegetable")} value="Vegetable">Vegetables</button>
-        <button className={"food-selector-button " + (activeFood === "Fruit" ? "active-food" : "")} onClick={() => setActiveFood("Fruit")} value="Fruit">Fruits</button>
-        <button className={"food-selector-button " + (activeFood === "Other" ? "active-food" : "")} onClick={() => setActiveFood("Other")} value="Other">Others</button>
+      <h1 className="header-h1">Browse food</h1>
+      <div className="food-button-wrapper">
+        <div className="food-selector-wrapper">
+          <button className={"food-selector-button " + (activeFood === "All" ? "active-food" : "")} onClick={() => setActiveFood("All")} value="All">All</button>
+          <button className={"food-selector-button " + (activeFood === "Vegetable" ? "active-food" : "")} onClick={() => setActiveFood("Vegetable")} value="Vegetable">Veg</button>
+          <button className={"food-selector-button " + (activeFood === "Fruit" ? "active-food" : "")} onClick={() => setActiveFood("Fruit")} value="Fruit">Fruits</button>
+          <button className={"food-selector-button " + (activeFood === "Other" ? "active-food" : "")} onClick={() => setActiveFood("Other")} value="Other">Other</button>
+        </div>
+          { user?
+            <button className={"favorite-selector-button " + (favoritesOn === true ? "active-favorites" : "")} onClick={() => setFavoritesOn(favoritesStatus => !favoritesStatus)} value="Other">Faves</button>
+          : "" }
       </div>
 
       <div className="food-wrapper">
@@ -139,7 +176,7 @@ function Foods({ setCartNum, user, userList }) {
           dataLength={foods.length}
           next={fetchMoreData}
           hasMore={maxLength > foods.length}
-          loader={<p className="loader">Loading...</p>}
+          loader
         >
           {foods.map((food, index) => (
             <Food

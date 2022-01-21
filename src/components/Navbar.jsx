@@ -9,11 +9,12 @@ import { faCarrot } from '@fortawesome/free-solid-svg-icons'
 const Navigation = ({ user, cartNum}) => {
 
   const logout = () => {
-    console.log("test")
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`).then(res => {
-      console.log(res)
-      window.open(res.url, "_self");
-    })
+    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`, "_self");
+    // console.log("test")
+    // fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`).then(res => {
+    //   console.log(res)
+    //   window.open(res.url, "_self");
+    // })
   }
   // console.log(user === null)
   // console.log((typeof user.name) === "object")
@@ -29,8 +30,8 @@ const Navigation = ({ user, cartNum}) => {
       <Navbar.Collapse>
         <Nav>
           <Nav.Link href="/foods">Browse food</Nav.Link>
+          <Nav.Link href={(user !== null) ? "/foods/new" : "/login"}>List food</Nav.Link>
           <NavDropdown title="Orders">
-            <NavDropdown.Item href={(user !== null) ? "/favorites" : "/login"}>My favorites</NavDropdown.Item>
             <NavDropdown.Item href={(user !== null) ? "/orders" : "/login"}>My orders</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href={(user !== null) ? "/sold" : "/login"}>My sold items</NavDropdown.Item>

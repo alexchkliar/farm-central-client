@@ -49,7 +49,7 @@ const Login = () => {
           password: password
         },
         withCredentials: true,
-        url: `auth/register`
+        url: `${process.env.REACT_APP_URL_BASE_BACKEND}/auth/register`
       }).then((res) => {
         if (res.data === "User Created") {
           window.location.href = `${process.env.REACT_APP_URL_BASE_BACKEND}/foods`;

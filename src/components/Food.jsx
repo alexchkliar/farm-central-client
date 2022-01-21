@@ -75,7 +75,6 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
     setFavoritedStatus(currentStatus => !currentStatus)
   }
 
-
   return (
     <div className={(activeFoodCount < food.quantity) ? "food-card" : "food-card full-food-card"}>
       <ul className={"food-ul" + (food.quantity === 0 ? " empty-food-card" : "")}>
@@ -99,7 +98,10 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
               <li className="list-food-breed">Seller: {sellerName}</li>
             </div>
           </div>
-          <div className="add-to-cart-button" onClick={() => handleCartEvent()}>+1 TO CART</div>
+          <div className="add-to-cart-button" onClick={() => handleCartEvent()}>
+            <div className="cart-plus-symbol">+1 </div>
+            <div className="add-to-cart-text">ADD TO CART</div>
+          </div>
         </div>
         <div className={"favorite-icon-div" + (favoritedStatus ? " favorite-icon-div-favorited" : "")} onClick={() => handleFavoriteEvent()}>
           <FontAwesomeIcon icon={faHeart} className={"favorite-icon" + (favoritedStatus ? " favorited" : "")} />

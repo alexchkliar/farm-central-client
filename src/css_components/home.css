@@ -101,7 +101,29 @@
   background-color: rgba(53, 134, 255, 1);
 }
 
-.landing-page-main-text-div {
+.landing-page-main-text-wrapper{
+  display: flex;
+  height: 100%;
+  /* background-image: linear-gradient(45deg, #6303B1, #ff0099); */
+  /* transform: skewY(-11deg); */
+
+}
+
+.landing-page-main-text-div-left {
+  background: linear-gradient(45deg, black 0%, black 26%, transparent 26%),
+  linear-gradient(-45deg, black 0%, black 27%, transparent 27%);
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  background-color: purple;
+
+  text-align: center;
+}
+
+
+.landing-page-main-text-div-right {
+    background-color: blue;
+
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -166,9 +188,10 @@ section {
 /* section 2 */
 .home-page-section-2 {
   background-color: purple;
-  display: flex;
+  text-align: center;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   gap: 50px;
 }
 

@@ -10,6 +10,7 @@ import Orders from "./pages/Orders";
 import Favorites from "./pages/Favorite";
 import Sales from "./pages/Sales";
 import Register from "./pages/Register";
+import NewFood from "./pages/NewFood";
 import User from "./pages/User";
 import CartCleanup from './pages/CartCleanup';
 import Footer from './components/Footer';
@@ -106,6 +107,7 @@ function App() {
         <Route>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart user={user} setCartNum={setCartNum} userList={userList} />} />
+          <Route path="/foods/new" element={<NewFood user={user} setCartNum={setCartNum} userList={userList} />} />
           <Route path="/cart_cleanup" element={<CartCleanup user={user} />} />
           <Route path="/foods" element={<Foods user={user} setCartNum={setCartNum} userList={userList} />} />
           <Route path="/orders" element={<Orders user={user} userList={userList} />} />
