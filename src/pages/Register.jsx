@@ -17,7 +17,7 @@ const Login = () => {
   const [passwordAlertClass, setPasswordAlertClass] = useState("");
 
   const google = () => {
-    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/google`, "_self"); // can replace with window.location.href
+    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/api/auth/google`, "_self"); // can replace with window.location.href
   };
 
   const handleSubmit = (event) => {
@@ -49,10 +49,10 @@ const Login = () => {
           password: password
         },
         withCredentials: true,
-        url: `${process.env.REACT_APP_URL_BASE_BACKEND}/auth/register`
+        url: `${process.env.REACT_APP_URL_BASE_BACKEND}/api/auth/register`
       }).then((res) => {
         if (res.data === "User Created") {
-          window.location.href = `${process.env.REACT_APP_URL_BASE_BACKEND}/foods`;
+          window.location.href = `${process.env.REACT_APP_URL_BASE_BACKEND}/api/foods`;
         }
         if (res.data === "User Already Exists") {
           console.log("Username already exists.")
