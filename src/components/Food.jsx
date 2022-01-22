@@ -101,6 +101,7 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
           <div className="add-to-cart-button" onClick={() => handleCartEvent()}>
             <div className="cart-plus-symbol">+1 </div>
             <div className="add-to-cart-text">ADD TO CART</div>
+
           </div>
         </div>
         <div className={"favorite-icon-div" + (favoritedStatus ? " favorite-icon-div-favorited" : "")} onClick={() => handleFavoriteEvent()}>

@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  background: darkgreen;
+  /* background: darkgreen; */
   overflow: hidden;
 }
 
@@ -70,18 +70,21 @@
   }
 }
 
-.landing-page-main-header {
+.landing-page-main-header,
+.landing-page-header-2 {
   color: white;
-  padding-top: 100px;
   margin: 0px 20px 0 20px;
   font-size: 30px;
+}
 
+.landing-page-header-2 {
+  padding-top: 90px;
 }
 
 .landing-page-main-text {
   color: white;
   font-size: 18px;
-  margin: 20px 20px 40px 20px;
+  padding: 10px;
 }
 
 .landing-page-main-button {
@@ -91,7 +94,7 @@
   text-decoration: inherit;
   padding: 10px 50px;
   font-size: 20px;
-  border-radius: 12px;
+  border-radius: 8px;
   font-weight: bold;
 }
 
@@ -102,27 +105,38 @@
 }
 
 .landing-page-main-text-wrapper{
-  display: flex;
+  margin: 8px;
+	display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100%;
   /* background-image: linear-gradient(45deg, #6303B1, #ff0099); */
   /* transform: skewY(-11deg); */
-
+  /* background-image: url("../../public/farmer.jpg"); */
+  background-image: url("https://www.thespruceeats.com/thmb/ZnWDXm0VjfY2wy25ocFqZccy5YY=/2164x1217/smart/filters:no_upscale()/freshvegetablesAlexRaths-4c1ea186a88e4fd7b95283eee614600c.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 105px;
+  /* background: linear-gradient(135deg, darkgreen 0%, rgb(153, 185, 153) 100%, transparent 26%); */
 }
 
-.landing-page-main-text-div-left {
-  background: linear-gradient(45deg, black 0%, black 26%, transparent 26%),
-  linear-gradient(-45deg, black 0%, black 27%, transparent 27%);
-  /* display: flex;
+.landing-page-main-text-div-left,
+.landing-page-main-text-div-right {
+  width: max(50%,340px);
+  display: flex;
   justify-content: center;
-  align-items: center; */
-  background-color: purple;
-
+  align-items: center;
+  flex-direction: column;
   text-align: center;
+  height: 300px;
+  outline: 1px solid white;
+  border-radius: 8px;
+  background-color: rgba(120, 120, 120, 0.6);
+  margin: 3% auto;
 }
-
 
 .landing-page-main-text-div-right {
-    background-color: blue;
 
   /* display: flex;
   justify-content: center;
@@ -158,16 +172,17 @@
 
 @media screen and (min-width: 1500px) {
   .carousel {
-    width: 45%;
+    width: 55%;
   }
 }
 
 .carousel-caption {
   background-color: rgba(100,100,100,0.5);
-  border-radius: 5px;
-  padding: 5px 0px;
+  border-radius: 8px;
+  padding: 5px 10px;
   margin: 0px;
 }
+
 
 
 /* scroll feature */
@@ -177,18 +192,19 @@
 }
 
 html {
-  scroll-snap-points-y: repeat(100vh);
-  scroll-snap-type: y proximity;
+  /* scroll-snap-points-y: repeat(100vh); */
+  /* scroll-snap-type: y proximity; */
 }
 
 section {
-  scroll-snap-align: start;
+  /* scroll-snap-align: start; */
 }
 
 /* section 2 */
 .home-page-section-2 {
-  background-color: purple;
-  text-align: center;
+  background-image: linear-gradient(to bottom right, darkgreen, rgba(0,100,0,0.5));
+
+text-align: center;
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -197,7 +213,7 @@ section {
 
 
 .home-page-card {
-  width: 100px;
+  /* width: 100px;
   height: 100px;
-  outline: 1px solid blue;
+  outline: 1px solid blue; */
 }

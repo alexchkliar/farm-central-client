@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Order from '../components/Order';
+import Accordion from 'react-bootstrap/Accordion'
 
 const Orders = ({ user }) => {
   const [userOrders, setUserOrders] = useState([]);
@@ -32,21 +33,19 @@ const Orders = ({ user }) => {
     <>
       {userOrders.map((order, index) => (
         <div key={index} >
-          <strong>{`Order  ${index + 1}`}</strong>
-          <Order id={order._id} items={order.items} date={order.date} />
+
+          <Accordion defaultActiveKey="0">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header><strong>{`Order  ${index + 1}`}</strong></Accordion.Header>
+              <Accordion.Body>
+
+                <Order id={order._id} items={order.items} date={order.date} />
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         </div>
       ))}
 
-      {/* <ul>
-        <li><img width="250" height="250" src={food.photo} alt="" /></li>
-        <li>{food.name}</li>
-        <li>{food.species}</li>
-        <li>{food.breed}</li>
-        <li>{food.seller}</li>
-        <li>${food.price}</li>
-        <li>{food.quantity}</li>
-        <li>Number in your cart: {activeFoodCount}</li>
-      </ul> */}
     </>
   )
 }

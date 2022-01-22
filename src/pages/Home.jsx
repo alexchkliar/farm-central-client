@@ -11,7 +11,7 @@ const Home = () => {
         <div className="landing-page-main-text-wrapper">
 
           <div className="landing-page-main-text-div-left">
-            <h1 className="landing-page-main-header">Order fresh organic food from local farms</h1>
+            <h1 className="landing-page-main-header">Order fresh food from local farms</h1>
             <p className="landing-page-main-text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, libero. Totam magni ipsum sed maiores eos numquam.
             </p>
@@ -32,14 +32,14 @@ const Home = () => {
         <div className="wave wave4"></div>
       </section>
       <section className="home-page-section-2">
-        <h1 className="landing-page-main-header">Order fresh organic food from local farms</h1>
+        <h1 className="landing-page-header-2">Order fresh organic food from local farms</h1>
         <p className="landing-page-main-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, libero. Totam magni ipsum sed maiores eos numquam.</p>
         <br />
         <Carousel>
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src="https://www.thespruceeats.com/thmb/ZnWDXm0VjfY2wy25ocFqZccy5YY=/2164x1217/smart/filters:no_upscale()/freshvegetablesAlexRaths-4c1ea186a88e4fd7b95283eee614600c.jpg"
+              src="https://otbsalessolutions.com/wp-content/uploads/2021/08/Farmer-standing-in-field.jpg"
               alt="First slide"
             />
             <Carousel.Caption>
@@ -50,7 +50,7 @@ const Home = () => {
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src="https://www.thespruceeats.com/thmb/ZnWDXm0VjfY2wy25ocFqZccy5YY=/2164x1217/smart/filters:no_upscale()/freshvegetablesAlexRaths-4c1ea186a88e4fd7b95283eee614600c.jpg"
+              src="https://otbsalessolutions.com/wp-content/uploads/2021/08/Farmer-standing-in-field.jpg"
               alt="Second slide"
             />
 
@@ -62,7 +62,7 @@ const Home = () => {
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src="https://www.thespruceeats.com/thmb/ZnWDXm0VjfY2wy25ocFqZccy5YY=/2164x1217/smart/filters:no_upscale()/freshvegetablesAlexRaths-4c1ea186a88e4fd7b95283eee614600c.jpg"
+              src="https://otbsalessolutions.com/wp-content/uploads/2021/08/Farmer-standing-in-field.jpg"
               alt="Third slide"
             />
 
