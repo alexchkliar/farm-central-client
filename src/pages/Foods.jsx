@@ -87,7 +87,7 @@ function Foods({ setCartNum, user, userList }) {
 
   const addToCart = (index) => {
     if (user === null) {
-      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
+      window.location.href = `/login`;
     }
     setCartNum(cartNum => cartNum + 1);
 
@@ -106,7 +106,7 @@ function Foods({ setCartNum, user, userList }) {
 
   const addToFavorite = (index) => {
     if (user === null) {
-      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
+      window.location.href = `/login`;
     }
 
     Axios({
@@ -124,7 +124,7 @@ function Foods({ setCartNum, user, userList }) {
 
   const deleteFromFavorite = (index) => {
     if (user === null) {
-      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
+      window.location.href = `/login`;
     }
 
     Axios({

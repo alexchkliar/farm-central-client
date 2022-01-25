@@ -50,8 +50,10 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
   }, [user, food._id, food.seller, userList, sellerName, food, index]) // remove dependence?
 
   function handleCartEvent() {
+    console.log(user)
     if (user === null) {
-      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
+      // console.log(window.location.hostname === "localhost")
+      window.location.href = `/login`;
     }
     if ((activeFoodCount < food.quantity)) {
       console.log("index " + index)
@@ -64,7 +66,7 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
 
   function handleFavoriteEvent() {
     if (user === null) {
-      window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/login`;
+      window.location.href = `/login`;
     }
     if (favoritedStatus === false) {
       // console.log("index " + index)
