@@ -9,12 +9,12 @@ import { faCarrot } from '@fortawesome/free-solid-svg-icons'
 const Navigation = ({ user, cartNum}) => {
 
   const logout = () => {
-    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`, "_self");
-    // console.log("test")
-    // fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`).then(res => {
-    //   console.log(res)
-    //   window.open(res.url, "_self");
-    // })
+    // window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`, "_self");
+    console.log("test")
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`).then(res => {
+      console.log(res)
+      window.open(res.url, "_self");
+    })
   }
   // console.log(user === null)
   // console.log((typeof user.name) === "object")

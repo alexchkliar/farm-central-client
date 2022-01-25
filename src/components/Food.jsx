@@ -45,7 +45,7 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
       console.log(err);
     })
 
-    //return () => console.log("Cleanup")
+    // return () => console.log("Cleanup")
 
   }, [user, food._id, food.seller, userList, sellerName, food, index]) // remove dependence?
 
@@ -77,7 +77,7 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
 
   return (
     <div className={(activeFoodCount < food.quantity) ? "food-card" : "food-card full-food-card"}>
-      <ul className={"food-ul" + (food.quantity === 0 ? " empty-food-card" : "")}>
+      <ul className={"food-ul" + (food.quantity < 1 ? " empty-food-card" : "")}>
         <img className="food-card-img" src={food.category === "Vegetable" ? "carrot-solid.svg" : (food.category === "Fruit" ? "apple-alt-solid.svg" : "egg-solid.svg")} alt={food.name} />
         <div className="food-cart-bottom-container">
 
@@ -94,7 +94,7 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
 
             <div className="food-card-right">
               <li className="list-food-price">${food.price.toFixed(2)}</li>
-              <li className="list-food-available">{(food.quantity > 0) ? (food.quantity + " availble") : "Sold out"}</li>
+              <li className="list-food-available">{(food.quantity > 0) ? (food.quantity + " available") : "Sold out"}</li>
               <li className="list-food-breed">Seller: {sellerName}</li>
             </div>
           </div>

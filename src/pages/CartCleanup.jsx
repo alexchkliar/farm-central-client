@@ -73,7 +73,9 @@ function CartCleanup({ user }) {
           adjustInventory(fullData)
           registerNewOrder(fullData)
           wipeCart()
-          redirect()
+          setTimeout(function () {
+            redirect()
+          }, 500);
         }
       })
       .catch(err => {
@@ -100,7 +102,7 @@ function CartCleanup({ user }) {
   }
 
   function redirect () {
-    window.location = `${process.env.REACT_APP_URL_BASE_CLIENT}/orders`
+    window.location = `/orders`
   }
 
   return (
