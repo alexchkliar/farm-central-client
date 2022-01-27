@@ -12,10 +12,14 @@ function Foods({ setCartNum, user, userList }) {
   const [favoritesOn, setFavoritesOn] = useState(false);
   const loadItems = 27 // works best with 1440p
 
+
   useEffect(() => {
+    const abortCont = new AbortController();
+    const signal = abortCont.signal
+
     Promise.all([
-      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/fetch`),
-      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`),
+      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/fetch`, { signal}),
+      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`, { signal }),
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([data1, data2]) => {
@@ -50,12 +54,17 @@ function Foods({ setCartNum, user, userList }) {
     })
     // return () => console.log("cleanup")
 
+    return () => { abortCont.abort() };
+
   }, [activeFood, user, favoritesOn])
 
   const fetchMoreData = () => {
+    const abortCont = new AbortController();
+    const signal = abortCont.signal
+
     Promise.all([
-      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/fetch`),
-      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`),
+      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/fetch`, { signal }),
+      fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`, { signal }),
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([data1, data2]) => {
@@ -83,6 +92,9 @@ function Foods({ setCartNum, user, userList }) {
       }).catch(err => {
         throw err
       })
+
+    return () => { abortCont.abort() };
+
   };
 
   const addToCart = (index) => {
@@ -152,9 +164,6 @@ function Foods({ setCartNum, user, userList }) {
       }))
     })
   }, [user]) // remove user dependence?
-
-
-
 
   return (
     <div className="">
