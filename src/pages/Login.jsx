@@ -15,7 +15,11 @@ const Login = () => {
   const [alertClass, setAlertClass] = useState("");
 
   const google = () => {
-    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/google`, "_self"); // can replace with window.location.href
+    if (window.location.hostname === "localhost") {
+      window.open(`http://localhost:5000/api/auth/google`, "_self"); // can replace with window.location.href
+    } else {
+      window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/google`, "_self"); // can replace with window.location.href
+    }
   };
 
   const handleSubmit = (event) => {

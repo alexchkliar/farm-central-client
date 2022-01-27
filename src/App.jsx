@@ -79,6 +79,9 @@ function App() {
   }, [])
 
   useEffect(() => {
+    const abortCont = new AbortController();
+    const signal = abortCont.signal
+
     fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`, {
       // method: "GET",
       // body: {
@@ -97,7 +100,16 @@ function App() {
       setCartNum(jsonRes.cart_list.filter(function (item) {
         return item.shopper === user._id
       }).length)
+    }).catch(err => {
+      if (err.name === "AbortError") {
+        // console.log("Fetch aborted")
+      } else {
+        throw err
+      }
     })
+
+    return () => { abortCont.abort() };
+
   }, [user]) // remove user dependence?
 
   return (

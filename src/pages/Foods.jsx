@@ -50,7 +50,11 @@ function Foods({ setCartNum, user, userList }) {
           setFoods(outputList.slice(0, loadItems))
         }
     }).catch(err => {
-      throw err
+      if (err.name === "AbortError") {
+        console.log("Fetch aborted")
+      } else {
+        throw err
+      }
     })
     // return () => console.log("cleanup")
 
@@ -90,7 +94,11 @@ function Foods({ setCartNum, user, userList }) {
           setFoods(foods.concat(outputList.slice(foods.length, foods.length + loadItems)))
         }
       }).catch(err => {
-        throw err
+        if (err.name === "AbortError") {
+          console.log("Fetch aborted")
+        } else {
+          throw err
+        }
       })
 
     return () => { abortCont.abort() };
@@ -98,12 +106,16 @@ function Foods({ setCartNum, user, userList }) {
   };
 
   const addToCart = (index) => {
+    const cancelToken = Axios.CancelToken;
+    const source = cancelToken.source();
+
     if (user === null) {
       window.location.href = `/login`;
     }
     setCartNum(cartNum => cartNum + 1);
 
     Axios({
+      cancelToken: source.token,
       method: "POST",
       data: {
         food: foods[index],
@@ -114,6 +126,9 @@ function Foods({ setCartNum, user, userList }) {
     }).then((res) => {
       console.log(res.data);
     })
+
+    return () => { source.cancel("Cart add aborted"); };
+
   }
 
   const addToFavorite = (index) => {

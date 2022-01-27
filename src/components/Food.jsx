@@ -11,7 +11,11 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
   const [favoritedStatus, setFavoritedStatus] = useState(false);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`).then(res => {
+    const abortCont = new AbortController();
+    const signal = abortCont.signal
+
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`, {signal})
+    .then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return
@@ -20,6 +24,12 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
       }).map(function (array) {
         return array.food
       }).filter(foodInCart => foodInCart === food._id).length)
+    }).catch(err => {
+      if (err.name === "AbortError") {
+        // console.log("Fetch aborted");
+      } else {
+        throw err
+      }
     })
 
     // console.log(userList.length)
@@ -30,7 +40,11 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
       }).name);
     }
 
+    const cancelToken = Axios.CancelToken;
+    const source = cancelToken.source();
+
     Axios({
+      cancelToken: source.token,
       method: "POST",
       data: {
         food: food,
@@ -42,10 +56,13 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
       setFavoritedStatus(res.data)
       // truth = res.data;
     }).catch((err) => {
-      console.log(err);
+      // console.log(err);
     })
 
-    // return () => console.log("Cleanup")
+    return () => {
+      abortCont.abort();
+      source.cancel();
+    };
 
   }, [user, food._id, food.seller, userList, sellerName, food, index]) // remove dependence?
 

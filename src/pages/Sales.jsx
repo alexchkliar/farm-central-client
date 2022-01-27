@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sale from '../components/Sale';
+import Accordion from 'react-bootstrap/Accordion'
 
 const Sales = ({ user, userList }) => {
   const [salesOrders, setSalesOrders] = useState([]);
@@ -49,24 +50,20 @@ const Sales = ({ user, userList }) => {
     <div>
       {salesOrders.map((sale, index) => (
         <div key={index} >
-          <strong>Sale {index + 1}</strong>
-          <Sale items={sale[0]} buyerId={sale[1]} date={sale[2]} userList={userList} />
-          <br />
+          <Accordion defaultActiveKey="0">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header><strong>Sale {index + 1}</strong></Accordion.Header>
+              <Accordion.Body>
+
+                <Sale items={sale[0]} buyerId={sale[1]} date={sale[2]} userList={userList} />
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         </div>
       ))}
-
-      {/* <ul>
-        <li><img width="250" height="250" src={food.photo} alt="" /></li>
-        <li>{food.name}</li>
-        <li>{food.species}</li>
-        <li>{food.breed}</li>
-        <li>{food.seller}</li>
-        <li>${food.price}</li>
-        <li>{food.quantity}</li>
-        <li>Number in your cart: {activeFoodCount}</li>
-      </ul> */}
     </div>
   )
+
 }
 
 export default Sales;
