@@ -35,10 +35,10 @@ const Navigation = ({ user, cartNum}) => {
             <NavDropdown.Item href={(user !== null) ? "/orders" : "/login"}>My orders</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href={(user !== null) ? "/sold" : "/login"}>My sold items</NavDropdown.Item>
-            <NavDropdown.Item href={(user !== null) ? "/foods" : "/login"}>My listings</NavDropdown.Item>
+            <NavDropdown.Item href={(user !== null) ? "/listings" : "/login"}>My listings</NavDropdown.Item>
           </NavDropdown>
           { user ?
-            (<> <Nav.Link href={`/user/${user._id}`}>{(user.name ? user.name : user.name.givenName) + " profile"}</Nav.Link>
+            (<> <Nav.Link href={`/user/${user._id}`}>Profile</Nav.Link>
             <Nav.Link onClick={logout}>Logout</Nav.Link></>) :
             (<> <Nav.Link href="/register">Sign up</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link> </>)

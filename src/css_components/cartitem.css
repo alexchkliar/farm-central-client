@@ -159,3 +159,7 @@ ul {
   align-items: center;
   flex-direction: column;
 }
+
+.empty-cart-container {
+  margin: 10px;
+}

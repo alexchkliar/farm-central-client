@@ -14,6 +14,7 @@ import NewFood from "./pages/NewFood";
 import User from "./pages/User";
 import CartCleanup from './pages/CartCleanup';
 import Footer from './components/Footer';
+import Listings from './pages/Listings';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -52,7 +53,7 @@ function App() {
         }).then(responseObject => {
           setUser(responseObject)
         }).catch((err) => {
-          console.log(err)
+          // console.log(err)
         })
       } else {
         setUser(resObject.user);
@@ -82,7 +83,7 @@ function App() {
     const abortCont = new AbortController();
     const signal = abortCont.signal
 
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`, {
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`, { signal }
       // method: "GET",
       // body: {
       //   user: user,
@@ -93,7 +94,7 @@ function App() {
       //   "Content-Type": "application/json",
       //   "Access-Control-Allow-Credentials": true
       // },
-    }).then(res => {
+    ).then(res => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return null
@@ -110,23 +111,24 @@ function App() {
 
     return () => { abortCont.abort() };
 
-  }, [user]) // remove user dependence?
+  }, [user])
 
   return (
     <BrowserRouter>
       <Navigation user={user} cartNum={cartNum} />
       <Routes>
         <Route>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart user={user} setCartNum={setCartNum} userList={userList} />} />
-          <Route path="/foods/new" element={<NewFood user={user} setCartNum={setCartNum} userList={userList} />} />
-          <Route path="/cart_cleanup" element={<CartCleanup user={user} />} />
-          <Route path="/foods" element={<Foods user={user} setCartNum={setCartNum} userList={userList} />} />
-          <Route path="/orders" element={<Orders user={user} userList={userList} />} />
-          <Route path="/sold" element={<Sales user={user} userList={userList} />} />
-          <Route path="/register" element={<Register user={user} />} />
-          <Route path="/favorites" element={<Favorites user={user} />} />
-          <Route path="/user/:id" element={<User user={user} />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/cart" element={<Cart user={user} setCartNum={setCartNum} userList={userList} />} />
+          <Route exact path="/foods/new" element={<NewFood user={user} setCartNum={setCartNum} userList={userList} />} />
+          <Route exact path="/cart_cleanup" element={<CartCleanup user={user} />} />
+          <Route exact path="/foods" element={<Foods user={user} setCartNum={setCartNum} userList={userList} />} />
+          <Route exact path="/orders" element={<Orders user={user} userList={userList} />} />
+          <Route exact path="/sold" element={<Sales user={user} userList={userList} />} />
+          <Route exact path="/register" element={<Register user={user} />} />
+          <Route exact path="/favorites" element={<Favorites user={user} />} />
+          <Route exact path="/listings" element={<Listings user={user} userList={userList} />} />
+          <Route exact path="/user/:id" element={<User user={user} />} />
           <Route
             path="/login"
             element={user ? <Navigate to="/" /> : <Login />}

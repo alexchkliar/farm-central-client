@@ -29,25 +29,38 @@ const Orders = ({ user }) => {
     })
   }, [user]) // remove dependence?
 
-  return (
-    <>
-      {userOrders.map((order, index) => (
-        <div key={index} >
+  if (userOrders.length !== 0) {
+    return (
+      <>
+        <h1 className="header-h1">Your orders</h1>
+        {userOrders.map((order, index) => (
+          <div key={index} >
 
-          <Accordion defaultActiveKey="0">
-            <Accordion.Item eventKey="0">
-              <Accordion.Header><strong>{`Order  ${index + 1}`}</strong></Accordion.Header>
-              <Accordion.Body>
+            <Accordion defaultActiveKey="0">
+              <Accordion.Item eventKey="0">
+                <Accordion.Header><strong>{`Order  ${index + 1}`}</strong></Accordion.Header>
+                <Accordion.Body>
 
-                <Order id={order._id} items={order.items} date={order.date} />
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
+                  <Order id={order._id} items={order.items} date={order.date} />
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          </div>
+        ))}
+
+      </>
+    )
+  } else {
+    return (
+      <>
+        <h1 className="header-h1">Your orders</h1>
+        <div className="no-sales-container">
+          <span>You have no orders yet. </span>
+          <a href="/foods">Browse fresh local food now!</a>
         </div>
-      ))}
-
-    </>
-  )
+      </>
+    )
+  }
 }
 
 export default Orders;

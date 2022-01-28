@@ -32,7 +32,6 @@ function Foods({ setCartNum, user, userList }) {
         } else {
           foodList = data2.food_list
         }
-        console.log(foodList)
 
         if (user) {
           const outputList = foodList.filter(function (food) {
@@ -40,7 +39,6 @@ function Foods({ setCartNum, user, userList }) {
           })
           setMaxLength(outputList.length)
           setFoods(outputList.slice(0, loadItems))
-          console.log(outputList)
 
         } else {
           const outputList = foodList.filter(function (food) {
@@ -124,7 +122,7 @@ function Foods({ setCartNum, user, userList }) {
       withCredentials: true,
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/add`
     }).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
     })
 
     return () => { source.cancel("Cart add aborted"); };
@@ -145,7 +143,7 @@ function Foods({ setCartNum, user, userList }) {
       withCredentials: true,
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/add`
     }).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
     })
   }
 
@@ -163,7 +161,7 @@ function Foods({ setCartNum, user, userList }) {
       withCredentials: true,
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/remove`
     }).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
     })
   }
 

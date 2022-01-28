@@ -145,7 +145,10 @@ console.log(user)
     return (
       <>
         <h1 className="header-h1">My shopping cart</h1>
-        <p>Shopping cart is empty</p>
+        <div className="empty-cart-container">
+          <span>Your shopping cart is empty. </span>
+          <a href="/foods">Browse fresh local food now!</a>
+        </div>
       </>
     )
   }

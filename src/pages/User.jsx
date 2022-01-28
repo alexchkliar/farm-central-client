@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import '../css_components/user.css';
 
 const User = () => {
   const [user, setUser] = useState({});
@@ -18,12 +19,15 @@ const User = () => {
   }, [id])
 
   return (
-    <div>
-      <ul>
-        <li>Username: {user.username}</li>
-        <li>Name: {user.name}</li>
-      </ul>
-    </div>
+    <>
+      <h1 className="header-h1">User profile</h1>
+      <div className="user-container">
+        <ul>
+          <li>Username: {user.username}</li>
+          <li>Name: {user.name}</li>
+        </ul>
+      </div>
+    </>
   )
 }
 
