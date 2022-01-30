@@ -11,9 +11,12 @@ const Navigation = ({ user, cartNum}) => {
   const logout = () => {
     // window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`, "_self");
     console.log("test")
-    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`).then(res => {
-      console.log(res)
-      window.open(res.url, "_self");
+
+    fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/logout`)
+    .then(res => {
+      // console.log(res)
+      window.open(`/foods`, "_self");
+      // document.location.href = "foods"
     })
   }
   // console.log(user === null)

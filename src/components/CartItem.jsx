@@ -83,8 +83,8 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
           {/* </div> */}
           <div className="cart-divider-left-bottom">
             <ul>
-              <li><strong>Name: </strong>{name}</li>
-              <li><strong>Bundle: </strong>{units} / qty</li>
+              <li><strong>Item: </strong>{name}</li>
+              <li><strong>Bundle: </strong>{units} / item</li>
               <li><strong>Location: </strong>{location}</li>
               <li><strong>Seller: </strong>{sellerName}</li>
             </ul>
@@ -97,7 +97,7 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
               <div className="cart-item-qty">{itemQuantity}</div>
             <button className="cart-item-qty-change-button cart-item-qty-change-button-right" onClick={(e) => add(e)} value="test" >+</button>
           </div>
-          <i className="qty-indicator">Qty</i>
+          <i className="qty-indicator">Quantity</i>
           <p className="cart-item-price">Price: ${price.toFixed(2)}</p>
           <p className="cart-item-subtotal">Subtotal: ${(price * itemQuantity).toFixed(2)}</p>
         </div>

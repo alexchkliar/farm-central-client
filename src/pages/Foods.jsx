@@ -46,6 +46,7 @@ function Foods({ setCartNum, user, userList }) {
           })
           setMaxLength(outputList.length)
           setFoods(outputList.slice(0, loadItems))
+          console.log(outputList)
         }
     }).catch(err => {
       if (err.name === "AbortError") {
@@ -189,7 +190,7 @@ function Foods({ setCartNum, user, userList }) {
           <button className={"food-selector-button " + (activeFood === "Other" ? "active-food" : "")} onClick={() => setActiveFood("Other")} value="Other">Other</button>
         </div>
           { user?
-            <button className={"favorite-selector-button " + (favoritesOn === true ? "active-favorites" : "")} onClick={() => setFavoritesOn(favoritesStatus => !favoritesStatus)} value="Other">Faves</button>
+            <button className={"favorite-selector-button " + (favoritesOn === true ? "active-favorites" : "")} onClick={() => setFavoritesOn(favoritesStatus => !favoritesStatus)} value="Other">Favorites</button>
           : "" }
       </div>
 

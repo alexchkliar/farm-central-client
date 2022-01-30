@@ -124,7 +124,7 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
           </div>
         </div>
         <div className={"favorite-icon-div" + (favoritedStatus ? " favorite-icon-div-favorited" : "")} onClick={() => handleFavoriteEvent()}>
-          <FontAwesomeIcon icon={faHeart} className={"favorite-icon" + (favoritedStatus ? " favorited" : "")} />
+          <FontAwesomeIcon data-testid="favorite-icon" icon={faHeart} className={"favorite-icon" + (favoritedStatus ? " favorited" : "")} />
         </div>
 
         <div className="food-cart-wrapper">

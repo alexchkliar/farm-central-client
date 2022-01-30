@@ -22,7 +22,7 @@ const Home = () => {
             <p className="landing-page-main-text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, libero. Totam magni ipsum sed maiores eos numquam.
             </p>
-            <a className="landing-page-main-button" href="/foods">List now</a>
+            <a className="landing-page-main-button" href="/listings">List now</a>
           </div>
 
         </div>

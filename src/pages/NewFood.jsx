@@ -4,7 +4,7 @@ import Axios from 'axios';
 import { Form, Button, Row, Col } from 'react-bootstrap'
 // import { useNavigate } from 'react-router-dom';
 
-const NewFood = () => {
+const NewFood = ({user}) => {
 
   const [name, setName] = useState("");
   const [units, setUnits] = useState("");
@@ -44,6 +44,7 @@ const NewFood = () => {
           quantity: parseFloat(quantity),
           price: parseFloat(price),
           photo: url,
+          seller: user,
         },
         withCredentials: true,
         url: `${process.env.REACT_APP_URL_BASE_BACKEND}/foods/new`
