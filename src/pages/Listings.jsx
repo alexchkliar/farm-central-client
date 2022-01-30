@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import '../css_components/foods.css';
 import '../css_components/listings.css';
-import Food from '../components/Listing';
+import Listing from '../components/Listing';
 
 function Listings({ setCartNum, user, userList }) {
   const [activeFood, setActiveFood] = useState("All");
@@ -112,7 +112,7 @@ function Listings({ setCartNum, user, userList }) {
             loader
           >
             {foods.map((food, index) => (
-              <Food
+              <Listing
                 key={index}
                 index={index}
                 userList={userList}

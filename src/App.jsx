@@ -15,6 +15,7 @@ import User from "./pages/User";
 import CartCleanup from './pages/CartCleanup';
 import Footer from './components/Footer';
 import Listings from './pages/Listings';
+import ListingUpdate from './pages/ListingUpdate';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -129,6 +130,7 @@ function App() {
           <Route exact path="/favorites" element={<Favorites user={user} />} />
           <Route exact path="/listings" element={<Listings user={user} userList={userList} />} />
           <Route exact path="/user/:id" element={<User user={user} />} />
+          <Route exact path="/listing/:id/update" element={<ListingUpdate user={user} />} />
           <Route
             path="/login"
             element={user ? <Navigate to="/" /> : <Login />}

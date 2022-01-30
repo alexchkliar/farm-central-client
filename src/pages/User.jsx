@@ -10,7 +10,6 @@ const User = () => {
     fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/user/${id}`).then(res => {
       return res.json()
     }).then((jsonRes) => {
-      console.log(jsonRes.user)
       setUser(jsonRes.user);
     }).catch((err) => {
       console.log(err);

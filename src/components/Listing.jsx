@@ -45,7 +45,7 @@ const Listing = ({ food, index, user, userList }) => {
             </div>
           </div>
           <div className="update-delete-wrapper">
-            <div className="update-text" href="/#">UPDATE</div>
+            <a className="update-text" href={"/listing/" + food._id + "/update/"}>UPDATE</a>
             <div className="delete-text" onClick={() => deleteListing()}>DELETE</div>
           </div>
         </div>
