@@ -6,8 +6,8 @@ Features include:
 - REST API with MVC framework
 - Authentication, validation and authorization (including Google integration)
 - Screen size responsiveness
-- Stripe payment integration
-- Unit testing
+- Stripe payment integration (enter 4242 4242 4242 for card payment details to test cart checkout)
+- Unit testing both client and backend, mocking API
 - Infinite scrolling (dynamic fetching)
 - Full range of CRUD operations
 
@@ -16,11 +16,11 @@ Coded with MERN stack (MongoDB, Express, React, Node). Deployed via AWS, Ubuntu,
 This repository stores the client source files. The backend repository can be accessed [here](https://github.com/alexchkliar/farm-central-backend).
 
 ## Installation
-Run `npm install` to fetch dependencies.
+`npm install` to fetch dependencies.
 
-Run `npm start` to fetch to run the app on your local server (set to http://localhost:3000).
+`npm start` to fetch to run the app on your local server (set to http://localhost:3000).
 
-Run `npm test` to run unit tests.
+`npm test` to run unit tests.
 
 Connections to the backend are being proxied (remove proxy line in package.json to run in development without a proxy).
 

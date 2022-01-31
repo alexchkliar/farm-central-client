@@ -3,14 +3,43 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import '../css_components/foods.css';
 import '../css_components/listings.css';
 import Listing from '../components/Listing';
+import Axios from 'axios';
 
-function Listings({ setCartNum, user, userList }) {
+function Listings({ user, userList }) {
   const [activeFood, setActiveFood] = useState("All");
   const [foods, setFoods] = useState([]);
   const [maxLength, setMaxLength] = useState(0);
   const [productList, setProductList] = useState([]);
-  const loadItems = 27 // works best with 1440p
+  const [deleteTrigger, setDeleteTrigger] = useState(false);
+  const [messageClass, setMessageClass] = useState("message-inactive");
+  const [deletedItem, setDeteledItem] = useState("");
 
+  const loadItems = 27 // works best with 1440p
+  // const onHide = () => setModalShowClose(false)
+
+  const handleClick = (props) => {
+    console.log(props)
+    console.log("check")
+    // console.log("hey")
+    // console.log(props.food)
+
+    Axios({
+      method: "DELETE",
+      data: {
+        food: props,
+      },
+      withCredentials: true,
+      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/foods/${props._id}/delete`
+    }).then((res) => {
+      if (res.data.message === "Successfully deleted") {
+        console.log("cool!")
+        setDeleteTrigger(currentValue => !currentValue)
+      };
+    }).catch((err) => {
+      console.log(err);
+    })
+
+  }
 
   useEffect(() => {
     const abortCont = new AbortController();
@@ -47,7 +76,7 @@ function Listings({ setCartNum, user, userList }) {
 
     return () => { abortCont.abort() };
 
-  }, [activeFood, user])
+  }, [activeFood, user, deleteTrigger])
 
   const fetchMoreData = () => {
       fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods`)
@@ -103,7 +132,7 @@ function Listings({ setCartNum, user, userList }) {
             <button className={"food-selector-button " + (activeFood === "Other" ? "active-food" : "")} onClick={() => setActiveFood("Other")} value="Other">Other</button>
           </div>
         </div>
-
+        <div className={messageClass + " message-popup"}>Successfully deleted {deletedItem.toLowerCase()}!</div>
         <div className="food-wrapper">
           <InfiniteScroll
             dataLength={foods.length}
@@ -113,6 +142,9 @@ function Listings({ setCartNum, user, userList }) {
           >
             {foods.map((food, index) => (
               <Listing
+                setDeteledItem={setDeteledItem}
+                setMessageClass={setMessageClass}
+                handleClick={handleClick}
                 key={index}
                 index={index}
                 userList={userList}

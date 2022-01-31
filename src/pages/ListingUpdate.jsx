@@ -16,6 +16,7 @@ const NewFood = ({ user }) => {
   const [url, setUrl] = useState("");
   const [alertClass, setAlertClass] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
+  const [popupMessageClass, setPopupMessageClass] = useState("message-inactive");
 
   const { id } = useParams();
 
@@ -78,7 +79,13 @@ const NewFood = ({ user }) => {
         url: `${process.env.REACT_APP_URL_BASE_BACKEND}/foods/${id}/patch`
       }).then((res) => {
         if (res.data === "Food updated") {
-          window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/listings`;
+          console.log("update succesful")
+          // window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/listings`;
+          setPopupMessageClass("message-active")
+
+          setTimeout(() => {
+            setPopupMessageClass("message-inactive")
+          }, 20000)
         }
       }).catch(err => {
         console.log(err)
@@ -89,9 +96,12 @@ const NewFood = ({ user }) => {
 
   return (
     <>
+      <div className={popupMessageClass + " message-popup"}>Item saved!</div>
+
       <h1 className="header-h1">Update item</h1>
-      <div className="login my-5">
-        <h1 className="login-title mb-4">Editing {name}</h1>
+      <a href="/listings" className="return-link">Return to listings</a>
+      <div className="login my-4">
+        <h1 className="login-title mb-4">Update {name}</h1>
         <Form noValidate onSubmit={handleSubmit}>
 
           <Row className="mb-3">

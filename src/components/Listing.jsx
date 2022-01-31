@@ -1,28 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
+import '../css_components/listings.css';
 
-const Listing = ({ food, index, user, userList }) => {
+const Listing = ({ food, handleClick, setMessageClass, setDeteledItem }) => {
+  const [modalShow, setModalShow] = useState(false);
 
-  function deleteListing() {
-    // console.log("Delete functionality to be added")
-    // Axios({
-    //   method: "DELETE",
-    //   data: {
-    //     food: food._id,
-    //   },
-    //   withCredentials: true,
-    //   url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/check`
-    // }).then((res) => {
-    //   // truth = res.data;
-    // }).catch((err) => {
-    //   // console.log(err);
-    // })
+  useEffect(() => {
+    console.log("test this")
+  }, [modalShow])
 
+  function handleDelete(itemName) {
+    handleClick(food)
+    setModalShow(current => false)
+    displayMessage(itemName)
   }
+
+
+  function displayMessage(itemName) {
+    setDeteledItem(itemName)
+    setMessageClass("message-active")
+    setTimeout(() => {
+      setMessageClass("message-inactive")},
+      2000
+  )}
 
   return (
     <div className="food-card">
+      <Modal
+        show={modalShow}
+        food={food}
+        // onHide={() => setModalShow(false)}
+        // handleclick={handleClick}
+
+        // {..., show, show}
+        // size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton onClick={() => setModalShow(current => false)}>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Are you sure you want to delete this listing?
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* <h4>Centered Modal</h4> */}
+          <p>
+            This action cannot be undone.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => handleDelete(food.name)}> Yes </Button>
+          <Button onClick={() => setModalShow(current => false)}> No </Button>
+        </Modal.Footer>
+      </Modal>
+
       <ul className="food-ul">
         <img className="food-card-img" src={food.category === "Vegetable" ? "carrot-solid.svg" : (food.category === "Fruit" ? "apple-alt-solid.svg" : "egg-solid.svg")} alt={food.name} />
         <div className="food-cart-bottom-container">
@@ -45,8 +79,11 @@ const Listing = ({ food, index, user, userList }) => {
             </div>
           </div>
           <div className="update-delete-wrapper">
-            <a className="update-text" href={"/listing/" + food._id + "/update/"}>UPDATE</a>
-            <div className="delete-text" onClick={() => deleteListing()}>DELETE</div>
+            <Button variant="primary" href={"/listing/" + food._id + "/update/"} className="card-update-button"> Update </Button>
+            <Button variant="primary" onClick={() => setModalShow(current => true)} className="card-delete-button"> Delete </Button>
+
+            {/* <a className="update-text" href={"/listing/" + food._id + "/update/"}>UPDATE</a> */}
+            {/* <div className="delete-text" onClick={() => deleteListing()}>DELETE</div> */}
           </div>
         </div>
       </ul>
