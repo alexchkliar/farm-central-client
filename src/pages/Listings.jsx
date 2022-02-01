@@ -4,6 +4,8 @@ import '../css_components/foods.css';
 import '../css_components/listings.css';
 import Listing from '../components/Listing';
 import Axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 function Listings({ user, userList }) {
   const [activeFood, setActiveFood] = useState("All");
@@ -132,7 +134,10 @@ function Listings({ user, userList }) {
             <button className={"food-selector-button " + (activeFood === "Other" ? "active-food" : "")} onClick={() => setActiveFood("Other")} value="Other">Other</button>
           </div>
         </div>
-        <div className={messageClass + " message-popup"}>Successfully deleted {deletedItem.toLowerCase()}!</div>
+        <div className={messageClass + " message-popup"}>
+          <FontAwesomeIcon data-testid="favorite-icon" icon={faCheckCircle} className="popup-checkmark" />
+          Successfully deleted {deletedItem.toLowerCase()}!
+        </div>
         <div className="food-wrapper">
           <InfiniteScroll
             dataLength={foods.length}

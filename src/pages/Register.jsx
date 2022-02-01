@@ -17,7 +17,11 @@ const Login = () => {
   const [passwordAlertClass, setPasswordAlertClass] = useState("");
 
   const google = () => {
-    window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/api/auth/google`, "_self"); // can replace with window.location.href
+    if (window.location.hostname === "localhost") {
+      window.open(`http://localhost:5000/api/auth/google`, "_self"); // can replace with window.location.href
+    } else {
+      window.open(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/google`, "_self"); // can replace with window.location.href
+    }
   };
 
   const handleSubmit = (event) => {
@@ -41,7 +45,7 @@ const Login = () => {
     // if (usernameErrorMesage !== "") { setUsernameAlertClass("alert alert-danger") } else { setUsernameAlertClass("") }
     // if (passwordErrorMesage !== "") { setPasswordAlertClass("alert alert-danger") } else { setPasswordAlertClass("") }
 
-    if (usernameErrorMesage === "") {
+    if (usernameErrorMesage === "" && passwordErrorMesage === "") {
       Axios({
         method: "POST",
         data: {
@@ -53,6 +57,8 @@ const Login = () => {
       }).then((res) => {
         if (res.data === "User Created") {
           window.location.href = `/login`;
+          console.log(res)
+          console.log("created")
         }
         if (res.data === "User Already Exists") {
           console.log("Username already exists.")

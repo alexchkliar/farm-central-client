@@ -4,6 +4,8 @@ import Axios from 'axios';
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useParams } from "react-router-dom";
 // import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 const NewFood = ({ user }) => {
 
@@ -84,9 +86,9 @@ const NewFood = ({ user }) => {
           setPopupMessageClass("message-active")
 
           setTimeout(() => {
-            setPopupMessageClass("message-inactive")
-          }, 20000)
-        }
+            setPopupMessageClass("message-inactive")},
+            4000
+        )}
       }).catch(err => {
         console.log(err)
       })
@@ -96,7 +98,10 @@ const NewFood = ({ user }) => {
 
   return (
     <>
-      <div className={popupMessageClass + " message-popup"}>Item saved!</div>
+      <div className={popupMessageClass + " message-popup"}>
+        <FontAwesomeIcon data-testid="favorite-icon" icon={faCheckCircle} className="popup-checkmark" />
+        <span> &nbsp;Item saved! </span>
+      </div>
 
       <h1 className="header-h1">Update item</h1>
       <a href="/listings" className="return-link">Return to listings</a>

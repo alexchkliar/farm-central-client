@@ -20,7 +20,6 @@
 .update-text:hover,
 .delete-text:hover
 {
-  /* color: white; */
   background-color: rgba(0, 128, 128, 0.2);
 }
 
@@ -35,12 +34,12 @@ a.update-text {
 
 .message-popup {
   position: fixed;
-  background-color: rgba(0,128,0,0.9);
+  background-color: rgba(0,100,0,0.8);
   color: white;
   top: 92vh;
-  width: max(340px, 25%);
-  left: calc(50% - max(340px, 25%)/2);
-  height: 40px;
+  width: max(380px, 30%);
+  left: calc(50% - max(380px, 30%)/2);
+  height: 48px;
   z-index: 500;
   display: flex;
   align-items: center;
@@ -54,13 +53,38 @@ a.update-text {
 }
 
 .card-update-button,
-.card-delete-button {
-  width: 150px;
+.card-delete-button,
+
+.card-update-button:active,
+.card-delete-button:active
+{
+  width: 148px;
   margin: 10px 0;
-  border-radius: 5px;
-  /* background-color: green; */
+  border-radius: 8px;
+  background-color: rgba(0,100,0,0.8) !important;
+  background-color: green;
+  border: none !important;
+  outline: 1px solid teal;
+  padding: none !important;
+  box-shadow: none !important;
 }
+
+.card-update-button:hover,
+.card-delete-button:hover{
+  background-color: rgba(0, 100, 0, 0.9) !important;
+  outline: 2px solid teal;
+}
+
+
+
 
 .return-link {
   margin-left: calc(50% - min(500px, 80%)/2);
+}
+
+.popup-checkmark {
+  position: absolute;
+  left: 16px;
+  font-size: 24px;
+  color: white;
 }

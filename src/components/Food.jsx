@@ -54,7 +54,8 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/check`
     }).then((res) => {
       setFavoritedStatus(res.data)
-      // truth = res.data;
+      // console.log(food.name)
+      // console.log(res.data)
     }).catch((err) => {
       // console.log(err);
     })

@@ -24,7 +24,7 @@ const Listing = ({ food, handleClick, setMessageClass, setDeteledItem }) => {
     setMessageClass("message-active")
     setTimeout(() => {
       setMessageClass("message-inactive")},
-      2000
+      4000
   )}
 
   return (

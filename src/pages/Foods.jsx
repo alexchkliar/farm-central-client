@@ -23,12 +23,19 @@ function Foods({ setCartNum, user, userList }) {
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([data1, data2]) => {
+        // console.log(data1.favorite_list)
         const favoriteFoodIdList = data1.favorite_list.map((item) => { return item.food })
         const favoriteFoodShopperList = data1.favorite_list.map((item) => { return item.shopper })
         let foodList = []
 
         if (favoritesOn && user) {
-          foodList = data2.food_list.filter((food) => { return (favoriteFoodIdList.includes(food._id) && favoriteFoodShopperList.includes(user._id)) })
+          foodList = data2.food_list.filter((food) => {
+            let flag = false;
+            favoriteFoodIdList.forEach((foodItem, index) => {
+              if (foodItem === food._id && favoriteFoodShopperList[index] === user._id) { flag = true }
+            });
+            return flag
+          })
         } else {
           foodList = data2.food_list
         }
@@ -76,7 +83,13 @@ function Foods({ setCartNum, user, userList }) {
         let foodList = []
 
         if (favoritesOn && user) {
-          foodList = data2.food_list.filter((food) => { return (favoriteFoodIdList.includes(food._id) && favoriteFoodShopperList.includes(user._id)) })
+          foodList = data2.food_list.filter((food) => {
+            let flag = false;
+            favoriteFoodIdList.forEach((foodItem, index) => {
+              if (foodItem === food._id && favoriteFoodShopperList[index] === user._id) { flag = true }
+            });
+            return flag
+          })
         } else {
           foodList = data2.food_list
         }

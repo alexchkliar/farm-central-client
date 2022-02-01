@@ -36,6 +36,7 @@ function App() {
       throw new Error("Authentication has failed")
     }).then(resObject => {
 
+      console.log(resObject)
       // if Google account detected, authenticate differently
       // console.log(resObject)
       if (resObject.user.displayName !== undefined) {
@@ -52,7 +53,9 @@ function App() {
           if (response.status === 200) return response.json();
           throw new Error("Authentication has failed")
         }).then(responseObject => {
+          console.log("looking good")
           setUser(responseObject)
+          console.log(user)
         }).catch((err) => {
           // console.log(err)
         })
