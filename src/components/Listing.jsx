@@ -8,10 +8,6 @@ import '../css_components/listings.css';
 const Listing = ({ food, handleClick, setMessageClass, setDeteledItem }) => {
   const [modalShow, setModalShow] = useState(false);
 
-  useEffect(() => {
-    console.log("test this")
-  }, [modalShow])
-
   function handleDelete(itemName) {
     handleClick(food)
     setModalShow(current => false)

@@ -15,13 +15,7 @@ const Favorites = ({ user }) => {
         const favoriteData = data1.favorite_list.filter((item) => {
           return item.shopper === user._id
         }).map((item) => { return item.food })
-        // const favoriteData = data1.favorite_list.map((item) => { return item.food })
-        // console.log(data1.favorite_list)
-        // console.log(favoriteData)
-        // console.log(user)
         const favoriteDataUnique = [...new Set(favoriteData)].sort();
-        // console.log(favoriteDataUnique)
-
         const fullData = favoriteDataUnique.map((item, index) => {
           let output = []
           data2.food_list.forEach(food => {

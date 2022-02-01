@@ -40,8 +40,6 @@ const Login = () => {
     if (password.length < minLength || passwordErrorMesage.length > maxLength) {passwordErrorMesage += `Password must be between ${minLength} and ${maxLength} characters long. `}
     if (!passwordRegex.test(password)) {passwordErrorMesage += 'Password must have at least one uppercase letter, one lowercase letter, one number and one special character among @$!%*?&. ' }
 
-    console.log(usernameErrorMesage)
-    console.log(passwordErrorMesage)
     // if (usernameErrorMesage !== "") { setUsernameAlertClass("alert alert-danger") } else { setUsernameAlertClass("") }
     // if (passwordErrorMesage !== "") { setPasswordAlertClass("alert alert-danger") } else { setPasswordAlertClass("") }
 
@@ -57,11 +55,10 @@ const Login = () => {
       }).then((res) => {
         if (res.data === "User Created") {
           window.location.href = `/login`;
-          console.log(res)
-          console.log("created")
+          console.log("User created.")
         }
         if (res.data === "User Already Exists") {
-          console.log("Username already exists.")
+          // console.log("Username already exists.")
           setUsernameValidation("Username already exists.")
           setUsernameAlertClass("alert alert-danger")
         }

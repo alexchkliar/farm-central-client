@@ -50,7 +50,6 @@ const NewFood = ({user}) => {
         url: `${process.env.REACT_APP_URL_BASE_BACKEND}/foods/new`
       }).then((res) => {
         if (res.data === "New food saved") {
-          console.log("great")
           window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/listings`;
         }
       }).catch(err => {

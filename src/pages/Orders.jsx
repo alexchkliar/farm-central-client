@@ -11,8 +11,6 @@ const Orders = ({ user }) => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return
-      console.log(jsonRes.order_list)
-
       setUserOrders(jsonRes.order_list.filter((item) => {
         return (item.buyer === user._id)
       }).reverse()) // reversing so it renders in reverse chronological order

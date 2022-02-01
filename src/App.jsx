@@ -36,11 +36,8 @@ function App() {
       throw new Error("Authentication has failed")
     }).then(resObject => {
 
-      console.log(resObject)
       // if Google account detected, authenticate differently
-      // console.log(resObject)
       if (resObject.user.displayName !== undefined) {
-        // console.log("hey")
         fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/specificUser`, {
           method: "GET",
           credentials: "include",
@@ -63,13 +60,9 @@ function App() {
         setUser(resObject.user);
       }
 
-      // console.log(resObject.user.displayName !== undefined)
-
     }).catch(err => {
       console.log(err)
     })
-
-    // console.log(user)
 
     fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/usersList`).then(res => {
       return res.json()
@@ -88,16 +81,6 @@ function App() {
     const signal = abortCont.signal
 
     fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/fetch`, { signal }
-      // method: "GET",
-      // body: {
-      //   user: user,
-      // }
-      // credentials: "include",
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
-      //   "Access-Control-Allow-Credentials": true
-      // },
     ).then(res => {
       return res.json()
     }).then((jsonRes) => {

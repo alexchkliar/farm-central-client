@@ -20,11 +20,6 @@ function Listings({ user, userList }) {
   // const onHide = () => setModalShowClose(false)
 
   const handleClick = (props) => {
-    console.log(props)
-    console.log("check")
-    // console.log("hey")
-    // console.log(props.food)
-
     Axios({
       method: "DELETE",
       data: {
@@ -34,11 +29,10 @@ function Listings({ user, userList }) {
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/foods/${props._id}/delete`
     }).then((res) => {
       if (res.data.message === "Successfully deleted") {
-        console.log("cool!")
         setDeleteTrigger(currentValue => !currentValue)
       };
     }).catch((err) => {
-      console.log(err);
+      // console.log(err);
     })
 
   }
@@ -74,8 +68,6 @@ function Listings({ user, userList }) {
           throw err
         }
       })
-    // return () => console.log("cleanup")
-
     return () => { abortCont.abort() };
 
   }, [activeFood, user, deleteTrigger])
@@ -166,8 +158,16 @@ function Listings({ user, userList }) {
     return (
       <>
         <h1 className="header-h1">Your listings</h1>
+        <div className="food-button-wrapper">
+          <div className="food-selector-wrapper">
+            <button className={"food-selector-button " + (activeFood === "All" ? "active-food" : "")} onClick={() => setActiveFood("All")} value="All">All</button>
+            <button className={"food-selector-button " + (activeFood === "Vegetable" ? "active-food" : "")} onClick={() => setActiveFood("Vegetable")} value="Vegetable">Veg</button>
+            <button className={"food-selector-button " + (activeFood === "Fruit" ? "active-food" : "")} onClick={() => setActiveFood("Fruit")} value="Fruit">Fruits</button>
+            <button className={"food-selector-button " + (activeFood === "Other" ? "active-food" : "")} onClick={() => setActiveFood("Other")} value="Other">Other</button>
+          </div>
+        </div>
         <div className="no-sales-container">
-          <span>You have no active listings. </span>
+          <span>You have no active listings in this category yet. </span>
           <a href="/foods/new">List your food now!</a>
         </div>
       </>

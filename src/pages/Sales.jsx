@@ -11,43 +11,19 @@ const Sales = ({ user, userList }) => {
       return res.json()
     }).then((jsonRes) => {
       if (user === null) return
-      console.log(jsonRes.sale_list)
 
       const itemsSoldArray = jsonRes.sale_list.map((item) => {
         let itemSoldByCurrentUserArray = item.items.filter((subItem) => {
-          // console.log(subItem)
-          // console.log(subItem.foodSeller)
-          // console.log(user._id)
           return subItem.foodSeller === user._id
         })
-        // console.log(itemSoldByCurrentUserArray)
-        // console.log(user)
         return [itemSoldByCurrentUserArray, item.buyer, item.date]
       }).filter((element) => {
         return element[0].length !== 0
       })
-
-      console.log(itemsSoldArray)
-      // const itemsSoldArrayMerged = [].concat.apply([], itemsSoldArray);
-      // const sellerArray = itemsSoldArrayMerged.filter((element) => {
-      //   return element.foodSeller === user._id
-      // })
       setSalesOrders(itemsSoldArray.reverse())
-      // console.log(salesOrders)
-      // .map(function (array) {
-      //   return array.food
-      // }).filter(foodInCart => foodInCart === food._id).length)
-
-
-      // setUserOrders(jsonRes.order_list.filter(function (item) {
-      //   return item.shopper === user._id
-      // }).map(function (array) {
-      //   return array.food
-      // }).filter(foodInCart => foodInCart === food._id).length)
     })
   }, [user])
 
-  console.log(salesOrders.length === 0)
   if (salesOrders.length !== 0) {
   return (
     <div>

@@ -23,7 +23,6 @@ function Foods({ setCartNum, user, userList }) {
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
       .then(([data1, data2]) => {
-        // console.log(data1.favorite_list)
         const favoriteFoodIdList = data1.favorite_list.map((item) => { return item.food })
         const favoriteFoodShopperList = data1.favorite_list.map((item) => { return item.shopper })
         let foodList = []
@@ -57,15 +56,13 @@ function Foods({ setCartNum, user, userList }) {
         }
     }).catch(err => {
       if (err.name === "AbortError") {
-        console.log("Fetch aborted")
+        // console.log("Fetch aborted")
       } else {
         throw err
       }
     })
-    // return () => console.log("cleanup")
 
     return () => { abortCont.abort() };
-
   }, [activeFood, user, favoritesOn])
 
   const fetchMoreData = () => {

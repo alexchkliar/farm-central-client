@@ -24,10 +24,6 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
 
 
   function add(e) {
-    // console.log(cartItems)
-    console.log(e.target.value)
-    console.log("add")
-    console.log(food)
     if (itemQuantity < quantityAvailable) {
       Axios({
         method: "POST",
@@ -42,7 +38,6 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
         setCartNum(currentCartNum => currentCartNum + 1)
         setTotalPrice(currentTotalPrice => currentTotalPrice + price)
         setCartRefreshTrigger(x => x + 1)
-        console.log(res.data);
       }).catch(err => {
         console.log(err)
       })
@@ -50,9 +45,6 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
   }
 
   function remove(e) {
-    console.log(e.target.value)
-    console.log("remove")
-    console.log(food)
     if (itemQuantity >= 1) {
       Axios({
         method: "DELETE",
@@ -67,7 +59,7 @@ const CartItem = ({ url, userList, quantityInCart, quantityAvailable, seller, un
         setCartNum(currentCartNum => currentCartNum - 1)
         setTotalPrice(currentTotalPrice => currentTotalPrice - price)
         setCartRefreshTrigger(x => x + 1)
-        console.log(res.data);
+        // console.log(res.data);
       }).catch(err => {
         console.log(err)
       })

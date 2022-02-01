@@ -21,9 +21,6 @@ function Cart({ user, setCartNum, userList }) {
           return item.shopper === user._id
         }).map((item) => { return item.food })
         // const cartData = data1.cart_list.map((item) => { return item.food })
-        console.log(data1.cart_list)
-        console.log(cartData)
-        console.log(user)
         const cartDataUnique = [...new Set(cartData)].sort();
         const countData = cartDataUnique.map(item => {
           return countOccurrences(cartData, item)
@@ -49,14 +46,11 @@ function Cart({ user, setCartNum, userList }) {
           });
           return output[0];
         })
-        console.log(fullData)
 
         const priceTotal = fullData.map(item => {
           return (item.itemCartQuantity * item.foodPrice)
         }).reduce((partial_sum, a) => partial_sum + a, 0)
-        // console.log("before here 1?")
         setCartItems(fullData) // this
-        // console.log(fullData)
         setTotalPrice(priceTotal) // this
       })
       .catch(err => {
@@ -65,7 +59,6 @@ function Cart({ user, setCartNum, userList }) {
   }, [cartRefreshTrigger, user])
 
   function accessStripeCart() {
-    // console.log("here")
     fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/cart/create-checkout-session`, {
       method: "POST",
       headers: {
@@ -77,24 +70,18 @@ function Cart({ user, setCartNum, userList }) {
       }),
     })
     .then(res => {
-      // console.log("starting this stuff")
       if (res.ok) {
         return res.json()
       }
       return res.json().then(json => Promise.reject(json))
     })
     .then(({ url }) => {
-      // console.log("starting this stuff 2")
-      // wipeCart();
-      // adjustQuantities(cartItems);
       window.location = url
     })
     .catch(e => {
       console.error(e.error)
     })
   }
-
-console.log(user)
 
   if (cartItems.length >= 1) {
     return (

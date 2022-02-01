@@ -5,7 +5,6 @@ function CartCleanup({ user }) {
   const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 
   const registerNewOrder = useCallback((fullData) => {
-    console.log("creating new order")
     Axios({
       method: "POST",
       data: {
@@ -16,7 +15,7 @@ function CartCleanup({ user }) {
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/create_order`
     })
       .then(res => {
-        console.log(res)
+        // console.log(res)
       })
       .catch(e => {
         console.error(e)
@@ -24,7 +23,6 @@ function CartCleanup({ user }) {
   }, [user]);
 
   const wipeCart = useCallback(() => {
-    console.log("wiping cart")
     Axios({
       method: "DELETE",
       data: {
@@ -34,7 +32,7 @@ function CartCleanup({ user }) {
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/wipe`
     })
       .then(res => {
-        console.log(res)
+        // console.log(res)
       })
       .catch(e => {
         console.error(e)
@@ -65,11 +63,7 @@ function CartCleanup({ user }) {
           });
           return output[0];
         })
-        console.log("user")
-        console.log(user)
         if (user) {
-          console.log("we are here")
-          console.log(user + " user")
           adjustInventory(fullData)
           registerNewOrder(fullData)
           wipeCart()
@@ -79,12 +73,11 @@ function CartCleanup({ user }) {
         }
       })
       .catch(err => {
-        console.log(err)
+        // console.log(err)
       })
   }, [registerNewOrder, wipeCart, user])
 
   function adjustInventory(fullData) {
-    console.log("adjusting inventory")
     Axios({
       method: "PATCH",
       data: {
@@ -94,7 +87,7 @@ function CartCleanup({ user }) {
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/cart/adjust`
     })
       .then(res => {
-        console.log(res)
+        // console.log(res)
       })
       .catch(e => {
         console.error(e)

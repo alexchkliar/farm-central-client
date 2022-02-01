@@ -32,10 +32,8 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
       }
     })
 
-    // console.log(userList.length)
     if(userList.length !== 0) {
       setSellerName(userList.find((element) => {
-        // console.log(element)
         return element._id === food.seller
       }).name);
     }
@@ -54,8 +52,6 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/check`
     }).then((res) => {
       setFavoritedStatus(res.data)
-      // console.log(food.name)
-      // console.log(res.data)
     }).catch((err) => {
       // console.log(err);
     })
@@ -68,17 +64,15 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
   }, [user, food._id, food.seller, userList, sellerName, food, index]) // remove dependence?
 
   function handleCartEvent() {
-    console.log(user)
     if (user === null) {
       // console.log(window.location.hostname === "localhost")
       window.location.href = `/login`;
     }
     if ((activeFoodCount < food.quantity)) {
-      console.log("index " + index)
       addToCart(index)
       setActiveFoodCount(prevActiveFoodCount => prevActiveFoodCount + 1)
     } else {
-      console.log("Cannot add more")
+      // console.log("Cannot add more")
     }
   }
 
@@ -87,7 +81,6 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
       window.location.href = `/login`;
     }
     if (favoritedStatus === false) {
-      // console.log("index " + index)
       addToFavorite(index)
     } else {
       deleteFromFavorite(index)

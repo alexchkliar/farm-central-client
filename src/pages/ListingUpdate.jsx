@@ -32,7 +32,6 @@ const NewFood = ({ user }) => {
     fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/foods/${id}/update`, {signal}).then(res => {
       return res.json()
     }).then((jsonRes) => {
-      console.log(jsonRes.food);
       setName(jsonRes.food.name);
       setUnits(jsonRes.food.units);
       setCategory(jsonRes.food.category);
@@ -81,7 +80,6 @@ const NewFood = ({ user }) => {
         url: `${process.env.REACT_APP_URL_BASE_BACKEND}/foods/${id}/patch`
       }).then((res) => {
         if (res.data === "Food updated") {
-          console.log("update succesful")
           // window.location.href = `${process.env.REACT_APP_URL_BASE_CLIENT}/listings`;
           setPopupMessageClass("message-active")
 

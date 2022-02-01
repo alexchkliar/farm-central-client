@@ -33,11 +33,7 @@ const Login = () => {
       withCredentials: true,
       url: `${process.env.REACT_APP_URL_BASE_BACKEND}/auth/login` // switched for deployment debugging
     }).then((res) => {
-      console.log(res.data);
       if (res.data === "Successfully Authenticated") {
-        console.log("redirecting");
-        // navigate("/");
-        // window.open(`${process.env.URL_BASE_CLIENT}/foods`, "_self");
         window.location.href = `/foods`;
       } else {
         setAlertClass("alert alert-danger")
