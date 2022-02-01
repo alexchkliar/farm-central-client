@@ -52,7 +52,6 @@ function Foods({ setCartNum, user, userList }) {
           })
           setMaxLength(outputList.length)
           setFoods(outputList.slice(0, loadItems))
-          console.log(outputList)
         }
     }).catch(err => {
       if (err.name === "AbortError") {
@@ -104,7 +103,7 @@ function Foods({ setCartNum, user, userList }) {
         }
       }).catch(err => {
         if (err.name === "AbortError") {
-          console.log("Fetch aborted")
+          // console.log("Fetch aborted")
         } else {
           throw err
         }
