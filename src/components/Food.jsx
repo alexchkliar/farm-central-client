@@ -40,21 +40,22 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
 
     const cancelToken = Axios.CancelToken;
     const source = cancelToken.source();
-
-    Axios({
-      cancelToken: source.token,
-      method: "POST",
-      data: {
-        food: food,
-        shopper: user
-      },
-      withCredentials: true,
-      url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/check`
-    }).then((res) => {
-      setFavoritedStatus(res.data)
-    }).catch((err) => {
-      // console.log(err);
-    })
+    if (user) {
+      Axios({
+        cancelToken: source.token,
+        method: "POST",
+        data: {
+          food: food,
+          shopper: user
+        },
+        withCredentials: true,
+        url: `${process.env.REACT_APP_URL_BASE_BACKEND}/favorite/check`
+      }).then((res) => {
+        setFavoritedStatus(res.data)
+      }).catch((err) => {
+        // console.log(err);
+      })
+    }
 
     return () => {
       abortCont.abort();

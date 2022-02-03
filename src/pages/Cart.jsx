@@ -118,13 +118,6 @@ function Cart({ user, setCartNum, userList }) {
             <p className="cart-total"><strong>Total: ${totalPrice.toFixed(2)}</strong></p>
             <button className="checkout-button" onClick={() => accessStripeCart()}>Checkout</button>
           </div>
-          {/* <StripeCheckout
-            stripeKey="pk_test_51KGr2RDsDjOodD6xPUNk6nfQtFblwWxaPcBtCxsu9rtqWJy5RBaqY4y6LNN31c9H4H3yeMUu4MXqIW4Nmqyz9YqQ00CKhhTOcO" // public key, can share
-            token={handleToken}
-            billingAddress
-            shippingAddress
-            amount={totalPrice}
-          /> */}
         </div>
       </>
     )
