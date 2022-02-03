@@ -15,7 +15,7 @@ Coded with MERN stack (MongoDB, Express, React, Node). Deployed via AWS, Ubuntu,
 
 This repository stores the client source files. The backend repository can be accessed [here](https://github.com/alexchkliar/farm-central-backend).
 
-For avoidance of doubt, this is a personal project and not an actual business).
+For avoidance of doubt, this is a personal project and not an actual business.
 
 ## Installation
 `npm install` to fetch dependencies.
