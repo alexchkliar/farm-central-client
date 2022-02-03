@@ -1,8 +1,6 @@
 import '../css_components/home.css';
 import Carousel from 'react-bootstrap/Carousel'
 
-// document.querySelector("#carouselExampleIndicators").carousel();
-
 const Home = () => {
   return (
     <div className="home-container">
@@ -13,14 +11,14 @@ const Home = () => {
           <div className="landing-page-main-text-div-left">
             <h1 className="landing-page-main-header">Order fresh food from local farms</h1>
             <p className="landing-page-main-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, libero. Totam magni ipsum sed maiores eos numquam.
+              Support local farmers today. Order fresh, affordable farm produce, delivered straight to your door.
             </p>
             <a className="landing-page-main-button" href="/foods">Order now</a>
           </div>
           <div className="landing-page-main-text-div-right">
             <h1 className="landing-page-main-header">List your food now</h1>
             <p className="landing-page-main-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, libero. Totam magni ipsum sed maiores eos numquam.
+              Expand your business today. List your goods and let us handle the rest, including shipping.
             </p>
             <a className="landing-page-main-button" href="/listings">List now</a>
           </div>
@@ -33,7 +31,7 @@ const Home = () => {
       </section>
       <section className="home-page-section-2">
         <h1 className="landing-page-header-2">Order fresh organic food from local farms</h1>
-        <p className="landing-page-main-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, libero. Totam magni ipsum sed maiores eos numquam.</p>
+        <p className="landing-page-main-text">We work with hundreds of farmers across the country, like Dave, pictured below, to bring you the best selection of organic fruits and vegetables, all at unbeatable prices!</p>
         <br />
         <Carousel>
           <Carousel.Item>
@@ -44,7 +42,7 @@ const Home = () => {
             />
             <Carousel.Caption>
               <h3>Fresh organic food</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <p>Farmers in our network are all certified organic producers.</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -56,7 +54,7 @@ const Home = () => {
 
             <Carousel.Caption>
               <h3>Sourced from local farms</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>Support certified local farmers.</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -68,13 +66,10 @@ const Home = () => {
 
             <Carousel.Caption>
               <h3>Delivered straight to your door</h3>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+              <p>We expedite shipping, so your food is always delivered fresh.</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        {/* <div className="home-page-card"></div>
-        <div className="home-page-card"></div>
-        <div className="home-page-card"></div> */}
       </section>
     </div>
   )

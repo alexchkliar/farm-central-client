@@ -83,7 +83,7 @@
 
 .landing-page-main-text {
   color: white;
-  font-size: 18px;
+  font-size: 20px;
   padding: 10px;
 }
 
@@ -129,11 +129,17 @@
   align-items: center;
   flex-direction: column;
   text-align: center;
+  padding: 0 10px;
   height: 300px;
   outline: 1px solid white;
   border-radius: 8px;
-  background-color: rgba(120, 120, 120, 0.6);
+  background-color: rgba(120, 120, 120, 0.7);
   margin: 3% auto;
+}
+
+.landing-page-main-text-div-left p,
+.landing-page-main-text-div-right p {
+  font-size: 20px;
 }
 
 .landing-page-main-text-div-right {

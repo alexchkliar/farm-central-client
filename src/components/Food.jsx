@@ -40,6 +40,7 @@ const Food = ({ food, index, addToCart, addToFavorite, user, userList, deleteFro
 
     const cancelToken = Axios.CancelToken;
     const source = cancelToken.source();
+
     if (user) {
       Axios({
         cancelToken: source.token,

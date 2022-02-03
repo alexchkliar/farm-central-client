@@ -61,7 +61,7 @@ function App() {
       }
 
     }).catch(err => {
-      console.log(err)
+      // console.log(err)
     })
 
     fetch(`${process.env.REACT_APP_URL_BASE_BACKEND}/auth/usersList`).then(res => {
